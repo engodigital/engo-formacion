@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 — Tu Script | Kit Camila</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 560px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* SCRIPT CARDS */
+  .script-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 20px; }
+  .script-card.green-border { border-color: rgba(0,212,170,0.4); }
+  .script-card.purple-border { border-color: rgba(108,99,255,0.4); }
+  .script-card.yellow-border { border-color: rgba(255,209,102,0.4); }
+  .script-label { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .script-label.green { background: var(--green-light); color: var(--green); border: 1px solid rgba(0,212,170,0.3); }
+  .script-label.purple { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(108,99,255,0.3); }
+  .script-label.yellow { background: rgba(255,209,102,0.1); color: var(--yellow); border: 1px solid rgba(255,209,102,0.3); }
+  .script-title { font-size: 19px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .script-context { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; padding: 10px 14px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 3px solid var(--border); }
+  .script-text { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text); background: #111420; border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; line-height: 1.8; position: relative; }
+  .copy-btn { position: absolute; top: 12px; right: 12px; background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); color: var(--accent); font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; min-height: 36px; }
+  .copy-btn:hover { background: var(--accent); color: #fff; }
+  .copy-btn.copied { background: var(--green-light); border-color: rgba(0,212,170,0.3); color: var(--green); }
+  .script-note { font-size: 13px; color: var(--text-muted); margin-top: 14px; padding: 10px 14px; background: rgba(255,209,102,0.05); border-radius: 8px; border-left: 3px solid rgba(255,209,102,0.4); }
+
+  /* QUALIF SECTION */
+  .qualif-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .qualif-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .qualif-num { font-size: 32px; font-weight: 900; color: var(--accent); font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; line-height: 1; }
+  .qualif-q { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .qualif-why { font-size: 13px; color: var(--text-muted); }
+
+  /* CHECKLIST */
+  .checklist { display: flex; flex-direction: column; gap: 10px; }
+  .check-item { display: flex; gap: 14px; align-items: center; padding: 14px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: border-color 0.2s; min-height: 44px; }
+  .check-item:hover { border-color: var(--accent); }
+  .check-item.done { border-color: rgba(0,212,170,0.4); background: rgba(0,212,170,0.04); }
+  .check-box { width: 24px; height: 24px; border: 2px solid var(--border); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .check-item.done .check-box { background: var(--green); border-color: var(--green); }
+  .check-tick { color: #0f1117; font-size: 14px; font-weight: 900; display: none; }
+  .check-item.done .check-tick { display: block; }
+  .check-text { font-size: 15px; color: var(--text-muted); font-weight: 500; }
+  .check-item.done .check-text { color: var(--text); text-decoration: line-through; opacity: 0.7; }
+
+  /* GOLDEN RULES */
+  .rules-list { display: flex; flex-direction: column; gap: 14px; }
+  .rule-item { display: flex; gap: 18px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .rule-num { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--accent) 0%, #9c63ff 100%); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; color: #fff; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
+  .rule-body { flex: 1; }
+  .rule-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .rule-desc { font-size: 14px; color: var(--text-muted); }
+
+  /* NEXT MODULE */
+  .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav, .next-module, .copy-btn { display: none; }
+    .script-text { background: #f5f5f5; border: 1px solid #ccc; }
+    .script-card { border: 1px solid #ccc; break-inside: avoid; }
+    a { color: black; }
+    h2 { border-left-color: #333; }
+  }
+
+  @media (max-width: 600px) {
+    .qualif-cards { grid-template-columns: 1fr; }
+    .script-text { font-size: 13px; padding: 16px; }
+    .copy-btn { position: static; margin-top: 12px; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-tu-rol.html">01</a>
+      <a href="02-el-script.html" class="active">02</a>
+      <a href="03-como-agendar.html">03</a>
+      <a href="04-practica.html">04</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 02</div>
+    <h1 class="module-title">Tu Script<br>Memorízalo</h1>
+    <p class="module-lead">Estos son los únicos mensajes que necesitas. No improvises. No añadas ni quites. Cuando el script salga solo, sin pensar, estás lista.</p>
+  </div>
+
+  <!-- SCRIPT 1: NUEVO SEGUIDOR -->
+  <div class="section">
+    <div class="section-label">Script 1</div>
+    <h2>Primer Mensaje — Nuevo Seguidor</h2>
+
+    <div class="script-card green-border">
+      <span class="script-label green">Cuándo usarlo</span>
+      <div class="script-title">Alguien nuevo empieza a seguir a Marco en Instagram</div>
+      <div class="script-context">Úsalo en las primeras 24 horas desde que sigan. Antes de cualquier otro contacto. No esperes a que ellos escriban.</div>
+      <div class="script-text" id="script1">
+        Hola [NOMBRE], he visto que has empezado a seguirnos, ¡encantada de conocerte! ¿A qué te dedicas? ¿Qué te llevó a seguirnos?
+        <button class="copy-btn" onclick="copyScript('script1', this)">Copiar</button>
+      </div>
+      <div class="script-note">Usa el nombre real de la persona. Si no está en el perfil, empieza con "Hola," sin nombre. Nunca mandes más de un mensaje inicial sin respuesta.</div>
+    </div>
+  </div>
+
+  <!-- SCRIPT 2: INBOUND -->
+  <div class="section">
+    <div class="section-label">Script 2</div>
+    <h2>Respuesta Inbound — Pide una Guía o Recurso</h2>
+
+    <div class="script-card purple-border">
+      <span class="script-label purple">Cuándo usarlo</span>
+      <div class="script-title">Alguien comenta en un post pidiendo la guía gratuita u otro material</div>
+      <div class="script-context">NUNCA mandes el material directamente. Primero escribe por DM, haz las preguntas, y solo después — si es prospecto válido — agenda la cita. El material se manda desde Marco, no tú.</div>
+      <div class="script-text" id="script2">
+        Hola [NOMBRE], te escribo por lo de la guía. Antes de enviártela, ¿me puedes contar a qué te dedicas? ¿Qué te llevó a pedirla?
+        <button class="copy-btn" onclick="copyScript('script2', this)">Copiar</button>
+      </div>
+      <div class="script-note">Si insisten en recibir la guía antes de responder, diles: "La personalizo un poco según tu sector, por eso necesito saber a qué te dedicas."</div>
+    </div>
+  </div>
+
+  <!-- CUALIFICACION -->
+  <div class="section">
+    <div class="section-label">Cualificación</div>
+    <h2>Las 2 Preguntas de Cualificación</h2>
+    <p>Después del primer mensaje, si hay respuesta, haz estas dos preguntas en la misma conversación — no necesariamente juntas.</p>
+
+    <div class="qualif-cards">
+      <div class="qualif-card">
+        <div class="qualif-num">P1</div>
+        <div class="qualif-q">¿Tienes tu propio negocio?</div>
+        <div class="qualif-why">Si no tiene negocio propio, no es nuestro cliente. No pierdas tiempo. Cierra amablemente.</div>
+      </div>
+      <div class="qualif-card">
+        <div class="qualif-q" style="margin-top: 8px;">Si respondió sí:</div>
+        <div class="qualif-num" style="margin-top: 8px;">P2</div>
+        <div class="qualif-q">¿Cuánto llevas con él?</div>
+        <div class="qualif-why">Menos de 1 año = puede no ser target. Avisa a Álvaro y él decide si vale la pena seguir.</div>
+      </div>
+    </div>
+
+    <div class="script-card" style="margin-top: 16px;">
+      <span class="script-label green">Cómo hacerlas de forma natural</span>
+      <div class="script-text" id="script3">
+        ¿Tienes tu propio negocio o trabajas para alguien?
+        <button class="copy-btn" onclick="copyScript('script3', this)">Copiar</button>
+      </div>
+      <div style="margin-top: 12px;">
+      <div class="script-text" id="script4">
+        ¡Genial! ¿Cuánto tiempo llevas con él?
+        <button class="copy-btn" onclick="copyScript('script4', this)">Copiar</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROPUESTA CITA -->
+  <div class="section">
+    <div class="section-label">Script 3</div>
+    <h2>Propuesta de la Cita</h2>
+
+    <div class="script-card yellow-border">
+      <span class="script-label yellow">Cuándo usarlo</span>
+      <div class="script-title">Después de confirmar que tiene negocio propio con más de 1 año</div>
+      <div class="script-context">Solo cuando está cualificado. No propongas la cita antes de hacer las 2 preguntas.</div>
+      <div class="script-text" id="script5">
+        Oye, ¿te interesaría tener una llamada rápida — unos 20 minutos — con un miembro de nuestro equipo para conocernos y ver si podemos ayudarte? Sin compromiso, solo para entender tu situación.
+        <button class="copy-btn" onclick="copyScript('script5', this)">Copiar</button>
+      </div>
+      <div class="script-note">Si dicen "sí": pasa directamente al Módulo 03 para agendar. Si dicen "no sé" o "quizás más adelante": avisa a Álvaro y deja el seguimiento en su mano.</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST DIARIA -->
+  <div class="section">
+    <div class="section-label">Rutina diaria</div>
+    <h2>Tu Checklist Diaria</h2>
+    <p>Haz esto cada día, en orden. Si no puedes en un día concreto, avisa a Álvaro.</p>
+
+    <div class="checklist" id="dailyChecklist">
+      <div class="check-item" onclick="toggleCheck(this, 'check_nuevos')" data-key="check_nuevos">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <span class="check-text">Escribí a todos los nuevos seguidores de las últimas 24h</span>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'check_noread')" data-key="check_noread">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <span class="check-text">Ninguna chat sin leer desde hace más de 3 días</span>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'check_followup')" data-key="check_followup">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <span class="check-text">Hice follow-up a quienes no respondieron ayer</span>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'check_citas')" data-key="check_citas">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <span class="check-text">Verifiqué que las citas agendadas están confirmadas en GHL</span>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'check_alvaro')" data-key="check_alvaro">
+        <div class="check-box"><span class="check-tick">✓</span></div>
+        <span class="check-text">Actualicé a Álvaro sobre el estado de cada chat activo</span>
+      </div>
+    </div>
+    <p style="font-size: 13px; margin-top: 14px; color: var(--text-muted);">La checklist se guarda automáticamente en este navegador. Márcalas cada día al terminar.</p>
+  </div>
+
+  <!-- REGLAS DE ORO -->
+  <div class="section">
+    <div class="section-label">Principios</div>
+    <h2>Las 4 Reglas de Oro</h2>
+
+    <div class="rules-list">
+      <div class="rule-item">
+        <div class="rule-num">1</div>
+        <div class="rule-body">
+          <div class="rule-title">SIEMPRE preguntas, nunca afirmaciones</div>
+          <div class="rule-desc">Tu trabajo es obtener información, no dar información. Cada mensaje tuyo debería terminar en una pregunta. Si no hay pregunta, no hay conversación.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">2</div>
+        <div class="rule-body">
+          <div class="rule-title">NUNCA mandes material sin preguntar antes</div>
+          <div class="rule-desc">Una guía, un PDF, un enlace enviados sin contexto cierran la conversación. La persona lo lee (o no), y ya no tiene motivos para responder. Material = cierre de puerta.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">3</div>
+        <div class="rule-body">
+          <div class="rule-title">Si preguntan el precio → redirige a Álvaro</div>
+          <div class="rule-desc">"De eso se encarga mi responsable en la reunión, yo solo gestiono las agendas." Esta frase funciona. No intentes explicar precios aunque los sepas.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">4</div>
+        <div class="rule-body">
+          <div class="rule-title">Objetivo de cada chat: llegar a la cita, no informar</div>
+          <div class="rule-desc">Cuanto más informas, menos necesita la persona hablar con Marco. Tu rol es crear curiosidad y urgencia para la llamada — no resolver sus dudas por escrito.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT -->
+  <div class="next-module">
+    <div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">Cómo Agendar la Cita en GHL</div>
+    </div>
+    <a href="03-como-agendar.html">Módulo 03 →</a>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna
+  </footer>
+
+</div>
+
+<script>
+  localStorage.setItem('camila_visited_02-el-script', '1');
+
+  function copyScript(id, btn) {
+    const el = document.getElementById(id);
+    // Get text without button
+    const clone = el.cloneNode(true);
+    const btnEl = clone.querySelector('button');
+    if(btnEl) btnEl.remove();
+    const text = clone.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copiar';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      btn.textContent = '✓ OK';
+      setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+    });
+  }
+
+  function toggleCheck(el, key) {
+    el.classList.toggle('done');
+    const isDone = el.classList.contains('done');
+    localStorage.setItem('camila_daily_' + key, isDone ? '1' : '0');
+  }
+
+  // Load checklist state (reset daily — based on date)
+  const today = new Date().toDateString();
+  const savedDate = localStorage.getItem('camila_checklist_date');
+  if(savedDate !== today) {
+    // New day: reset all checks
+    ['check_nuevos','check_noread','check_followup','check_citas','check_alvaro'].forEach(k => {
+      localStorage.removeItem('camila_daily_' + k);
+    });
+    localStorage.setItem('camila_checklist_date', today);
+  }
+
+  // Apply saved state
+  document.querySelectorAll('.check-item').forEach(item => {
+    const key = item.dataset.key;
+    if(localStorage.getItem('camila_daily_' + key) === '1') {
+      item.classList.add('done');
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 — Practica con IA | Kit Camila</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* CTA NOTEBOOK */
+  .cta-hero { background: linear-gradient(135deg, #1a1d27 0%, #1e1a3a 100%); border: 1px solid rgba(108,99,255,0.4); border-radius: 24px; padding: 40px 32px; text-align: center; margin-bottom: 48px; }
+  .cta-icon { font-size: 48px; margin-bottom: 16px; }
+  .cta-title { font-size: clamp(22px,4vw,32px); font-weight: 900; color: var(--text); margin-bottom: 12px; }
+  .cta-desc { font-size: 16px; color: var(--text-muted); max-width: 500px; margin: 0 auto 28px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; text-decoration: none; font-size: 18px; font-weight: 800; padding: 18px 36px; border-radius: 14px; transition: all 0.2s; min-height: 44px; letter-spacing: -0.3px; }
+  .cta-btn:hover { background: #7c75ff; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,99,255,0.4); }
+  .cta-url { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+
+  /* HOW TO USE */
+  .how-steps { display: flex; flex-direction: column; gap: 16px; }
+  .how-step { display: flex; gap: 16px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .how-num { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; color: var(--accent); flex-shrink: 0; }
+  .how-body { flex: 1; }
+  .how-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .how-desc { font-size: 14px; color: var(--text-muted); }
+
+  /* SCENARIOS */
+  .scenarios { display: flex; flex-direction: column; gap: 14px; }
+  .scenario-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; gap: 20px; align-items: flex-start; }
+  .sc-num { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .sc-num.s1 { background: var(--accent); }
+  .sc-num.s2 { background: var(--green); color: #0f1117; }
+  .sc-num.s3 { background: var(--yellow); color: #0f1117; }
+  .sc-body { flex: 1; }
+  .sc-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .sc-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
+  .sc-prompt-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .sc-prompt { background: #111420; border-radius: 10px; padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); line-height: 1.7; position: relative; }
+  .copy-btn { position: absolute; top: 10px; right: 10px; background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; min-height: 30px; }
+  .copy-btn:hover { background: var(--accent); color: #fff; }
+  .copy-btn.copied { background: var(--green-light); border-color: rgba(0,212,170,0.3); color: var(--green); }
+
+  /* PROGRESS TRACKER */
+  .progress-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .prog-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; text-align: center; }
+  .prog-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .prog-counter-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .prog-btn { width: 40px; height: 40px; border: 1px solid var(--border); background: var(--bg); border-radius: 8px; color: var(--text); font-size: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; min-height: 44px; min-width: 44px; }
+  .prog-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .prog-count { font-size: 28px; font-weight: 900; color: var(--accent); font-family: 'JetBrains Mono', monospace; min-width: 36px; }
+  .prog-target { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  .prog-bar { background: var(--border); border-radius: 100px; height: 6px; margin-top: 10px; overflow: hidden; }
+  .prog-bar-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width 0.3s; }
+
+  /* RULE */
+  .rule-box { background: linear-gradient(135deg, rgba(0,212,170,0.1) 0%, rgba(108,99,255,0.08) 100%); border: 1px solid rgba(0,212,170,0.3); border-radius: 16px; padding: 32px; text-align: center; }
+  .rule-text { font-size: clamp(18px,3vw,26px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 10px; }
+  .rule-sub { font-size: 15px; color: var(--text-muted); }
+
+  .back-index { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .back-index a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav, .cta-btn, .back-index, .copy-btn { display: none; }
+    .scenario-item { border: 1px solid #ccc; break-inside: avoid; }
+    .sc-prompt { background: #f5f5f5; }
+    a { color: black; }
+    .cta-hero { border: 1px solid #ccc; }
+    h2 { border-left-color: #333; }
+  }
+
+  @media (max-width: 600px) {
+    .scenario-item { flex-direction: column; }
+    .sc-prompt { font-size: 12px; padding: 12px; }
+    .copy-btn { position: static; margin-top: 10px; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-tu-rol.html">01</a>
+      <a href="02-el-script.html">02</a>
+      <a href="03-como-agendar.html">03</a>
+      <a href="04-practica.html" class="active">04</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 04</div>
+    <h1 class="module-title">Practica<br>con IA</h1>
+    <p class="module-lead">El notebook tiene toda la metodología. Úsalo para practicar los 3 escenarios hasta que el script salga solo. Sin leer. Sin pensar. Solo fluir.</p>
+  </div>
+
+  <!-- CTA HERO -->
+  <div class="cta-hero">
+    <div class="cta-icon">🤖</div>
+    <div class="cta-title">Notebook de Formación</div>
+    <div class="cta-desc">Toda la metodología de captación de Engo Agency está dentro. La IA puede actuar como un prospecto real o evaluarte después de cada simulación.</div>
+    <a href="https://notebooklm.google.com/notebook/85a559fd-1beb-4006-84cc-455e24c50ecd" target="_blank" rel="noopener noreferrer" class="cta-btn">
+      🔗 Abrir Notebook de Formación
+    </a>
+    <div class="cta-url">notebooklm.google.com/notebook/85a559fd-1beb-4006-84cc-455e24c50ecd</div>
+  </div>
+
+  <!-- COMO USARLO -->
+  <div class="section">
+    <div class="section-label">Instrucciones</div>
+    <h2>Cómo Usarlo</h2>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-body">
+          <div class="how-title">Abre el notebook en Chrome</div>
+          <div class="how-desc">Chrome tiene el mejor soporte para las funciones de NotebookLM. Asegúrate de estar conectada con la cuenta correcta.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <div class="how-body">
+          <div class="how-title">Copia el prompt del escenario que quieres practicar</div>
+          <div class="how-desc">Cada escenario tiene un prompt listo para pegar en el chat del notebook. La IA entra en el rol inmediatamente y responde como un prospecto real.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-body">
+          <div class="how-title">Practica sin mirar el script</div>
+          <div class="how-desc">No abras el Módulo 02 mientras practicas. El objetivo es que el script salga de memoria. Si te atascas, está bien — sigue y aprende del error.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <div class="how-body">
+          <div class="how-title">Pide feedback al final</div>
+          <div class="how-desc">Al terminar el roleplay, escribe: "Evalúa mi performance: ¿seguí el script correctamente? ¿qué mejorar?" La IA te da feedback concreto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 ESCENARIOS -->
+  <div class="section">
+    <div class="section-label">Práctica</div>
+    <h2>3 Escenarios de Entrenamiento</h2>
+
+    <div class="scenarios">
+
+      <div class="scenario-item">
+        <div class="sc-num s1">1</div>
+        <div class="sc-body">
+          <div class="sc-title">Primer mensaje a nuevo seguidor de Instagram</div>
+          <div class="sc-desc">El escenario más frecuente. Practica el primer contacto, la pregunta inicial, y cómo mantener la conversación sin sonar a bot o a vendedor.</div>
+          <div class="sc-prompt-label">Prompt de inicio para el notebook</div>
+          <div class="sc-prompt" id="prompt1">
+            Actúa como una propietaria de una peluquería en Torrevieja que acaba de seguir a Marco Marengo en Instagram. No sabes exactamente quién es, solo que publica contenido de marketing. Estás un poco ocupada pero curiosa. Yo soy Camila, gestiono la agenda del equipo de Marco, y acabo de escribirte por DM. Sé natural — responde como lo haría una empresaria real, no muy expresiva al principio.
+            <button class="copy-btn" onclick="copyPrompt('prompt1', this)">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s2">2</div>
+        <div class="sc-body">
+          <div class="sc-title">Respuesta a solicitud inbound — alguien pide una guía</div>
+          <div class="sc-desc">Practica cómo convertir una petición de recurso en una conversación real, sin mandar nada todavía.</div>
+          <div class="sc-prompt-label">Prompt de inicio</div>
+          <div class="sc-prompt" id="prompt2">
+            Comenté en un post de Instagram de Marco Marengo pidiendo la guía gratuita de captación de clientes. Soy dueño de una academia de inglés en Orihuela. Quiero la guía cuanto antes porque la vi en el post y me pareció útil. Tú eres Camila y me escribes por DM. Quiero la guía directamente — si me haces preguntas soy un poco impaciente. Al final dame feedback: ¿Camila siguió el proceso correcto antes de mandar cualquier material?
+            <button class="copy-btn" onclick="copyPrompt('prompt2', this)">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s3">3</div>
+        <div class="sc-body">
+          <div class="sc-title">Propuesta de cita a prospecto cualificado</div>
+          <div class="sc-desc">El prospecto tiene negocio propio y lleva más de 2 años. Practica la transición desde la cualificación hasta la propuesta de cita y el cierre de agenda.</div>
+          <div class="sc-prompt-label">Prompt de inicio</div>
+          <div class="sc-prompt" id="prompt3">
+            Somos en medio de una conversación por DM de Instagram. Soy propietario de un centro de fisioterapia en Guardamar, llevo 4 años con el negocio. Ya me has preguntado a qué me dedico y cuánto llevo. Ahora tienes que proponerme la cita con el consultor. Yo tengo cierta resistencia — "no sé si tengo tiempo esta semana." Tú eres Camila. Practica la propuesta de cita y cómo manejar mi pequeña resistencia sin entrar en detalles del servicio. Al final evalúa: ¿Camila consiguió la cita sin salirse del script?
+            <button class="copy-btn" onclick="copyPrompt('prompt3', this)">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTADOR -->
+  <div class="section">
+    <div class="section-label">Seguimiento</div>
+    <h2>Registra Tu Práctica</h2>
+    <p>Cada escenario necesita al menos 10 repeticiones para que el script salga de forma natural. Lleva la cuenta.</p>
+
+    <div class="progress-grid" id="progressGrid">
+      <div class="prog-item">
+        <div class="prog-title">Escenario 1<br><span style="font-size:11px; color:var(--text-muted);">Nuevo seguidor</span></div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(0,-1)">−</button>
+          <div class="prog-count" id="cnt0">0</div>
+          <button class="prog-btn" onclick="changeCount(0,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar0" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Escenario 2<br><span style="font-size:11px; color:var(--text-muted);">Solicitud inbound</span></div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(1,-1)">−</button>
+          <div class="prog-count" id="cnt1">0</div>
+          <button class="prog-btn" onclick="changeCount(1,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar1" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Escenario 3<br><span style="font-size:11px; color:var(--text-muted);">Propuesta de cita</span></div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(2,-1)">−</button>
+          <div class="prog-count" id="cnt2">0</div>
+          <button class="prog-btn" onclick="changeCount(2,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar2" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGLA FINAL -->
+  <div class="section">
+    <div class="rule-box">
+      <div class="rule-text">"Practica hasta que el script salga solo, sin leer."</div>
+      <div class="rule-sub">Cuando no tienes que pensar qué decir, puedes concentrarte en la persona. Ahí empieza la conversación real.</div>
+    </div>
+  </div>
+
+  <!-- BACK TO INDEX -->
+  <div class="back-index">
+    <div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Has completado el kit</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">Volver al índice</div>
+    </div>
+    <a href="index.html">← Índice general</a>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna
+  </footer>
+
+</div>
+
+<script>
+  localStorage.setItem('camila_visited_04-practica', '1');
+
+  function copyPrompt(id, btn) {
+    const el = document.getElementById(id);
+    const clone = el.cloneNode(true);
+    const btnEl = clone.querySelector('button');
+    if(btnEl) btnEl.remove();
+    const text = clone.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+      btn.textContent = '✓ OK';
+      setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+    });
+  }
+
+  const COUNTS = [0, 0, 0];
+  const MAX = 10;
+
+  for(let i = 0; i < 3; i++){
+    const saved = parseInt(localStorage.getItem('camila_practice_count_' + i) || '0');
+    COUNTS[i] = saved;
+    updateUI(i);
+  }
+
+  function changeCount(idx, delta) {
+    COUNTS[idx] = Math.max(0, COUNTS[idx] + delta);
+    localStorage.setItem('camila_practice_count_' + idx, COUNTS[idx]);
+    updateUI(idx);
+  }
+
+  function updateUI(idx) {
+    const cnt = document.getElementById('cnt' + idx);
+    const bar = document.getElementById('bar' + idx);
+    if(cnt) cnt.textContent = COUNTS[idx];
+    if(bar) {
+      const pct = Math.min(100, (COUNTS[idx] / MAX) * 100);
+      bar.style.width = pct + '%';
+      if(COUNTS[idx] >= MAX) {
+        bar.style.background = 'var(--green)';
+        cnt.style.color = 'var(--green)';
+      } else {
+        bar.style.background = 'var(--accent)';
+        cnt.style.color = 'var(--accent)';
+      }
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 — Cuánto Puedes Ganar | Kit Álvaro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* COMPENSATION TABLE */
+  .table-wrapper { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; min-width: 540px; }
+  thead tr { background: #13151e; }
+  th { padding: 14px 18px; text-align: left; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  td { padding: 14px 18px; font-size: 15px; color: var(--text-muted); border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .td-label { font-weight: 700; color: var(--text); }
+  .td-euro { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 18px; }
+  .td-total { font-family: 'JetBrains Mono', monospace; font-weight: 900; font-size: 22px; }
+  .td-inicio { color: #93c5fd; }
+  .td-activo { color: var(--green); }
+  .td-total-color { color: var(--yellow); }
+  .td-muted { color: var(--text-muted); font-size: 13px; }
+
+  /* TIER CARDS */
+  .tier-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .tier-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .tier-card.inicio { border-top: 3px solid #93c5fd; }
+  .tier-card.activo { border-top: 3px solid var(--green); }
+  .tier-card.total { border-top: 3px solid var(--yellow); }
+  .tier-name { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tier-name.inicio { color: #93c5fd; }
+  .tier-name.activo { color: var(--green); }
+  .tier-name.total-c { color: var(--yellow); }
+  .tier-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .tier-row:last-of-type { border-bottom: none; }
+  .tier-row span:first-child { color: var(--text-muted); }
+  .tier-row span:last-child { font-weight: 700; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+  .tier-total-row { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 12px 14px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .tier-total-label { font-size: 13px; font-weight: 700; color: var(--text-muted); }
+  .tier-total-num { font-size: 22px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+  .tier-total-num.inicio { color: #93c5fd; }
+  .tier-total-num.activo { color: var(--green); }
+  .tier-total-num.total { color: var(--yellow); }
+
+  /* SCENARIO TABLE */
+  .scenario-section { }
+  .scenario-note { font-size: 13px; color: var(--text-muted); margin-top: 12px; }
+
+  /* BAR CHART */
+  .bar-chart { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+  .bar-group { }
+  .bar-group-label { font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .bar-tier-tag { font-size: 11px; font-weight: 700; width: 60px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; background: rgba(255,255,255,0.05); border-radius: 100px; height: 24px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 100px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; font-weight: 800; color: rgba(0,0,0,0.7); min-width: 40px; }
+  .bar-fill.inicio { background: #93c5fd; }
+  .bar-fill.activo { background: var(--green); }
+  .bar-fill.total-b { background: var(--yellow); }
+  .bar-euro { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+  .bar-euro.inicio { color: #93c5fd; }
+  .bar-euro.activo { color: var(--green); }
+  .bar-euro.total-c { color: var(--yellow); }
+
+  /* CAREER PATH */
+  .career-path { display: flex; flex-direction: column; gap: 0; }
+  .career-step { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); position: relative; }
+  .career-step:last-child { border-bottom: none; }
+  .career-step::before { content: ''; position: absolute; left: 23px; top: 72px; width: 2px; height: calc(100% - 48px); background: var(--border); }
+  .career-step:last-child::before { display: none; }
+  .career-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; z-index: 1; }
+  .career-icon.cap { background: rgba(255,209,102,0.15); border: 2px solid rgba(255,209,102,0.3); }
+  .career-icon.lead { background: var(--accent-light); border: 2px solid rgba(108,99,255,0.5); }
+  .career-icon.consult { background: var(--green-light); border: 2px solid rgba(0,212,170,0.5); }
+  .career-meta { flex: 1; }
+  .career-role-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .career-role-label.cap { color: var(--yellow); }
+  .career-role-label.lead { color: var(--accent); }
+  .career-role-label.consult { color: var(--green); }
+  .career-role-name { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+  .career-pct { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text-muted); margin-bottom: 6px; }
+  .career-desc { font-size: 14px; color: var(--text-muted); }
+  .pct-bar { background: rgba(255,255,255,0.05); border-radius: 100px; height: 8px; overflow: hidden; margin-top: 8px; max-width: 300px; }
+  .pct-fill { height: 100%; border-radius: 100px; }
+
+  /* MOTIVATIONAL */
+  .motive-box { background: linear-gradient(135deg, rgba(108,99,255,0.15) 0%, rgba(0,212,170,0.1) 100%); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 32px; text-align: center; }
+  .motive-text { font-size: clamp(18px,3vw,24px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+  .motive-sub { font-size: 15px; color: var(--text-muted); }
+
+  .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav, .next-module { display: none; }
+    .table-wrapper { border: 1px solid #ccc; }
+    td, th { border: 1px solid #ccc !important; color: black !important; }
+    .bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    a { color: black; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-bienvenida.html">01</a>
+      <a href="02-el-servicio.html">02</a>
+      <a href="03-tu-compensacion.html" class="active">03</a>
+      <a href="04-el-proceso.html">04</a>
+      <a href="05-objeciones.html">05</a>
+      <a href="06-practica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 03</div>
+    <h1 class="module-title">Cuánto Puedes Ganar</h1>
+    <p class="module-lead">Números exactos. Sin rodeos. Por cada cliente que cierras, esto es lo que entra en tu bolsillo.</p>
+  </div>
+
+  <!-- COMISIONES POR TIER -->
+  <div class="section">
+    <div class="section-label">Tu comisión</div>
+    <h2>Comisión por Tier — Cálculo Exacto</h2>
+    <p>Cobras <strong>12% del setup</strong> (una sola vez) + <strong>8% del mensual</strong> durante los primeros 6 meses de cada cliente.</p>
+
+    <div class="tier-cards">
+      <div class="tier-card inicio">
+        <div class="tier-name inicio">MOTOR INICIO</div>
+        <div class="tier-row"><span>Setup €1.500 × 12%</span><span class="td-inicio">€180</span></div>
+        <div class="tier-row"><span>€500/mes × 8%</span><span class="td-inicio">€40/mes</span></div>
+        <div class="tier-row"><span>× 6 meses</span><span class="td-inicio">€240</span></div>
+        <div class="tier-total-row">
+          <span class="tier-total-label">Total 1 cliente</span>
+          <span class="tier-total-num inicio">€420</span>
+        </div>
+      </div>
+      <div class="tier-card activo">
+        <div class="tier-name activo">MOTOR ACTIVO</div>
+        <div class="tier-row"><span>Setup €2.500 × 12%</span><span class="td-activo">€300</span></div>
+        <div class="tier-row"><span>€900/mes × 8%</span><span class="td-activo">€72/mes</span></div>
+        <div class="tier-row"><span>× 6 meses</span><span class="td-activo">€432</span></div>
+        <div class="tier-total-row">
+          <span class="tier-total-label">Total 1 cliente</span>
+          <span class="tier-total-num activo">€732</span>
+        </div>
+      </div>
+      <div class="tier-card total">
+        <div class="tier-name total-c">MOTOR TOTAL</div>
+        <div class="tier-row"><span>Setup €4.000 × 12%</span><span class="td-total-color">€480</span></div>
+        <div class="tier-row"><span>€1.400/mes × 8%</span><span class="td-total-color">€112/mes</span></div>
+        <div class="tier-row"><span>× 6 meses</span><span class="td-total-color">€672</span></div>
+        <div class="tier-total-row">
+          <span class="tier-total-label">Total 1 cliente</span>
+          <span class="tier-total-num total">€1.152</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESCENARIOS -->
+  <div class="section">
+    <div class="section-label">Proyección</div>
+    <h2>Escenarios de Ganancia</h2>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Clientes</th>
+            <th style="color: #93c5fd;">INICIO (×€420)</th>
+            <th style="color: var(--green);">ACTIVO (×€732)</th>
+            <th style="color: var(--yellow);">TOTAL (×€1.152)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-label">1 cliente</td>
+            <td class="td-euro td-inicio">€420</td>
+            <td class="td-euro td-activo">€732</td>
+            <td class="td-euro td-total-color">€1.152</td>
+          </tr>
+          <tr>
+            <td class="td-label">2 clientes</td>
+            <td class="td-euro td-inicio">€840</td>
+            <td class="td-euro td-activo">€1.464</td>
+            <td class="td-euro td-total-color">€2.304</td>
+          </tr>
+          <tr>
+            <td class="td-label">5 clientes</td>
+            <td class="td-euro td-inicio">€2.100</td>
+            <td class="td-euro td-activo">€3.660</td>
+            <td class="td-euro td-total-color">€5.760</td>
+          </tr>
+          <tr>
+            <td class="td-label">10 clientes</td>
+            <td class="td-total td-inicio">€4.200</td>
+            <td class="td-total td-activo">€7.320</td>
+            <td class="td-total td-total-color">€11.520</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scenario-note">* Ganancia por los primeros 6 meses activos de cada cliente. Setup cobrado de una vez + mensualidades distribuidas en 6 meses.</p>
+
+    <!-- BAR CHART ESCENARIOS -->
+    <div class="bar-chart" style="margin-top: 32px;">
+      <div style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">Ganancia total — 10 clientes por tier</div>
+      <div class="bar-row">
+        <div class="bar-tier-tag" style="color: #93c5fd;">INICIO</div>
+        <div class="bar-track"><div class="bar-fill inicio" style="width: 36.3%;">€4.200</div></div>
+        <div class="bar-euro inicio">€4.200</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-tier-tag" style="color: var(--green);">ACTIVO</div>
+        <div class="bar-track"><div class="bar-fill activo" style="width: 63.5%;">€7.320</div></div>
+        <div class="bar-euro activo">€7.320</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-tier-tag" style="color: var(--yellow);">TOTAL</div>
+        <div class="bar-track"><div class="bar-fill total-b" style="width: 100%;">€11.520</div></div>
+        <div class="bar-euro total-c">€11.520</div>
+      </div>
+
+      <div style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin: 16px 0 4px;">Ganancia — 5 clientes (escenario realista corto plazo)</div>
+      <div class="bar-row">
+        <div class="bar-tier-tag" style="color: #93c5fd;">INICIO</div>
+        <div class="bar-track"><div class="bar-fill inicio" style="width: 18.2%;"></div></div>
+        <div class="bar-euro inicio">€2.100</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-tier-tag" style="color: var(--green);">ACTIVO</div>
+        <div class="bar-track"><div class="bar-fill activo" style="width: 31.8%;"></div></div>
+        <div class="bar-euro activo">€3.660</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-tier-tag" style="color: var(--yellow);">TOTAL</div>
+        <div class="bar-track"><div class="bar-fill total-b" style="width: 50%;"></div></div>
+        <div class="bar-euro total-c">€5.760</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAN CARRERA -->
+  <div class="section">
+    <div class="section-label">Progresión</div>
+    <h2>Plan de Carrera</h2>
+    <p>La comisión crece con el rol. Cuanto más avanzas, mayor % sobre cada operación.</p>
+
+    <div class="career-path">
+      <div class="career-step">
+        <div class="career-icon cap">🔑</div>
+        <div class="career-meta">
+          <div class="career-role-label cap">Nivel 1</div>
+          <div class="career-role-name">Captador Junior</div>
+          <div class="career-pct">Comisión: ~11.5% sobre setup</div>
+          <div class="career-desc">Solo apertura de conversaciones. Sin gestión de la negociación.</div>
+          <div class="pct-bar"><div class="pct-fill" style="width: 55%; background: var(--yellow);"></div></div>
+        </div>
+      </div>
+      <div class="career-step">
+        <div class="career-icon lead">⚡</div>
+        <div class="career-meta">
+          <div class="career-role-label lead">Nivel 2 — Tu posición actual</div>
+          <div class="career-role-name">Team Leader / Senior</div>
+          <div class="career-pct">Comisión: 12% setup + 8% mensual (6 meses) → ~13.5% efectivo</div>
+          <div class="career-desc">Gestionas el contacto activo y aprendes el proceso completo.</div>
+          <div class="pct-bar"><div class="pct-fill" style="width: 72%; background: var(--accent);"></div></div>
+        </div>
+      </div>
+      <div class="career-step">
+        <div class="career-icon consult">🚀</div>
+        <div class="career-meta">
+          <div class="career-role-label consult">Nivel 3 — Objetivo</div>
+          <div class="career-role-name">Consultor Specialist</div>
+          <div class="career-pct">Comisión: ~15% sobre operación completa</div>
+          <div class="career-desc">Llevas la negociación de principio a cierre de forma autónoma. Mayor autonomía, mayor ingreso por cliente.</div>
+          <div class="pct-bar"><div class="pct-fill" style="width: 100%; background: var(--green);"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTIVATIONAL -->
+  <div class="section">
+    <div class="motive-box">
+      <div class="motive-text">"Tus ingresos dependen de cuántas puertas abres."</div>
+      <div class="motive-sub">No hay techo. No hay sueldo fijo que te limite. Cada conversación que inicias es dinero potencial en movimiento.</div>
+    </div>
+  </div>
+
+  <div class="next-module">
+    <div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">Tu Proceso Diario</div>
+    </div>
+    <a href="04-el-proceso.html">Módulo 04 →</a>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna
+  </footer>
+</div>
+
+<script>localStorage.setItem('visited_03-tu-compensacion', '1');</script>
+</body>
+</html>

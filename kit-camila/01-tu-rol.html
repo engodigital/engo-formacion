@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 — Tu Rol y Lo Que NO Debes Hacer | Kit Camila</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 560px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 16px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* ORG CHART */
+  .tree-wrapper { overflow-x: auto; padding: 8px 0; }
+  .tree { display: flex; flex-direction: column; align-items: center; }
+  .tree-line-v { width: 2px; height: 32px; background: var(--border); margin: 0 auto; }
+  .tree-line-h-group { display: flex; align-items: flex-start; justify-content: center; gap: 20px; position: relative; }
+  .tree-line-h-group::before { content: ''; position: absolute; top: 0; left: calc(50% - 110px); width: 220px; height: 2px; background: var(--border); }
+  .tree-child { display: flex; flex-direction: column; align-items: center; }
+  .tree-child-line { width: 2px; height: 32px; background: var(--border); }
+  .org-node { background: var(--bg-card); border: 2px solid var(--border); border-radius: 14px; padding: 18px 24px; text-align: center; min-width: 180px; max-width: 220px; }
+  .org-node.ceo { border-color: var(--accent); background: var(--accent-light); }
+  .org-node.leader { border-color: var(--green); background: var(--green-light); }
+  .org-node.cap { border-color: var(--yellow); background: rgba(255,209,102,0.08); }
+  .org-role { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .org-role.ceo-r { color: var(--accent); }
+  .org-role.leader-r { color: var(--green); }
+  .org-role.cap-r { color: var(--yellow); }
+  .org-name { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+  .org-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+  .org-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-top: 6px; letter-spacing: 1px; }
+  .org-badge.yellow-b { background: var(--yellow); color: #0f1117; }
+
+  /* CARDS */
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+  .card.accent { border-color: rgba(108,99,255,0.4); }
+  .card.green { border-color: rgba(0,212,170,0.4); }
+
+  /* SI/NO TABLE */
+  .sino-table { width: 100%; border-collapse: collapse; }
+  .sino-table th { padding: 12px 16px; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-align: left; }
+  .sino-table th.si { background: rgba(0,212,170,0.12); color: var(--green); border-bottom: 2px solid rgba(0,212,170,0.3); }
+  .sino-table th.no { background: rgba(255,107,107,0.1); color: var(--red); border-bottom: 2px solid rgba(255,107,107,0.25); }
+  .sino-table td { padding: 12px 16px; font-size: 15px; color: var(--text-muted); border-bottom: 1px solid var(--border); vertical-align: top; }
+  .sino-table td:first-child { border-right: 1px solid var(--border); }
+  .sino-table tr:last-child td { border-bottom: none; }
+  .sino-table td .check { color: var(--green); font-weight: 800; margin-right: 8px; }
+  .sino-table td .cross { color: var(--red); font-weight: 800; margin-right: 8px; }
+  .sino-table-wrapper { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+
+  /* QUOTE */
+  .quote-box { background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; padding: 24px 28px; margin: 24px 0; }
+  .quote-text { font-family: 'JetBrains Mono', monospace; font-size: clamp(14px,2.5vw,18px); font-weight: 600; color: var(--text); line-height: 1.6; margin-bottom: 8px; }
+  .quote-note { font-size: 13px; color: var(--text-muted); }
+
+  /* COMP */
+  .comp-highlight { background: linear-gradient(135deg, rgba(255,209,102,0.1) 0%, rgba(108,99,255,0.08) 100%); border: 1px solid rgba(255,209,102,0.3); border-radius: 16px; padding: 28px; }
+  .comp-title { font-size: 14px; font-weight: 700; color: var(--yellow); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .comp-formula { font-family: 'JetBrains Mono', monospace; font-size: clamp(14px,2.5vw,17px); color: var(--text); margin-bottom: 12px; line-height: 1.8; }
+  .comp-example { font-size: 14px; color: var(--text-muted); }
+  .comp-example strong { color: var(--yellow); }
+
+  /* NEXT MODULE */
+  .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav, .next-module { display: none; }
+    .card, .sino-table-wrapper { border: 1px solid #ccc; break-inside: avoid; }
+    a { color: black; }
+    h2 { border-left-color: #333; }
+    .sino-table th.si { background: #e8f8f5; }
+    .sino-table th.no { background: #fdf0f0; }
+  }
+
+  @media (max-width: 600px) {
+    .tree-line-h-group { gap: 12px; }
+    .tree-line-h-group::before { width: 160px; left: calc(50% - 80px); }
+    .org-node { min-width: 140px; padding: 14px 16px; }
+    .sino-table { display: block; overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-tu-rol.html" class="active">01</a>
+      <a href="02-el-script.html">02</a>
+      <a href="03-como-agendar.html">03</a>
+      <a href="04-practica.html">04</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 01</div>
+    <h1 class="module-title">Tu Rol y Lo Que<br>NO Debes Hacer</h1>
+    <p class="module-lead">Antes de aprender ningún script, tienes que tener absolutamente claro qué es tuyo y qué no. Confundir roles es el error más común — y el más costoso.</p>
+  </div>
+
+  <!-- ORGANIGRAMMA -->
+  <div class="section">
+    <div class="section-label">La estructura</div>
+    <h2>El Equipo — Tu Posición</h2>
+
+    <div class="tree-wrapper">
+      <div class="tree">
+        <div class="org-node ceo">
+          <div class="org-role ceo-r">CEO · Estratega</div>
+          <div class="org-name">Marco</div>
+          <div class="org-desc">Define la estrategia, supervisa clientes, hace las reuniones de venta. No hace prospección.</div>
+        </div>
+
+        <div class="tree-line-v"></div>
+
+        <div class="tree-line-h-group">
+          <div class="tree-child">
+            <div class="tree-child-line"></div>
+            <div class="org-node leader">
+              <div class="org-role leader-r">Team Leader</div>
+              <div class="org-name">Álvaro</div>
+              <div class="org-desc">Tu responsable directo. Gestiona el proceso completo. Escala hacia Consultor.</div>
+            </div>
+          </div>
+          <div class="tree-child">
+            <div class="tree-child-line"></div>
+            <div class="org-node cap">
+              <div class="org-role cap-r">Captadora de Citas</div>
+              <div class="org-name">Camila</div>
+              <div class="org-desc">Un único objetivo: conseguir que el prospecto acepte hablar con Marco.</div>
+              <span class="org-badge yellow-b">TÚ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h3>Tu posición en el flujo</h3>
+      <p><strong>Tú eres el primer contacto.</strong> El prospecto no sabe quién es Marco, no sabe qué es Engo Agency, y no está esperando tu mensaje. Tu trabajo es generar suficiente interés para que acepte una llamada de 20 minutos.</p>
+      <p style="margin-bottom:0;">Nada más. Álvaro lleva el proceso desde ahí. Marco hace la reunión. Tú pones el pie en la puerta.</p>
+    </div>
+  </div>
+
+  <!-- DEFINICION CLARA -->
+  <div class="section">
+    <div class="section-label">Tu misión</div>
+    <h2>Una Definición, Sin Ambigüedades</h2>
+
+    <div class="quote-box">
+      <div class="quote-text">"Tu único trabajo: conseguir que Marco hable con ellos."</div>
+      <div class="quote-note">No informar. No convencer. No explicar. Conseguir la cita.</div>
+    </div>
+
+    <p>Esto no es una frase motivacional. Es una instrucción operativa. Cada conversación que tengas debe terminar en una de estas tres salidas:</p>
+
+    <div class="card green">
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+        <li style="display:flex; gap:12px; align-items:flex-start;"><span style="color:var(--green); font-weight:800; flex-shrink:0; margin-top:2px;">✓</span><span style="color:var(--text-muted);"><strong style="color:var(--text);">Cita agendada.</strong> El prospecto ha aceptado la llamada con Marco y está en el calendario.</span></li>
+        <li style="display:flex; gap:12px; align-items:flex-start;"><span style="color:var(--yellow); font-weight:800; flex-shrink:0; margin-top:2px;">→</span><span style="color:var(--text-muted);"><strong style="color:var(--text);">Seguimiento pendiente.</strong> El prospecto no respondió o pidió tiempo. Está en tu lista de seguimiento.</span></li>
+        <li style="display:flex; gap:12px; align-items:flex-start;"><span style="color:var(--red); font-weight:800; flex-shrink:0; margin-top:2px;">✗</span><span style="color:var(--text-muted);"><strong style="color:var(--text);">Descartado.</strong> No tiene negocio, no es el momento, no hay fit. Cerramos y pasamos al siguiente.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SI / NO TABLE -->
+  <div class="section">
+    <div class="section-label">Límites del rol</div>
+    <h2>Qué Haces y Qué NO Haces</h2>
+    <p>Este cuadro no es opcional. Son los límites de tu rol. Salirte de ellos — aunque sea con buena intención — genera confusión en el prospecto y problemas en el proceso.</p>
+
+    <div class="sino-table-wrapper">
+      <table class="sino-table">
+        <thead>
+          <tr>
+            <th class="si">✅ Sí haces</th>
+            <th class="no">❌ NO haces</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="check">✓</span>Contactar nuevos seguidores</td>
+            <td><span class="cross">✗</span>Explicar precios</td>
+          </tr>
+          <tr>
+            <td><span class="check">✓</span>Identificar si es prospecto válido</td>
+            <td><span class="cross">✗</span>Negociar nada</td>
+          </tr>
+          <tr>
+            <td><span class="check">✓</span>Hacer las 2 preguntas de cualificación</td>
+            <td><span class="cross">✗</span>Gestionar objeciones comerciales</td>
+          </tr>
+          <tr>
+            <td><span class="check">✓</span>Proponer la cita con el consultor</td>
+            <td><span class="cross">✗</span>Hablar del servicio en detalle</td>
+          </tr>
+          <tr>
+            <td><span class="check">✓</span>Agendar en GHL</td>
+            <td><span class="cross">✗</span>Hacer promesas de resultado</td>
+          </tr>
+          <tr>
+            <td><span class="check">✓</span>Avisar a Álvaro del estado de cada chat</td>
+            <td><span class="cross">✗</span>Improvisar fuera del script</td>
+          </tr>
+          <tr>
+            <td><span class="check">✓</span>Hacer seguimiento a quien no respondió</td>
+            <td><span class="cross">✗</span>Mandar materiales sin preguntar antes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quote-box" style="margin-top: 24px; border-left-color: var(--yellow);">
+      <div class="quote-text" style="font-size: clamp(14px,2.5vw,17px);">"Si te preguntan el precio, dices: 'De eso se encarga mi responsable en la reunión, yo solo gestiono las agendas.'"</div>
+      <div class="quote-note">Esta frase es tu escudo. Memorízala exactamente así. No la adaptes, no la expliques — solo dila.</div>
+    </div>
+  </div>
+
+  <!-- COMPENSACION -->
+  <div class="section">
+    <div class="section-label">Tu motivación</div>
+    <h2>Tu Compensación</h2>
+
+    <div class="comp-highlight">
+      <div class="comp-title">Cómo se calcula</div>
+      <div class="comp-formula">
+        5% del bruto en setup<br>
+        <span style="color: var(--text-muted); font-size: 14px;">por cada cliente que tú hayas captado</span>
+      </div>
+      <div class="comp-example">
+        Ejemplo: cliente firma paquete ACTIVO (setup €2.500)<br>
+        → <strong>Tu comisión: €125</strong> por ese cliente
+      </div>
+    </div>
+
+    <p style="margin-top: 16px; font-size: 14px; color: var(--text-muted);">La comisión se aplica al setup inicial, no a la mensualidad. Para tenerla, el lead tiene que venir de ti — que hayas iniciado tú el contacto o gestionado la conversación que llevó a la cita.</p>
+  </div>
+
+  <!-- NEXT -->
+  <div class="next-module">
+    <div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">Tu Script — Memorízalo</div>
+    </div>
+    <a href="02-el-script.html">Módulo 02 →</a>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna
+  </footer>
+
+</div>
+
+<script>localStorage.setItem('camila_visited_01-tu-rol', '1');</script>
+</body>
+</html>

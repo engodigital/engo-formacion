@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 — Tu Rol en Engo Agency | Kit Álvaro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  /* NAV */
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  /* LAYOUT */
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  /* HERO MÓDULO */
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 560px; }
+
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 16px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* CARDS */
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+  .card.accent { border-color: rgba(108,99,255,0.4); }
+  .card.green { border-color: rgba(0,212,170,0.4); }
+  .card.yellow { border-color: rgba(255,209,102,0.4); }
+
+  /* ORG CHART */
+  .org { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .org-level { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  .org-connector { width: 2px; height: 32px; background: var(--border); }
+  .org-row { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+  .org-row-connector { display: flex; align-items: flex-start; justify-content: center; position: relative; width: 100%; margin-bottom: 0; }
+  .org-row-connector::before { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 2px; background: var(--border); transform: translateX(-50%); }
+
+  .org-node { background: var(--bg-card); border: 2px solid var(--border); border-radius: 14px; padding: 18px 24px; text-align: center; min-width: 180px; max-width: 220px; position: relative; }
+  .org-node.ceo { border-color: var(--accent); background: var(--accent-light); }
+  .org-node.leader { border-color: var(--green); background: var(--green-light); }
+  .org-node.cap { border-color: var(--yellow); background: rgba(255,209,102,0.08); }
+  .org-role { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .org-role.ceo-r { color: var(--accent); }
+  .org-role.leader-r { color: var(--green); }
+  .org-role.cap-r { color: var(--yellow); }
+  .org-name { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+  .org-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+  .org-badge { display: inline-block; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-top: 6px; letter-spacing: 1px; }
+  .org-badge.green { background: var(--green); color: #0f1117; }
+
+  .org-children { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+  /* TREE CONNECTORS */
+  .tree-wrapper { overflow-x: auto; padding: 8px 0; }
+  .tree { display: flex; flex-direction: column; align-items: center; }
+  .tree-line-v { width: 2px; height: 32px; background: var(--border); margin: 0 auto; }
+  .tree-line-h-group { display: flex; align-items: flex-start; justify-content: center; gap: 20px; position: relative; }
+  .tree-line-h-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc(50% - 110px);
+    width: 220px;
+    height: 2px;
+    background: var(--border);
+  }
+  .tree-child { display: flex; flex-direction: column; align-items: center; }
+  .tree-child-line { width: 2px; height: 32px; background: var(--border); }
+
+  /* JOURNEY */
+  .journey { display: flex; flex-direction: column; gap: 0; }
+  .journey-step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .journey-step:last-child { border-bottom: none; }
+  .journey-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .journey-icon.done { background: rgba(255,209,102,0.15); }
+  .journey-icon.now { background: var(--accent-light); border: 2px solid var(--accent); }
+  .journey-icon.future { background: var(--green-light); border: 2px dashed var(--green); }
+  .journey-meta { flex: 1; }
+  .journey-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .journey-label.now { color: var(--accent); }
+  .journey-label.future { color: var(--green); }
+  .journey-name { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .journey-desc { font-size: 14px; color: var(--text-muted); }
+
+  /* QUOTE */
+  .quote-box { background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; padding: 24px 28px; margin: 24px 0; }
+  .quote-text { font-family: 'JetBrains Mono', monospace; font-size: clamp(16px,3vw,20px); font-weight: 500; color: var(--text); line-height: 1.5; font-style: italic; margin-bottom: 8px; }
+  .quote-note { font-size: 13px; color: var(--text-muted); }
+
+  /* PILLARS */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .pillar { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+  .pillar-icon { font-size: 28px; margin-bottom: 12px; }
+  .pillar-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .pillar-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+  /* EXPECTATIONS */
+  .expect-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .expect-list li { display: flex; gap: 12px; align-items: flex-start; }
+  .expect-list li::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+  /* NEXT MODULE */
+  .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+
+  /* FOOTER */
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  /* PRINT */
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav, .next-module { display: none; }
+    .card { border: 1px solid #ccc; break-inside: avoid; }
+    a { color: black; }
+    h2 { border-left-color: #333; }
+    table { border: 1px solid #ccc; }
+    td, th { border: 1px solid #ccc !important; }
+  }
+
+  @media (max-width: 600px) {
+    .tree-line-h-group { gap: 12px; }
+    .tree-line-h-group::before { width: 160px; left: calc(50% - 80px); }
+    .org-node { min-width: 140px; padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-bienvenida.html" class="active">01</a>
+      <a href="02-el-servicio.html">02</a>
+      <a href="03-tu-compensacion.html">03</a>
+      <a href="04-el-proceso.html">04</a>
+      <a href="05-objeciones.html">05</a>
+      <a href="06-practica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 01</div>
+    <h1 class="module-title">Tu Rol en<br>Engo Agency</h1>
+    <p class="module-lead">Antes de aprender el proceso o los precios, tienes que entender dónde estás, a dónde vas, y por qué importa lo que haces.</p>
+  </div>
+
+  <!-- QUIENES SOMOS -->
+  <div class="section">
+    <div class="section-label">La empresa</div>
+    <h2>Quiénes Somos</h2>
+    <p><strong>Engo Agency</strong> es una agencia de marketing y automatización basada en Orihuela Coast. Trabajamos con negocios locales — restaurantes, clínicas, inmobiliarias, comercios — que necesitan más clientes, no más tecnología.</p>
+    <p>Nuestra filosofía no es vender software. Es <strong>invertir en personas, no en marketing genérico.</strong> Cada cliente que entra al sistema MOTOR tiene un estratega humano detrás (Marco), un sistema de automatización inteligente (BAI es la herramienta), y un equipo que lo acompaña.</p>
+
+    <div class="pillars" style="margin-top: 24px;">
+      <div class="pillar">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-title">Misión</div>
+        <div class="pillar-desc">Generar clientes reales para negocios locales con sistemas medibles y resultados garantizados.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🤝</div>
+        <div class="pillar-title">Filosofía</div>
+        <div class="pillar-desc">"Inversión en personas, no en marketing." Relación a largo plazo, no campañas únicas.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">📍</div>
+        <div class="pillar-title">Mercado</div>
+        <div class="pillar-desc">Negocios locales en Orihuela Coast y zona de expansión. Facturación €150K–€700K+/año.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANIGRAMMA -->
+  <div class="section">
+    <div class="section-label">La estructura</div>
+    <h2>El Equipo — Quién Hace Qué</h2>
+
+    <div class="tree-wrapper">
+      <div class="tree">
+        <!-- CEO -->
+        <div class="org-node ceo">
+          <div class="org-role ceo-r">CEO · Estratega</div>
+          <div class="org-name">Marco</div>
+          <div class="org-desc">Define la estrategia, supervisa las cuentas, gestiona la tecnología. No hace prospección.</div>
+        </div>
+
+        <div class="tree-line-v"></div>
+
+        <!-- H connector -->
+        <div class="tree-line-h-group">
+          <!-- Alvaro branch -->
+          <div class="tree-child">
+            <div class="tree-child-line"></div>
+            <div class="org-node leader">
+              <div class="org-role leader-r">Team Leader → Consultor</div>
+              <div class="org-name">Álvaro</div>
+              <div class="org-desc">Prenotación de citas + contacto activo con el prospecto. En formación para llevar la negociación completa.</div>
+              <span class="org-badge green">TÚ</span>
+            </div>
+          </div>
+          <!-- Camila branch -->
+          <div class="tree-child">
+            <div class="tree-child-line"></div>
+            <div class="org-node cap">
+              <div class="org-role cap-r">Captadora</div>
+              <div class="org-name">Camila</div>
+              <div class="org-desc">Solo prenotación de citas. No gestiona la conversación de venta.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h3>La diferencia clave entre Álvaro y Camila</h3>
+      <p>Camila prenotiza citas. Punto. Álvaro también prenotiza — pero además <strong>mantiene el contacto activo con el prospecto</strong>, gestiona la relación entre la 1ª y la 2ª cita, y se está formando para poder llevar la negociación completa como Consultor.</p>
+      <p style="margin-bottom:0;">Esto cambia todo. Álvaro no es un operario del calendario: es el primer punto de confianza que tiene el cliente antes de hablar con Marco.</p>
+    </div>
+  </div>
+
+  <!-- TU ROL -->
+  <div class="section">
+    <div class="section-label">Tu posición</div>
+    <h2>Tú No Vendes. Abres Puertas y las Mantienes Abiertas.</h2>
+
+    <div class="quote-box">
+      <div class="quote-text">"Tú no vendes. Tú abres puertas y las mantienes abiertas."</div>
+      <div class="quote-note">Este es el concepto más importante de todo el kit. Si lo tienes claro, el resto encaja solo.</div>
+    </div>
+
+    <p>El error del vendedor amateur es intentar cerrar en el primer contacto. El profesional sabe que la venta se hace en la confianza, y la confianza tarda. Tu trabajo es:</p>
+    <ul class="expect-list">
+      <li>Generar la primera conversación (sin presión, con curiosidad genuina)</li>
+      <li>Identificar si el prospecto tiene un problema real que podemos resolver</li>
+      <li>Conseguir que acepte una llamada de 20-27 minutos con Marco o contigo</li>
+      <li>Mantener el contacto activo hasta que la puerta se abre o se cierra</li>
+      <li>En el futuro: llevar la negociación completa de principio a cierre</li>
+    </ul>
+  </div>
+
+  <!-- JOURNEY -->
+  <div class="section">
+    <div class="section-label">Tu trayectoria</div>
+    <h2>Tu Recorrido: De Hoy a Consultor</h2>
+
+    <div class="journey">
+      <div class="journey-step">
+        <div class="journey-icon done">🔑</div>
+        <div class="journey-meta">
+          <div class="journey-label">Fase inicial (antes)</div>
+          <div class="journey-name">Captador</div>
+          <div class="journey-desc">Solo apertura de conversaciones y prenotación. Sin gestión de la relación ni proceso de venta. Comisión básica.</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-icon now">⚡</div>
+        <div class="journey-meta">
+          <div class="journey-label now">Ahora — Tu rol actual</div>
+          <div class="journey-name">Team Leader</div>
+          <div class="journey-desc">Prenotación de citas + gestión activa del contacto con el prospecto. Aprendizaje del proceso completo. Las herramientas de este kit son para este rol.</div>
+        </div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-icon future">🚀</div>
+        <div class="journey-meta">
+          <div class="journey-label future">Próximo objetivo</div>
+          <div class="journey-name">Consultor</div>
+          <div class="journey-desc">Llevas la negociación completa de forma autónoma — desde el primer contacto hasta el cierre. Mayor comisión, mayor responsabilidad, mayor autonomía.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LO QUE SE ESPERA -->
+  <div class="section">
+    <div class="section-label">Team Leader — responsabilidades</div>
+    <h2>Qué Se Espera de Ti</h2>
+
+    <div class="card accent">
+      <ul class="expect-list">
+        <li><strong>Velocidad de respuesta.</strong> Los prospectos en redes sociales se enfrían rápido. Responder en menos de 2 horas es norma, no excepción.</li>
+        <li><strong>Ninguna chat sin respuesta por más de 3 días.</strong> El seguimiento es tu responsabilidad, no la del sistema.</li>
+        <li><strong>No mandar materiales sin preguntar antes.</strong> Un PDF enviado sin conversación cierra la puerta, no la abre.</li>
+        <li><strong>Conocer el sistema MOTOR de memoria.</strong> No puedes hablar de lo que vendemos si no lo conoces bien.</li>
+        <li><strong>Practicar los scripts hasta que salgan solos.</strong> La naturalidad no se improvisa: se entrena.</li>
+        <li><strong>Comunicar a Marco</strong> cualquier prospecto con alta temperatura o señal de cierre.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- NEXT -->
+  <div class="next-module">
+    <div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">El Sistema MOTOR — Lo que vendes</div>
+    </div>
+    <a href="02-el-servicio.html">Módulo 02 →</a>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna
+  </footer>
+
+</div>
+
+<script>localStorage.setItem('visited_01-bienvenida', '1');</script>
+</body>
+</html>

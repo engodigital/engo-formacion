@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 — Practica con IA | Kit Álvaro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* CTA NOTEBOOK */
+  .cta-hero { background: linear-gradient(135deg, #1a1d27 0%, #1e1a3a 100%); border: 1px solid rgba(108,99,255,0.4); border-radius: 24px; padding: 40px 32px; text-align: center; margin-bottom: 48px; }
+  .cta-icon { font-size: 48px; margin-bottom: 16px; }
+  .cta-title { font-size: clamp(22px,4vw,32px); font-weight: 900; color: var(--text); margin-bottom: 12px; }
+  .cta-desc { font-size: 16px; color: var(--text-muted); max-width: 480px; margin: 0 auto 28px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; text-decoration: none; font-size: 18px; font-weight: 800; padding: 18px 36px; border-radius: 14px; transition: all 0.2s; min-height: 44px; letter-spacing: -0.3px; }
+  .cta-btn:hover { background: #7c75ff; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,99,255,0.4); }
+  .cta-url { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+
+  /* HOW TO USE */
+  .how-steps { display: flex; flex-direction: column; gap: 16px; }
+  .how-step { display: flex; gap: 16px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .how-num { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; color: var(--accent); flex-shrink: 0; }
+  .how-body { flex: 1; }
+  .how-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .how-desc { font-size: 14px; color: var(--text-muted); }
+
+  /* MIC TIP */
+  .mic-tip { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.25); border-radius: 14px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .mic-icon { font-size: 28px; flex-shrink: 0; }
+  .mic-body { flex: 1; }
+  .mic-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+  .mic-desc { font-size: 14px; color: var(--text-muted); }
+  .mic-desc strong { color: var(--text); }
+
+  /* SCENARIOS */
+  .scenarios { display: flex; flex-direction: column; gap: 14px; }
+  .scenario-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; gap: 20px; align-items: flex-start; }
+  .sc-num { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .sc-num.s1 { background: var(--accent); }
+  .sc-num.s2 { background: #2563eb; }
+  .sc-num.s3 { background: var(--green); color: #0f1117; }
+  .sc-num.s4 { background: var(--red); }
+  .sc-num.s5 { background: var(--yellow); color: #0f1117; }
+  .sc-body { flex: 1; }
+  .sc-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .sc-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+  .sc-prompt { background: #1e293b; border-radius: 10px; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); line-height: 1.6; }
+  .sc-prompt-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+
+  /* PROGRESS TRACKER */
+  .progress-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .prog-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+  .prog-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .prog-counter-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .prog-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--bg); border-radius: 8px; color: var(--text); font-size: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .prog-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .prog-count { font-size: 24px; font-weight: 900; color: var(--accent); font-family: 'JetBrains Mono', monospace; min-width: 32px; }
+  .prog-target { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  .prog-bar { background: var(--border); border-radius: 100px; height: 6px; margin-top: 8px; overflow: hidden; }
+  .prog-bar-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width 0.3s; }
+
+  /* RULE */
+  .rule-box { background: linear-gradient(135deg, rgba(108,99,255,0.1) 0%, rgba(0,212,170,0.08) 100%); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 28px 32px; text-align: center; }
+  .rule-text { font-size: clamp(18px,3vw,24px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+  .rule-sub { font-size: 15px; color: var(--text-muted); }
+
+  .back-index { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .back-index a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav, .cta-btn, .back-index { display: none; }
+    .scenario-item { border: 1px solid #ccc; break-inside: avoid; }
+    .sc-prompt { background: #f8f8f8; }
+    a { color: black; }
+    .cta-hero { border: 1px solid #ccc; }
+  }
+
+  @media (max-width: 600px) {
+    .scenario-item { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-bienvenida.html">01</a>
+      <a href="02-el-servicio.html">02</a>
+      <a href="03-tu-compensacion.html">03</a>
+      <a href="04-el-proceso.html">04</a>
+      <a href="05-objeciones.html">05</a>
+      <a href="06-practica.html" class="active">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 06</div>
+    <h1 class="module-title">Tu Entrenador<br>de Ventas</h1>
+    <p class="module-lead">Disponible 24/7. Tiene toda la metodología. Simula clientes reales con objeciones reales. No tienes excusas para no practicar.</p>
+  </div>
+
+  <!-- CTA HERO -->
+  <div class="cta-hero">
+    <div class="cta-icon">🤖</div>
+    <div class="cta-title">Notebook de Formación Comercial</div>
+    <div class="cta-desc">El notebook tiene toda la metodología de ventas de Engo Agency. La IA puede actuar como un prospecto real o como un coach que evalúa tu performance.</div>
+    <a href="https://notebooklm.google.com/notebook/85a559fd-1beb-4006-84cc-455e24c50ecd" target="_blank" rel="noopener noreferrer" class="cta-btn">
+      🔗 Abrir Notebook de Formación
+    </a>
+    <div class="cta-url">notebooklm.google.com/notebook/85a559fd-1beb-4006-84cc-455e24c50ecd</div>
+  </div>
+
+  <!-- CÓMO USARLO -->
+  <div class="section">
+    <div class="section-label">Instrucciones</div>
+    <h2>Cómo Usarlo</h2>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-body">
+          <div class="how-title">Abre el notebook con Chrome</div>
+          <div class="how-desc">Google Chrome es el navegador con mejor soporte para las funciones de voz de NotebookLM. Asegúrate de que Chrome tenga permisos de micrófono activados.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <div class="how-body">
+          <div class="how-title">Activa el micrófono para voz real</div>
+          <div class="how-desc">Chrome tiene Speech-to-Text nativo. Puedes activarlo desde el icono del micrófono en la barra de dirección, o instalar una extensión como "Voice In" para dictado en cualquier campo de texto. Esto te permite practicar hablando, no escribiendo.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-body">
+          <div class="how-title">Elige tu escenario y di el prompt de inicio</div>
+          <div class="how-desc">Copia el prompt del escenario que quieres practicar (ver abajo). Pégalo en el chat del notebook. La IA entra en el rol inmediatamente.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <div class="how-body">
+          <div class="how-title">Practica como si fuera real</div>
+          <div class="how-desc">Responde como si estuvieras en la llamada real. No leas los scripts del kit mientras practicas — el objetivo es que salga solo. Al terminar, pide feedback a la IA.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mic-tip" style="margin-top: 24px;">
+      <div class="mic-icon">🎙️</div>
+      <div class="mic-body">
+        <div class="mic-title">Tip: Practica en voz alta, no solo leyendo</div>
+        <div class="mic-desc">El cerebro retiene diferente cuando hablamos que cuando leemos. Si practicas solo escribiendo, cuando llegue la llamada real no saldrá con la misma fluidez. <strong>Habla en voz alta, simula el tono, las pausas, la velocidad.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 ESCENARIOS -->
+  <div class="section">
+    <div class="section-label">Práctica</div>
+    <h2>5 Escenarios de Entrenamiento</h2>
+
+    <div class="scenarios">
+      <div class="scenario-item">
+        <div class="sc-num s1">1</div>
+        <div class="sc-body">
+          <div class="sc-title">Primer contacto — Nuevo seguidor en Instagram</div>
+          <div class="sc-desc">El escenario más frecuente. Practica la apertura, la pregunta inicial, y cómo mantener la conversación sin sonar a vendedor.</div>
+          <div class="sc-prompt-label">Prompt de inicio para el notebook</div>
+          <div class="sc-prompt">Actúa como un propietario de restaurante en Orihuela que acaba de seguirme en Instagram. No sabe quién soy exactamente. Estás levemente interesado pero tienes poco tiempo. Yo soy Álvaro, comercial de Engo Agency, y acabo de iniciarte una conversación por DM. Sé natural, un poco desconfiado al principio. Responde como lo haría un empresario real.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s2">2</div>
+        <div class="sc-body">
+          <div class="sc-title">Solicitud inbound — Alguien pide la guía gratuita</div>
+          <div class="sc-desc">Practica cómo convertir una solicitud de contenido en una conversación real sin mandar nada todavía.</div>
+          <div class="sc-prompt-label">Prompt de inicio</div>
+          <div class="sc-prompt">Soy propietario de una clínica de fisioterapia en Orihuela. Acabo de comentar en un post de Marco Marengo pidiendo la guía gratuita de captación de clientes locales. Tú eres Álvaro y me has escrito por DM. Quiero la guía lo antes posible porque tengo poco tiempo. Si me haces preguntas, respondo de forma breve.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s3">3</div>
+        <div class="sc-body">
+          <div class="sc-title">Llamada conoscitiva completa — 27 minutos</div>
+          <div class="sc-desc">El escenario más importante. Practica la estructura completa: problemas, deseos, situación, presupuesto, temperatura, cierre.</div>
+          <div class="sc-prompt-label">Prompt de inicio</div>
+          <div class="sc-prompt">Vamos a practicar una llamada conoscitiva completa de 27 minutos. Tú eres el cliente: dueño de una inmobiliaria en Torrevieja, facturación aproximada €400K/año, sin presencia online activa, ha probado redes sociales sin resultados. Tienes cierta frustración con las agencias anteriores. Yo soy Álvaro y voy a seguir la estructura de los 27 minutos. Al final dame feedback detallado: qué hice bien, qué mejorar, dónde perdí el hilo.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s4">4</div>
+        <div class="sc-body">
+          <div class="sc-title">Manejo de objeción — "Me lo tengo que pensar"</div>
+          <div class="sc-desc">Practica exactamente el script del Módulo 05 hasta que salga natural y sin dudar.</div>
+          <div class="sc-prompt-label">Prompt de inicio</div>
+          <div class="sc-prompt">Acabamos de terminar una llamada de 27 minutos. Tengo interés real pero en el momento de proponer la 2ª cita digo "mira, me lo tengo que pensar un poco, te aviso la semana que viene." Tú eres Álvaro. Practica el manejo de esta objeción. Yo pondré resistencia moderada. Después evalúa si usaste correctamente el script o improvises.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s5">5</div>
+        <div class="sc-body">
+          <div class="sc-title">Cierre de 2ª cita — Presentación y decisión</div>
+          <div class="sc-desc">El escenario de más presión. Practica presentar el precio, manejar el silencio después, y guiar hacia el cierre.</div>
+          <div class="sc-prompt-label">Prompt de inicio</div>
+          <div class="sc-prompt">Estamos en la 2ª cita. Ya nos conocemos de la llamada anterior. Soy dueño de un chiringuito en Orihuela, MOTOR INICIO es el paquete correcto para mí. Tú eres Álvaro y vas a hacer el riepilogo de mis problemas/deseos, presentar la solución y el precio. Cuando digas el precio (€1.500 setup + €500/mes), haré una pausa larga y luego diré "uf, es bastante..." Practica el cierre desde ahí.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTADOR DE PRÁCTICA -->
+  <div class="section">
+    <div class="section-label">Seguimiento</div>
+    <h2>Registra Tu Práctica</h2>
+    <p>Cada escenario necesita al menos 10 repeticiones para que salga de forma natural. Lleva la cuenta.</p>
+
+    <div class="progress-grid" id="progressGrid">
+      <div class="prog-item">
+        <div class="prog-title">Escenario 1</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(0,-1)">−</button>
+          <div class="prog-count" id="cnt0">0</div>
+          <button class="prog-btn" onclick="changeCount(0,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar0" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Escenario 2</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(1,-1)">−</button>
+          <div class="prog-count" id="cnt1">0</div>
+          <button class="prog-btn" onclick="changeCount(1,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar1" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Escenario 3</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(2,-1)">−</button>
+          <div class="prog-count" id="cnt2">0</div>
+          <button class="prog-btn" onclick="changeCount(2,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar2" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Escenario 4</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(3,-1)">−</button>
+          <div class="prog-count" id="cnt3">0</div>
+          <button class="prog-btn" onclick="changeCount(3,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar3" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Escenario 5</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(4,-1)">−</button>
+          <div class="prog-count" id="cnt4">0</div>
+          <button class="prog-btn" onclick="changeCount(4,1)">+</button>
+        </div>
+        <div class="prog-target">Meta: 10 veces</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar4" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGLA FINAL -->
+  <div class="section">
+    <div class="rule-box">
+      <div class="rule-text">"Practica cada escenario al menos 10 veces hasta que salga solo."</div>
+      <div class="rule-sub">La naturalidad no se improvisa. Se construye una repetición a la vez. Cuando un script sale sin pensar, ya no es un script — es tu voz.</div>
+    </div>
+  </div>
+
+  <!-- BACK TO INDEX -->
+  <div class="back-index">
+    <div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Has completado el kit</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">Volver al índice</div>
+    </div>
+    <a href="index.html">← Índice general</a>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna
+  </footer>
+</div>
+
+<script>
+  localStorage.setItem('visited_06-practica', '1');
+
+  const COUNTS = [0,0,0,0,0];
+  const MAX = 10;
+
+  // Load from localStorage
+  for(let i=0;i<5;i++){
+    const saved = parseInt(localStorage.getItem('practice_count_'+i) || '0');
+    COUNTS[i] = saved;
+    updateUI(i);
+  }
+
+  function changeCount(idx, delta) {
+    COUNTS[idx] = Math.max(0, COUNTS[idx] + delta);
+    localStorage.setItem('practice_count_'+idx, COUNTS[idx]);
+    updateUI(idx);
+  }
+
+  function updateUI(idx) {
+    const cnt = document.getElementById('cnt'+idx);
+    const bar = document.getElementById('bar'+idx);
+    if(cnt) cnt.textContent = COUNTS[idx];
+    if(bar) {
+      const pct = Math.min(100, (COUNTS[idx]/MAX)*100);
+      bar.style.width = pct+'%';
+      if(COUNTS[idx] >= MAX) {
+        bar.style.background = 'var(--green)';
+        cnt.style.color = 'var(--green)';
+      } else {
+        bar.style.background = 'var(--accent)';
+        cnt.style.color = 'var(--accent)';
+      }
+    }
+  }
+</script>
+</body>
+</html>

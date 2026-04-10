@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 — Manejo de Objeciones | Kit Álvaro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* OBJECTION CARDS */
+  .obj-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; margin-bottom: 24px; overflow: hidden; }
+  .obj-card.purple { border-top: 4px solid var(--accent); }
+  .obj-card.red { border-top: 4px solid var(--red); }
+  .obj-card.yellow { border-top: 4px solid var(--yellow); }
+  .obj-card.green { border-top: 4px solid var(--green); }
+
+  .obj-header { padding: 24px 28px 16px; }
+  .obj-num-row { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .obj-num { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .obj-num.purple { background: var(--accent); }
+  .obj-num.red { background: var(--red); }
+  .obj-num.yellow { background: var(--yellow); color: #0f1117; }
+  .obj-num.green { background: var(--green); color: #0f1117; }
+  .obj-title { font-size: 20px; font-weight: 900; color: var(--text); }
+  .obj-what { background: rgba(255,255,255,0.04); border-radius: 10px; padding: 14px 18px; font-size: 15px; color: var(--text-muted); font-style: italic; }
+  .obj-what strong { color: var(--text); font-style: normal; }
+
+  .obj-body { padding: 0 28px 24px; }
+
+  .obj-diagnosis { display: flex; gap: 12px; margin: 16px 0; }
+  .diag-item { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .diag-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .diag-text { font-size: 14px; color: var(--text); }
+
+  .script-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin: 20px 0 10px; }
+  .script-block { background: #1e293b; border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; padding: 20px 24px; margin-bottom: 12px; }
+  .script-block.red-b { border-left-color: var(--red); }
+  .script-block.yellow-b { border-left-color: var(--yellow); }
+  .script-block.green-b { border-left-color: var(--green); }
+  .script-text { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); line-height: 1.8; white-space: pre-wrap; }
+  .script-text em { color: var(--yellow); font-style: italic; }
+
+  .obj-rule { background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.2); border-radius: 10px; padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; margin-top: 16px; }
+  .obj-rule.red-r { background: rgba(255,107,107,0.08); border-color: rgba(255,107,107,0.2); }
+  .obj-rule.yellow-r { background: rgba(255,209,102,0.08); border-color: rgba(255,209,102,0.2); }
+  .obj-rule.green-r { background: rgba(0,212,170,0.08); border-color: rgba(0,212,170,0.2); }
+  .obj-rule-icon { font-size: 18px; flex-shrink: 0; }
+  .obj-rule-text { font-size: 14px; color: var(--text-muted); }
+  .obj-rule-text strong { color: var(--text); }
+
+  /* QUICK REFERENCE */
+  .quick-ref { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .qr-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .qr-obj { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+  .qr-resp { font-size: 13px; font-weight: 700; color: var(--text); border-left: 3px solid var(--accent); padding-left: 10px; }
+  .qr-resp.red { border-left-color: var(--red); }
+  .qr-resp.yellow { border-left-color: var(--yellow); }
+  .qr-resp.green { border-left-color: var(--green); }
+
+  /* NOTE */
+  .note-box { background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.2); border-radius: 12px; padding: 18px 22px; font-size: 14px; color: var(--text-muted); margin-top: 24px; }
+  .note-box strong { color: var(--text); }
+
+  .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav, .next-module { display: none; }
+    .obj-card { border: 1px solid #ccc; break-inside: avoid; page-break-inside: avoid; }
+    .script-block { background: #f8f8f8; border-left: 4px solid #333; }
+    .script-text { color: black; }
+    a { color: black; }
+  }
+
+  @media (max-width: 600px) {
+    .obj-diagnosis { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-bienvenida.html">01</a>
+      <a href="02-el-servicio.html">02</a>
+      <a href="03-tu-compensacion.html">03</a>
+      <a href="04-el-proceso.html">04</a>
+      <a href="05-objeciones.html" class="active">05</a>
+      <a href="06-practica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 05</div>
+    <h1 class="module-title">Manejo de Objeciones</h1>
+    <p class="module-lead">Cada objeción es una señal de interés no resuelto. Estas respuestas han sido probadas. No improvises — úsalas.</p>
+  </div>
+
+  <!-- INTRO -->
+  <div class="section">
+    <p><strong>Una objeción no es un "no".</strong> Es una pregunta disfrazada. El prospecto está diciendo "todavía tengo algo que resolver antes de decir sí." Tu trabajo es descubrir qué es ese algo.</p>
+    <p>Las cuatro objeciones que aparecen en el 90% de las conversaciones:</p>
+    <div class="quick-ref" style="margin-top: 8px;">
+      <div class="qr-item">
+        <div class="qr-obj">"Me lo tengo que pensar..."</div>
+        <div class="qr-resp">→ Descubre qué bloquea realmente</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-obj">"Debo hablar con mi socio/mujer..."</div>
+        <div class="qr-resp red">→ Cuestiona el liderazgo</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-obj">"Solo pago si hay resultados..."</div>
+        <div class="qr-resp yellow">→ Ofrece la garantía existente</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-obj">"Mándame algo por email..."</div>
+        <div class="qr-resp green">→ No operamos así</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBJECIÓN 1 -->
+  <div class="section">
+    <div class="section-label">Objeción 1 de 4</div>
+    <h2>Objeciones</h2>
+
+    <div class="obj-card purple">
+      <div class="obj-header">
+        <div class="obj-num-row">
+          <div class="obj-num purple">1</div>
+          <div class="obj-title">"Me lo tengo que pensar / Te aviso"</div>
+        </div>
+        <div class="obj-what">El prospecto quiere salir de la llamada sin comprometerse. A menudo es una salida polite, pero puede esconder un problema real de confianza o dinero.</div>
+      </div>
+      <div class="obj-body">
+        <div class="script-label">Lo que necesitas descubrir primero</div>
+        <div class="obj-diagnosis">
+          <div class="diag-item">
+            <div class="diag-label">¿Es problema de dinero?</div>
+            <div class="diag-text">Le da vueltas al precio pero no lo dice. Tiene interés pero el número le frena.</div>
+          </div>
+          <div class="diag-item">
+            <div class="diag-label">¿Es problema de confianza?</div>
+            <div class="diag-text">No te conoce lo suficiente. No cree que el sistema funcione para su caso.</div>
+          </div>
+        </div>
+
+        <div class="script-label">Script de respuesta</div>
+        <div class="script-block">
+          <div class="script-text">Perfecto, lo entiendo totalmente.
+
+Antes de que colguemos, ayúdame a entender algo:
+cuando dices que lo tienes que pensar... ¿qué es lo que está en tu cabeza?
+
+<em>[Silencio. Espera su respuesta.]</em>
+
+[Si dice dinero:]
+Okay, entendido. Mira, si el tema económico fuera el único obstáculo y el sistema te diera los resultados que esperas, ¿estarías listo para avanzar?
+
+Porque hay formas de estructurarlo para que funcione para ti ahora mismo.
+
+[Si dice confianza / "no sé si funcionará para mí":]
+Lo entiendo perfectamente — es una inversión real y quieres asegurarte.
+
+¿Qué necesitarías ver para sentirte seguro? ¿Un caso de estudio de alguien en tu sector? ¿Hablar con alguien que ya lo use?
+
+Porque tenemos garantía de 90 días: si no generamos resultados, te devolvemos el setup completo más €200 de compensación. No es marketing — está en el contrato.</div>
+        </div>
+
+        <div class="script-label">Cierre si sigue sin comprometerse</div>
+        <div class="script-block">
+          <div class="script-text">Mira, quiero ser directo contigo porque creo que te lo mereces.
+
+Esta oferta está disponible en esta llamada. No porque sea un truco de ventas — sino porque mi calendario tiene citas limitadas y cada semana tengo nuevos prospectos.
+
+Si cuando hayas pensado decides que quieres avanzar, el proceso empieza desde cero. Hoy podemos cerrar en 10 minutos.
+
+¿Qué te frena realmente?</div>
+        </div>
+
+        <div class="obj-rule">
+          <div class="obj-rule-icon">💡</div>
+          <div class="obj-rule-text"><strong>Regla:</strong> Juega a cartas descubiertas. La pregunta directa "¿es problema de dinero o de confianza?" desarma la evasión y lleva a una conversación real. Quien no responde a esa pregunta no estaba listo de todas formas.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECIÓN 2 -->
+    <div class="obj-card red">
+      <div class="obj-header">
+        <div class="obj-num-row">
+          <div class="obj-num red">2</div>
+          <div class="obj-title">"Debo hablarlo con mi mujer / socio"</div>
+        </div>
+        <div class="obj-what">El prospecto busca una salida usando a otra persona como escudo. En la mayoría de casos, si él quisiera avanzar, ya habría resuelto esta conversación antes.</div>
+      </div>
+      <div class="obj-body">
+        <div class="script-label">Script de respuesta</div>
+        <div class="script-block red-b">
+          <div class="script-text">Claro, lo entiendo. ¿Qué le vas a explicar exactamente?
+
+<em>[Escucha su resumen. Normalmente es vago o incompleto.]</em>
+
+Mira, lo que me preocupa es esto: cuando tu mujer/socio escuche la versión resumida de una inversión de X euros, la reacción natural es decir que no. Es normal.
+
+Pero ella/él no ha vivido esta conversación, no conoce el sistema, y no tiene el contexto que tienes tú ahora mismo.
+
+Déjame preguntarte algo: si dependiera solo de ti, si la decisión fuera tuya al 100%... ¿entrarías?
+
+<em>[Espera la respuesta. Es la más reveladora de la conversación.]</em>
+
+[Si dice "sí, pero...":]
+Entonces el problema real no es tu mujer/socio. Es que tú aún tienes algo que no te cuadra. Dímelo — es más fácil resolverlo ahora que en otra llamada.
+
+[Si dice "no lo sé":]
+Perfecto, entonces no estás listo todavía. No hay problema. ¿Qué necesitarías ver para estarlo?</div>
+        </div>
+
+        <div class="obj-rule red-r">
+          <div class="obj-rule-icon">🎯</div>
+          <div class="obj-rule-text"><strong>Regla:</strong> La pregunta "si dependiera solo de ti, ¿entrarías?" es la más poderosa de esta objeción. Revela si el freno real es externo o interno. Si es interno, tienes que encontrarlo. Si es externo, ofrece incluir al socio/pareja en la siguiente llamada.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECIÓN 3 -->
+    <div class="obj-card yellow">
+      <div class="obj-header">
+        <div class="obj-num-row">
+          <div class="obj-num yellow">3</div>
+          <div class="obj-title">"Te doy la comisión si traes resultados" / "Pago solo si funciona"</div>
+        </div>
+        <div class="obj-what">El prospecto quiere transferir todo el riesgo a tu lado. Puede sonar razonable, pero no lo es: el resultado depende también de su implicación, de su negocio, de factores externos.</div>
+      </div>
+      <div class="obj-body">
+        <div class="script-label">Script de respuesta</div>
+        <div class="script-block yellow-b">
+          <div class="script-text">Lo entiendo — quieres asegurarte de que solo pagas si hay resultados. Eso es lógico.
+
+El problema es que yo no puedo garantizar resultados si no puedo garantizar tu implicación.
+
+Piénsalo así: si un cliente le dijera a tu negocio "te pago solo si me gusta el resultado" — ¿firmarías ese contrato?
+
+Probablemente no. No porque no confíes en ti mismo, sino porque el resultado final depende de muchas variables que tú no controlas.
+
+Nosotros sí asumimos el riesgo — pero de forma estructurada:
+
+Tenemos una garantía de 90 días. Si en 90 días el sistema no genera contactos cualificados para tu negocio, te devolvemos el setup completo más €200 de compensación.
+
+Eso es asumir riesgo real, no una promesa vacía.
+
+Lo que no podemos hacer es trabajar sin estructura de pago, porque eso implicaría que nosotros ponemos el esfuerzo y tú decides cuánto vale después. Eso no funciona para ningún servicio profesional.</div>
+        </div>
+
+        <div class="obj-rule yellow-r">
+          <div class="obj-rule-icon">⚖️</div>
+          <div class="obj-rule-text"><strong>Regla:</strong> La analogía del cliente que paga solo si le gusta el resultado es poderosa porque la entienden de su propio negocio. Siempre termina en la garantía real que ya existe. No inventes nada que no esté en el contrato.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECIÓN 4 -->
+    <div class="obj-card green">
+      <div class="obj-header">
+        <div class="obj-num-row">
+          <div class="obj-num green">4</div>
+          <div class="obj-title">"Mándame algo resumido por email"</div>
+        </div>
+        <div class="obj-what">Esta es una forma de aplazar la decisión. Un PDF enviado sin conversación previa casi nunca lleva a un cierre. Suele ir al spam mental de "lo leo mañana".</div>
+      </div>
+      <div class="obj-body">
+        <div class="script-label">Script de respuesta</div>
+        <div class="script-block green-b">
+          <div class="script-text">Mira, entiendo que quieres procesarlo tranquilo — y lo respeto.
+
+Pero te voy a ser honesto: nosotros no operamos con PDFs de presentación porque no creemos que funcionen. Un documento no puede responder tus preguntas, no puede adaptar la propuesta a tu situación, y no transmite el valor del sistema.
+
+Lo que sí puedo hacer es esto: si hay algo específico que no te quedó claro en nuestra conversación, dímelo ahora y lo resolvemos en 5 minutos.
+
+¿Qué dudas tienes que te llevaron a pedir el email?
+
+<em>[Si dice "quiero comparar con otras opciones":]</em>
+Perfecto, es una decisión inteligente. ¿Qué criterios usarías para comparar? Así puedo ayudarte a evaluar con los puntos que importan realmente.</div>
+        </div>
+
+        <div class="obj-rule green-r">
+          <div class="obj-rule-icon">✉️</div>
+          <div class="obj-rule-text"><strong>Regla:</strong> No operamos con presentaciones en PDF. La propuesta se hace en llamada o presencialmente. Si insiste en el email tras el script, es una señal de que no hay interés real. Cierra la conversación con dignidad y pasa al siguiente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTA ROLEPLAY -->
+  <div class="note-box">
+    <strong>Nota:</strong> Estas respuestas se practican en sesión de role-play. Leerlas no es suficiente — necesitas repetirlas en voz alta hasta que salgan de forma natural y sin dudar. Ver Módulo 06 para acceder al entrenador de ventas con IA disponible 24/7.
+  </div>
+
+  <div style="margin-top: 32px;" class="next-module">
+    <div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Último módulo</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">Practica con IA — Tu entrenador 24/7</div>
+    </div>
+    <a href="06-practica.html">Módulo 06 →</a>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna
+  </footer>
+</div>
+
+<script>localStorage.setItem('visited_05-objeciones', '1');</script>
+</body>
+</html>
