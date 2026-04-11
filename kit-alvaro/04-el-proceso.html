@@ -11,8 +11,8 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
     --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
-    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
-    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --text-body: #c8cad8;
+    --accent: #6c63ff; --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
     --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
   }
   html { scroll-behavior: smooth; }
@@ -26,27 +26,57 @@
   .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
   .nav-links a.active { background: var(--accent-light); }
 
-  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
 
   .module-hero { margin-bottom: 48px; }
   .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
   .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
-  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+  .module-lead { font-size: 18px; color: var(--text-body); line-height: 1.6; max-width: 600px; }
 
   .section { margin-bottom: 56px; }
   .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
   h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
   h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-  p { margin-bottom: 16px; color: var(--text-muted); }
+  p { margin-bottom: 16px; color: var(--text-body); }
   p strong { color: var(--text); }
 
+  /* PROCESS FLOW */
+  .process-flow { display: flex; flex-direction: column; gap: 4px; }
+  .pf-step { display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; background: var(--bg-card); }
+  .pf-step.active { border-color: var(--accent); background: var(--accent-light); }
+  .pf-step.marco { border-color: rgba(0,212,170,0.3); background: rgba(0,212,170,0.06); }
+  .pf-icon { font-size: 20px; flex-shrink: 0; }
+  .pf-content { flex: 1; }
+  .pf-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .pf-sub { font-size: 12px; color: var(--text-muted); }
+  .pf-who { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; }
+  .pf-who.alvaro { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(108,99,255,0.3); }
+  .pf-who.marco { background: var(--green-light); color: var(--green); border: 1px solid rgba(0,212,170,0.3); }
+  .pf-arrow { text-align: center; color: var(--border); font-size: 20px; line-height: 1; }
+
+  /* CHANNEL COMPARISON */
+  .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .channel-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+  .channel-card.online { border-top: 3px solid var(--accent); }
+  .channel-card.presencial { border-top: 3px solid var(--green); }
+  .channel-icon { font-size: 28px; margin-bottom: 10px; }
+  .channel-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .channel-desc { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+  .channel-examples { margin-top: 10px; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .channel-examples li { font-size: 13px; color: var(--text-muted); display: flex; gap: 6px; align-items: flex-start; }
+  .channel-examples li::before { content: '→'; color: var(--text-muted); flex-shrink: 0; }
+
+  .equal-box { background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.25); border-radius: 12px; padding: 16px 20px; text-align: center; margin-top: 16px; }
+  .equal-box p { color: var(--text); font-weight: 700; font-size: 15px; margin-bottom: 0; }
+  .equal-box p span { color: var(--accent); }
+
   /* SCRIPTS */
-  .script-block { background: #1e293b; border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 16px 0; }
+  .script-block { background: #1a2035; border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 12px 0; }
   .script-block.green { border-left-color: var(--green); }
-  .script-block.yellow { border-left-color: var(--yellow); }
+  .script-block.red { border-left-color: var(--red); background: rgba(255,107,107,0.06); }
   .script-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
   .script-text { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); line-height: 1.7; white-space: pre-wrap; }
-  .script-rule { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); }
+  .script-rule { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-body); }
   .script-rule strong { color: var(--yellow); }
 
   /* SCENARIO CARDS */
@@ -57,68 +87,100 @@
   .scenario-title { font-size: 16px; font-weight: 800; color: var(--text); }
   .scenario-body { padding: 20px 24px; }
 
+  /* OBJECTIONS */
+  .obj-list { display: flex; flex-direction: column; gap: 14px; }
+  .obj-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .obj-question { padding: 16px 20px; border-bottom: 1px solid var(--border); background: rgba(255,107,107,0.06); font-size: 15px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 12px; }
+  .obj-q-icon { font-size: 16px; flex-shrink: 0; }
+  .obj-answer { padding: 16px 20px; }
+  .obj-answer-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .obj-answer-text { font-size: 14px; color: var(--text-body); line-height: 1.6; }
+  .obj-answer-text em { display: block; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); font-style: normal; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px 12px; border-left: 3px solid var(--green); }
+
+  /* CALENDAR STEPS */
+  .cal-steps { display: flex; flex-direction: column; gap: 0; }
+  .cal-step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .cal-step:last-child { border-bottom: none; }
+  .cal-num { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900; color: var(--accent); flex-shrink: 0; }
+  .cal-body { flex: 1; padding-top: 2px; }
+  .cal-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .cal-desc { font-size: 14px; color: var(--text-body); }
+  .cal-tip { display: inline-block; background: rgba(255,209,102,0.12); border: 1px solid rgba(255,209,102,0.3); color: var(--yellow); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 6px; margin-top: 6px; }
+
+  /* CALL TIMELINE */
+  .call-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .call-header { padding: 18px 24px; border-bottom: 1px solid var(--border); background: #13151e; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .call-title { font-size: 18px; font-weight: 800; color: var(--text); }
+  .call-badge { display: flex; align-items: center; gap: 8px; }
+  .call-duration { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 800; color: var(--green); }
+  .call-who-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; background: var(--green-light); color: var(--green); border: 1px solid rgba(0,212,170,0.3); }
+  .call-body { padding: 20px 24px; }
+  .tl-item { display: flex; gap: 14px; padding: 0 0 20px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .tl-dot { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #fff; flex-shrink: 0; }
+  .tl-dot.purple { background: var(--accent); }
+  .tl-dot.green { background: var(--green); color: #0f1117; }
+  .tl-dot.yellow { background: var(--yellow); color: #0f1117; }
+  .tl-line { width: 2px; flex: 1; background: var(--border); min-height: 16px; margin-top: 4px; }
+  .tl-item:last-child .tl-line { display: none; }
+  .tl-content { flex: 1; padding-top: 6px; }
+  .tl-time { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px; }
+  .tl-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .tl-desc { font-size: 13px; color: var(--text-body); }
+
+  /* FORMATIVO BOX */
+  .formativo-box { background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.25); border-radius: 14px; padding: 20px 24px; display: flex; gap: 14px; align-items: flex-start; }
+  .formativo-icon { font-size: 22px; flex-shrink: 0; }
+  .formativo-text { flex: 1; font-size: 14px; color: var(--text-body); }
+  .formativo-text strong { color: var(--text); }
+
   /* CHECKLIST */
   .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .checklist li { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: border-color 0.2s; }
   .checklist li:hover { border-color: var(--accent); }
   .checklist li input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
-  .checklist li label { font-size: 15px; color: var(--text); cursor: pointer; flex: 1; }
+  .checklist li label { font-size: 15px; color: var(--text-body); cursor: pointer; flex: 1; }
   .checklist li:has(input:checked) label { color: var(--text-muted); text-decoration: line-through; }
   .checklist li:has(input:checked) { border-color: var(--green); background: var(--green-light); }
-
-  /* TIMELINE CALL */
-  .timeline { display: flex; flex-direction: column; gap: 0; }
-  .tl-item { display: flex; gap: 20px; align-items: flex-start; padding: 0 0 24px; position: relative; }
-  .tl-item:last-child { padding-bottom: 0; }
-  .tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-  .tl-dot { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; color: #fff; }
-  .tl-dot.purple { background: var(--accent); }
-  .tl-dot.green { background: var(--green); color: #0f1117; }
-  .tl-dot.yellow { background: var(--yellow); color: #0f1117; }
-  .tl-dot.red { background: var(--red); }
-  .tl-line { width: 2px; flex: 1; background: var(--border); min-height: 24px; margin-top: 4px; }
-  .tl-item:last-child .tl-line { display: none; }
-  .tl-content { flex: 1; padding-top: 8px; }
-  .tl-time { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
-  .tl-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
-  .tl-desc { font-size: 14px; color: var(--text-muted); }
-  .tl-tip { display: inline-block; background: rgba(255,209,102,0.12); border: 1px solid rgba(255,209,102,0.3); color: var(--yellow); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; margin-top: 6px; }
-
-  /* SECOND APPOINTMENT */
-  .second-apt { display: flex; flex-direction: column; gap: 0; }
-  .sa-step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
-  .sa-step:last-child { border-bottom: none; }
-  .sa-num { width: 32px; height: 32px; border-radius: 8px; background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--accent); flex-shrink: 0; }
-  .sa-body { flex: 1; }
-  .sa-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .sa-desc { font-size: 14px; color: var(--text-muted); }
 
   /* TABLE */
   .table-wrapper { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
   table { width: 100%; border-collapse: collapse; }
   thead tr { background: #13151e; }
   th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
-  td { padding: 12px 16px; font-size: 14px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; font-size: 14px; color: var(--text-body); border-bottom: 1px solid var(--border); }
   tr:last-child td { border-bottom: none; }
   tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
   .td-label { font-weight: 700; color: var(--text); }
 
-  /* NOTE */
-  .note-box { background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.2); border-radius: 12px; padding: 18px 22px; font-size: 14px; color: var(--text-muted); margin-top: 24px; }
-  .note-box strong { color: var(--text); }
+  /* ALERT / INFO */
+  .alert-box { background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.3); border-radius: 12px; padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; margin: 16px 0; }
+  .info-box { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.3); border-radius: 12px; padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; margin: 16px 0; }
+  .box-icon { font-size: 18px; flex-shrink: 0; }
+  .box-text { font-size: 14px; color: var(--text-body); }
+  .box-text strong { color: var(--text); }
 
+  /* NEXT MODULE */
   .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
   .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
 
+  /* FONT CONTROLS */
+  .font-controls { position: fixed; bottom: 24px; right: 24px; display: flex; gap: 8px; z-index: 200; }
+  .font-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text); width: 44px; height: 44px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+  .font-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .channel-grid { grid-template-columns: 1fr; }
+    .font-controls { bottom: 16px; right: 16px; }
+  }
   @media print {
-    body { background: white; color: black; font-size: 12px; }
-    .nav, .next-module { display: none; }
-    .checklist li { border: 1px solid #ccc; break-inside: avoid; }
-    .script-block { background: #f8f8f8; border-left: 4px solid #333; }
-    .script-text { color: black; }
-    a { color: black; }
+    body { background: white; color: black; }
+    .nav, .next-module, .font-controls { display: none; }
+    .script-block { background: #f5f5f5; }
     td, th { border: 1px solid #ccc !important; color: black !important; }
+    a { color: black; }
   }
 </style>
 </head>
@@ -143,76 +205,483 @@
   <div class="module-hero">
     <div class="module-num">Módulo 04</div>
     <h1 class="module-title">Tu Proceso Diario</h1>
-    <p class="module-lead">Scripts de conversación, checklist diaria, y la estructura exacta de la llamada conoscitiva. Lo que haces cada día para abrir puertas.</p>
+    <p class="module-lead">Cómo abres conversaciones, superas las primeras resistencias y registras citas en el calendario. Lo que haces cada día para mover el embudo.</p>
   </div>
 
-  <!-- SCRIPTS REDES -->
+  <!-- PROCESO DE UN VISTAZO -->
   <div class="section">
-    <div class="section-label">Redes sociales</div>
-    <h2>Scripts para IG / Facebook</h2>
-    <p>El objetivo no es mandar información. Es iniciar una conversación real que lleve a una llamada.</p>
+    <div class="section-label">Visión general</div>
+    <h2>El Proceso de Un Vistazo</h2>
+    <p>El proceso tiene fases claras. Tú controlas las primeras tres — y son las más críticas, porque sin ellas todo lo demás no existe.</p>
+
+    <div class="process-flow">
+      <div class="pf-step active">
+        <div class="pf-icon">💬</div>
+        <div class="pf-content">
+          <div class="pf-title">Contacto inicial</div>
+          <div class="pf-sub">Presencial o online — abrir conversación natural</div>
+        </div>
+        <div class="pf-who alvaro">ÁLVARO</div>
+      </div>
+      <div class="pf-arrow">↓</div>
+      <div class="pf-step active">
+        <div class="pf-icon">🔍</div>
+        <div class="pf-content">
+          <div class="pf-title">Calificación rápida</div>
+          <div class="pf-sub">¿Tiene negocio? ¿Problema real? ¿Presupuesto aproximado?</div>
+        </div>
+        <div class="pf-who alvaro">ÁLVARO</div>
+      </div>
+      <div class="pf-arrow">↓</div>
+      <div class="pf-step active">
+        <div class="pf-icon">📅</div>
+        <div class="pf-content">
+          <div class="pf-title">Registro en calendario</div>
+          <div class="pf-sub">Reservar cita en marcomarengo.es</div>
+        </div>
+        <div class="pf-who alvaro">ÁLVARO</div>
+      </div>
+      <div class="pf-arrow">↓</div>
+      <div class="pf-step marco">
+        <div class="pf-icon">📞</div>
+        <div class="pf-content">
+          <div class="pf-title">1ª Llamada conoscitiva (15 min)</div>
+          <div class="pf-sub">Diagnóstico: ¿hay fit? → Marco la gestiona</div>
+        </div>
+        <div class="pf-who marco">MARCO</div>
+      </div>
+      <div class="pf-arrow">↓</div>
+      <div class="pf-step marco">
+        <div class="pf-icon">🎯</div>
+        <div class="pf-content">
+          <div class="pf-title">2ª Cita — Propuesta y cierre (30-40 min)</div>
+          <div class="pf-sub">Presentación personalizada → cierre → 50% anticipo</div>
+        </div>
+        <div class="pf-who marco">MARCO</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONLINE VS PRESENCIAL -->
+  <div class="section">
+    <div class="section-label">El enfoque</div>
+    <h2>Online o Presencial — Siempre la Misma Formación</h2>
+
+    <p>El punto de partida ahora son <strong>contactos reales</strong>: personas que ya conoces, negocios locales del entorno, conversaciones que surgen naturalmente. No empezamos con redes sociales — eso viene después, cuando los perfiles de Marco estén activos con estrategia.</p>
+    <p>Lo importante que tienes que entender: <strong>cómo te acercas por chat o WhatsApp es exactamente igual a cómo lo harías en persona.</strong> El mismo tono, la misma curiosidad, las mismas preguntas. Esto es formación continua — cada conversación, online o presencial, te entrena.</p>
+
+    <div class="channel-grid">
+      <div class="channel-card online">
+        <div class="channel-icon">💻</div>
+        <div class="channel-title">Online</div>
+        <div class="channel-desc">Conversaciones por texto — WhatsApp, iMessage, cualquier mensajería. El tono es igual al presencial: casual, curioso, sin vender.</div>
+        <ul class="channel-examples">
+          <li>Contacto conocido con negocio</li>
+          <li>Alguien que te pregunta algo por mensaje</li>
+          <li>Seguimiento post-evento o reunión</li>
+          <li>Respuesta a stories o publicaciones</li>
+        </ul>
+      </div>
+      <div class="channel-card presencial">
+        <div class="channel-icon">🤝</div>
+        <div class="channel-title">Presencial</div>
+        <div class="channel-desc">Conversaciones en persona — encuentros casuales, eventos, visitas directas. El proceso es idéntico al online: primero la persona, luego la propuesta.</div>
+        <ul class="channel-examples">
+          <li>Negocio local de la zona</li>
+          <li>Evento de networking</li>
+          <li>Conocido con empresa propia</li>
+          <li>Referido por alguien del círculo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="equal-box">
+      <p>La conversación por <span>texto</span> y la <span>presencial</span> son la <span>misma mentalidad</span> — curiosidad genuina, sin presión, identificar el problema. Practica una y dominas ambas.</p>
+    </div>
+  </div>
+
+  <!-- CÓMO ABRIR CONVERSACIONES -->
+  <div class="section">
+    <div class="section-label">Los scripts</div>
+    <h2>Cómo Abrir Conversaciones</h2>
+    <p>El objetivo no es mandar información. Es iniciar una conversación real que lleve a que el prospecto acepte una llamada de 15 minutos con Marco.</p>
 
     <div class="scenario-cards">
       <div class="scenario-card">
         <div class="scenario-header">
-          <div class="scenario-num">1</div>
-          <div class="scenario-title">Nuevo seguidor en Instagram/Facebook</div>
+          <div class="scenario-num">A</div>
+          <div class="scenario-title">Alguien que ya conoces — tiene negocio</div>
         </div>
         <div class="scenario-body">
           <div class="script-block">
-            <div class="script-label">Script de apertura</div>
-            <div class="script-text">Hola [NOMBRE], he visto que acabas de empezar a seguirme.
-
-¿Tienes un negocio local o estás buscando más clientes?
-
-Solo quería saludarte y saber qué te trajo por aquí 😊</div>
+            <div class="script-label">Apertura (online o en persona)</div>
+            <div class="script-text">Oye [nombre], ¿sigues con [negocio]? He visto que estáis creciendo — ¿cómo os está yendo con los clientes nuevos estos meses?</div>
           </div>
-          <div class="script-rule"><strong>Regla:</strong> Pregunta abierta, sin vender nada. Tu único objetivo es que responda. Si no responde en 48-72h, un follow-up amable y cierra la conversación.</div>
+          <div class="script-rule"><strong>Regla:</strong> Empieza con algo específico de su negocio. Si no sabes nada, busca en Google Maps o Instagram antes. Pregunta abierta, no afirmación. Tu único objetivo es que responda con algo real.</div>
         </div>
       </div>
 
       <div class="scenario-card">
         <div class="scenario-header">
-          <div class="scenario-num">2</div>
-          <div class="scenario-title">Alguien pide una guía / PDF / recurso gratuito</div>
+          <div class="scenario-num">B</div>
+          <div class="scenario-title">Alguien que pide información o un recurso</div>
         </div>
         <div class="scenario-body">
-          <div class="script-block green">
+          <div class="script-block red">
             <div class="script-label">NO hacer esto ❌</div>
-            <div class="script-text">Aquí tienes el PDF: [link]
+            <div class="script-text">Aquí tienes el enlace: [link directo al PDF]
 
 ¡Espero que te sea útil!</div>
           </div>
-          <div class="script-block">
+          <div class="script-block green">
             <div class="script-label">Script correcto ✓</div>
             <div class="script-text">¡Perfecto! Antes de mandarte [X], déjame hacerte una pregunta rápida.
 
-¿Qué te llevó a buscar esto ahora? ¿Qué problema estás intentando resolver?
+¿Qué te llevó a buscar esto ahora? ¿Qué problema intentas resolver?
 
-Te lo mando enseguida — solo quiero asegurarme de que lo que te envío te sirva de verdad.</div>
+Te paso el enlace enseguida — solo quiero asegurarme de que lo que te envío te sirva de verdad.</div>
           </div>
-          <div class="script-rule"><strong>Regla:</strong> Nunca mandar materiales sin conversación previa. Un PDF enviado sin contexto se ignora. Una conversación abre la puerta.</div>
+          <div class="script-rule"><strong>Regla:</strong> Nunca mandar materiales directo. Primero la conversación. Y cuando lo envíes: siempre el enlace a la landing, nunca el PDF directamente — el prospecto se registra y obtenemos sus datos.</div>
         </div>
       </div>
 
       <div class="scenario-card">
         <div class="scenario-header">
-          <div class="scenario-num">3</div>
-          <div class="scenario-title">Objetivo final de toda conversación por DM</div>
+          <div class="scenario-num">C</div>
+          <div class="scenario-title">Transición hacia la cita — el objetivo final</div>
         </div>
         <div class="scenario-body">
-          <p>No importa cómo empieza la conversación. El objetivo siempre es el mismo:</p>
-          <div class="script-block yellow">
-            <div class="script-label">Frase de transición a llamada</div>
-            <div class="script-text">Mira, lo que me cuentas tiene mucho sentido y creo que puedo ayudarte.
+          <p>Cuando ya hay conversación y el prospecto muestra interés real, este es el momento de proponer la llamada:</p>
+          <div class="script-block">
+            <div class="script-label">Frase de transición a la cita</div>
+            <div class="script-text">Mira, lo que me cuentas tiene mucho sentido.
 
-¿Tienes 20-30 minutos esta semana para una llamada rápida?
+Te propongo algo: una llamada de 15 minutos con Marco — el que lleva las estrategias — para ver si hay algo concreto en lo que podemos ayudarte.
 
-No es una presentación de ventas — es una conversación para ver si hay algo en lo que podamos trabajar juntos.</div>
+No es una presentación de ventas. Es una conversación rápida para ver si encaja. ¿Tienes hueco esta semana?</div>
           </div>
-          <div class="script-rule"><strong>Regla:</strong> Nunca mandar un link de calendario sin haber tenido primero una conversación real. El calendario se manda cuando ya hay interés demostrado.</div>
+          <div class="script-rule"><strong>Regla:</strong> Nunca mandar el enlace del calendario sin conversación previa. El enlace se manda cuando ya hay interés demostrado. Si aceptan: vas a marcomarengo.es y buscas un hueco disponible.</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- OBJECIONES ANTES DE LA CITA -->
+  <div class="section">
+    <div class="section-label">Gestión de resistencias</div>
+    <h2>Objeciones Antes de la Primera Cita</h2>
+    <p>Estas objeciones aparecen <strong>antes de que el prospecto acepte la llamada</strong> — no durante la venta, sino en el primer contacto. Apréndetelas. Son predecibles y tienen respuesta.</p>
+
+    <div class="obj-list">
+      <div class="obj-item">
+        <div class="obj-question">
+          <div class="obj-q-icon">💬</div>
+          "¿Qué me vas a vender?"
+        </div>
+        <div class="obj-answer">
+          <div class="obj-answer-label">Cómo responder</div>
+          <div class="obj-answer-text">
+            No se trata de vender nada todavía. Marco trabaja con negocios locales y en 15 minutos puede decirte si lo que hace puede ayudarte o no — y si no, te lo dice él mismo.
+            <em>"No soy vendedor — soy el enlace con Marco. Mi trabajo es ver si hay algo útil para ti, no convencerte de nada."</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-question">
+          <div class="obj-q-icon">⏱️</div>
+          "No tengo tiempo para una llamada"
+        </div>
+        <div class="obj-answer">
+          <div class="obj-answer-label">Cómo responder</div>
+          <div class="obj-answer-text">
+            Son solo 15 minutos — menos que un café. No necesitas preparar nada. Y si al final de los 15 minutos ves que no es para ti, no hay compromiso.
+            <em>"¿Tienes 15 minutos libres el [día concreto] o el [día alternativo]?"</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-question">
+          <div class="obj-q-icon">🏢</div>
+          "Ya tengo quien lleva mi marketing"
+        </div>
+        <div class="obj-answer">
+          <div class="obj-answer-label">Cómo responder</div>
+          <div class="obj-answer-text">
+            Perfecto. Lo que hace Marco es diferente — y puede complementar lo que ya tienes o darte una segunda opinión. 15 minutos para ver si hay algo que vale la pena o no.
+            <em>"¿Estás contento con los resultados que estás teniendo ahora?"</em> (Si duda, ahí está el hueco.)
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-question">
+          <div class="obj-q-icon">💰</div>
+          "¿Cuánto cuesta?"
+        </div>
+        <div class="obj-answer">
+          <div class="obj-answer-label">Cómo responder</div>
+          <div class="obj-answer-text">
+            Depende totalmente de tu situación — por eso necesito que hables primero con Marco. En 15 minutos él te explica si tiene sentido para ti y qué implicaría. Sin esa conversación no podría darte un número real.
+            <em>"Antes de hablar de dinero, primero hay que ver si hay fit — eso lo hace Marco en la llamada."</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-question">
+          <div class="obj-q-icon">🙅</div>
+          "No me interesa el marketing digital"
+        </div>
+        <div class="obj-answer">
+          <div class="obj-answer-label">Cómo responder</div>
+          <div class="obj-answer-text">
+            Lo entiendo. La mayoría de clientes de Marco pensaban lo mismo al principio. No es hacer "más marketing" — es conseguir más clientes con menos esfuerzo. Pero si no es el momento, no hay problema.
+            <em>"Si en algún momento quieres explorar cómo lo hace, aquí estamos. Sin prisa."</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-question">
+          <div class="obj-q-icon">📄</div>
+          "Mándame la información por escrito primero"
+        </div>
+        <div class="obj-answer">
+          <div class="obj-answer-label">Cómo responder</div>
+          <div class="obj-answer-text">
+            Puedo mandarte algo, pero cada caso es muy diferente y un PDF genérico no te va a decir nada concreto. En 15 minutos Marco te da una respuesta personalizada — y ahorramos tiempo los dos.
+            <em>"¿Te va bien [día] a las [hora]? Son 15 minutos y vas a tener más claridad que con cualquier PDF."</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-question">
+          <div class="obj-q-icon">🤔</div>
+          "No sé si funciona para mi tipo de negocio"
+        </div>
+        <div class="obj-answer">
+          <div class="obj-answer-label">Cómo responder</div>
+          <div class="obj-answer-text">
+            Esa es exactamente la pregunta que resuelve la llamada con Marco. Él te dice en 15 minutos si tiene sentido o no — y si no encaja, te lo dice directamente. No hay ninguna razón para no saberlo.
+            <em>"¿Qué tienes que perder en 15 minutos?"</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CÓMO REGISTRAR LA CITA -->
+  <div class="section">
+    <div class="section-label">El calendario</div>
+    <h2>Cómo Registrar la Cita en el Calendario de Marco</h2>
+    <p>Cuando el prospecto acepta la llamada, tu trabajo es registrar la cita correctamente. El calendario está en <strong>marcomarengo.es</strong> — aprende a usarlo antes de necesitarlo.</p>
+
+    <div class="cal-steps">
+      <div class="cal-step">
+        <div class="cal-num">1</div>
+        <div class="cal-body">
+          <div class="cal-title">Confirmar el interés antes de mandar el enlace</div>
+          <div class="cal-desc">Solo mandas el enlace del calendario cuando el prospecto ha dicho claramente "sí, quiero esa llamada". No antes. No como opción. Como siguiente paso concreto.</div>
+        </div>
+      </div>
+      <div class="cal-step">
+        <div class="cal-num">2</div>
+        <div class="cal-body">
+          <div class="cal-title">Ir a marcomarengo.es</div>
+          <div class="cal-desc">El calendario de reservas está en el sitio web de Marco. Entra tú primero para ver los huecos disponibles antes de hablar con el prospecto — así puedes proponer fechas concretas.</div>
+          <div class="cal-tip">marcomarengo.es → sección de reservas / "Agenda tu llamada"</div>
+        </div>
+      </div>
+      <div class="cal-step">
+        <div class="cal-num">3</div>
+        <div class="cal-body">
+          <div class="cal-title">Proponer 2 opciones concretas</div>
+          <div class="cal-desc">En lugar de mandar el enlace sin más, propón tú las opciones: "¿Te va bien el martes a las 10h o el jueves a las 16h?" Dar opciones concretas aumenta la probabilidad de que confirme.</div>
+        </div>
+      </div>
+      <div class="cal-step">
+        <div class="cal-num">4</div>
+        <div class="cal-body">
+          <div class="cal-title">Mandar el enlace y confirmar</div>
+          <div class="cal-desc">Una vez acordada la fecha: manda el enlace del calendario para que reserve él mismo. Luego confirma por WhatsApp: "Perfecto, queda apuntado para [fecha] a las [hora] con Marco. Te mandará confirmación."</div>
+        </div>
+      </div>
+      <div class="cal-step">
+        <div class="cal-num">5</div>
+        <div class="cal-body">
+          <div class="cal-title">Recordatorio 24h antes</div>
+          <div class="cal-desc">Un mensaje corto el día antes: "Hola [nombre], mañana [día] a las [hora] tu llamada con Marco. ¿Todo ok?" Simple y directo. Reduce cancelaciones de último momento.</div>
+          <div class="cal-tip">Sin este paso, el 20-30% de prospectos se olvida o desaparece</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAS 2 LLAMADAS — FORMATIVO -->
+  <div class="section">
+    <div class="section-label">Solo formativo — no las haces tú</div>
+    <h2>Las 2 Llamadas — Marco las Gestiona</h2>
+
+    <div class="formativo-box" style="margin-bottom: 24px;">
+      <div class="formativo-icon">📚</div>
+      <div class="formativo-text"><strong>Importante:</strong> Marco te mostrará cómo hace las dos llamadas a modo formativo — para que aprendas el proceso y puedas hacerlas tú mismo cuando llegue el momento. Pero <strong>por ahora no las haces tú</strong>. Tu trabajo es llenar el calendario y aprender observando.</div>
+    </div>
+
+    <!-- 1ª LLAMADA -->
+    <div class="call-box" style="margin-bottom: 20px;">
+      <div class="call-header">
+        <div class="call-title">1ª Llamada Conoscitiva</div>
+        <div class="call-badge">
+          <div class="call-duration">15 min</div>
+          <div class="call-who-badge">MARCO</div>
+        </div>
+      </div>
+      <div class="call-body">
+        <p style="margin-bottom:16px; font-size:14px;">El objetivo de esta llamada es único: entender si el prospecto tiene un problema real y si hay fit. No es una presentación. Es un diagnóstico rápido.</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot purple">0-2'</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-time">Minutos 0–2</div>
+              <div class="tl-title">Presentación y contexto</div>
+              <div class="tl-desc">Marco se presenta brevemente. Objetivo: crear un ambiente relajado. "En los próximos 15 minutos quiero entender bien tu situación."</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot purple">2-8'</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-time">Minutos 2–8</div>
+              <div class="tl-title">Diagnóstico: problemas y situación</div>
+              <div class="tl-desc">¿Cuál es el mayor reto ahora para conseguir clientes? ¿Cuánto facturas? ¿Qué has probado antes? Marco escucha, no habla.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot green">8-12'</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-time">Minutos 8–12</div>
+              <div class="tl-title">Calificación y temperatura</div>
+              <div class="tl-desc">¿Cuánto puedes invertir por mes? ¿Qué tan motivado estás para resolver esto ahora (escala 1-10)? Estas respuestas confirman o descartan el fit.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot yellow">13-15'</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-time">Minutos 13–15</div>
+              <div class="tl-title">Conclusión → siguiente paso</div>
+              <div class="tl-desc">Si hay fit: "Lo que me cuentas encaja bien. Te preparo una propuesta personalizada y hablamos en una segunda llamada de 30-40 min." Si no hay fit: honestidad directa.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2ª CITA -->
+    <div class="call-box">
+      <div class="call-header">
+        <div class="call-title">2ª Cita — Propuesta y Cierre</div>
+        <div class="call-badge">
+          <div class="call-duration">30-40 min</div>
+          <div class="call-who-badge">MARCO</div>
+        </div>
+      </div>
+      <div class="call-body">
+        <p style="margin-bottom:16px; font-size:14px;">Marco presenta la solución personalizada y gestiona el cierre. Esta cita puede ser por video o presencial con iPad.</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot purple">1</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title">Recap de la 1ª llamada</div>
+              <div class="tl-desc">Marco repite los problemas y objetivos del prospecto con sus propias palabras. Demuestra que escuchó.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot purple">2</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title">Presentación de la solución personalizada</div>
+              <div class="tl-desc">El paquete que corresponde a su situación. No genérico — específico para él.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot green">3</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title">Precio con confianza → gestión de objeciones</div>
+              <div class="tl-desc">El número se presenta con pausa. Las objeciones se gestionan con los scripts del Módulo 05.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot yellow">4</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-title">Cierre → 50% anticipo</div>
+              <div class="tl-desc">"Te mando el IBAN. El 50% antes de mañana y empezamos esta semana."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REDES SOCIALES — FUTURO -->
+  <div class="section">
+    <div class="section-label">Próximamente</div>
+    <h2>Cuándo Lleguen las Redes Sociales</h2>
+
+    <div class="info-box">
+      <div class="box-icon">⏳</div>
+      <div class="box-text"><strong>Por ahora nos movemos por contactos locales y reales.</strong> El acceso a los perfiles sociales de Marco llegará solo cuando estén reactivados con estrategia, contenido y todo listo. Antes de eso, no tiene sentido empezar a hacer DMs en frío desde perfiles sin trabajar.</div>
+    </div>
+
+    <p>Cuando llegue ese momento, el enfoque será <strong>exactamente el mismo</strong>: abrir conversaciones reales, identificar problemas, proponer la llamada. El canal cambia, la mentalidad no. Todo lo que practicas ahora vale para cuando haya redes activas.</p>
+
+    <div class="alert-box">
+      <div class="box-icon">⚠️</div>
+      <div class="box-text"><strong>No improvises en las redes de Marco.</strong> Cuando se reactive, hay una estrategia específica de contenido y DMs. Nada se hace sin alinearlo primero.</div>
+    </div>
+  </div>
+
+  <!-- EL PDF Y RECURSOS -->
+  <div class="section">
+    <div class="section-label">Regla importante</div>
+    <h2>El PDF y los Recursos — Siempre vía Landing</h2>
+
+    <p>Cualquier guía, PDF o recurso que quiera el prospecto <strong>nunca se manda directamente</strong>. Siempre envías el enlace a la landing page — el prospecto se registra, nosotros obtenemos sus datos. Si le mandas el archivo directo, perdemos el contacto.</p>
+
+    <div class="script-block green">
+      <div class="script-label">Cómo decirlo</div>
+      <div class="script-text">Te mando el enlace donde puedes acceder — así también queda guardado para ti y puedes volver cuando quieras.
+
+[enlace a landing page]</div>
+    </div>
+
+    <div class="alert-box">
+      <div class="box-icon">❌</div>
+      <div class="box-text"><strong>Nunca:</strong> adjuntar el PDF directamente, mandar link directo al archivo, o decir "aquí tienes" sin que se registre primero. Cada registro es un contacto en nuestro sistema.</div>
     </div>
   </div>
 
@@ -220,251 +689,93 @@ No es una presentación de ventas — es una conversación para ver si hay algo 
   <div class="section">
     <div class="section-label">Rutina</div>
     <h2>Checklist Diaria</h2>
-    <p>Estos 6 puntos son lo mínimo de cada día. Si los haces todos, el sistema funciona.</p>
+    <p>Estos puntos son lo mínimo de cada día. Si los haces todos, el sistema funciona.</p>
 
     <ul class="checklist" id="dailyChecklist">
       <li>
         <input type="checkbox" id="c1">
-        <label for="c1">He escrito a todos los nuevos seguidores (menos de 48h sin respuesta)</label>
+        <label for="c1">He iniciado al menos 2 conversaciones nuevas hoy (online o presencial)</label>
       </li>
       <li>
         <input type="checkbox" id="c2">
-        <label for="c2">No hay ninguna chat sin leer de más de 3 días</label>
+        <label for="c2">No hay ningún contacto sin respuesta de más de 3 días</label>
       </li>
       <li>
         <input type="checkbox" id="c3">
-        <label for="c3">He gestionado las solicitudes inbound (PDF, guía, lección) con conversación previa</label>
+        <label for="c3">He hecho follow-up a quienes no respondieron hace 3-5 días</label>
       </li>
       <li>
         <input type="checkbox" id="c4">
-        <label for="c4">He hecho follow-up a personas que no respondieron hace 3-5 días</label>
+        <label for="c4">He revisado los huecos disponibles en el calendario (marcomarengo.es)</label>
       </li>
       <li>
         <input type="checkbox" id="c5">
-        <label for="c5">He revisado las llamadas confirmadas de esta semana</label>
+        <label for="c5">He enviado recordatorio a quien tiene cita mañana</label>
       </li>
       <li>
         <input type="checkbox" id="c6">
-        <label for="c6">He hecho seguimiento a links o materiales enviados recientemente</label>
+        <label for="c6">He informado a Marco de cualquier prospecto con señal fuerte de interés</label>
       </li>
     </ul>
   </div>
 
-  <!-- LLAMADA CONOSCITIVA -->
-  <div class="section">
-    <div class="section-label">La llamada de 27 minutos</div>
-    <h2>Llamada Conoscitiva — Estructura Exacta</h2>
-    <p>Esta llamada tiene un objetivo único: entender si el prospecto tiene un problema real y si está listo para resolverlo. <strong>No es una presentación. Es una exploración.</strong></p>
-
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot purple">0-2'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 0–2</div>
-          <div class="tl-title">Presentación y contexto</div>
-          <div class="tl-desc">Presentarte brevemente. Explicar el objetivo de la llamada: "en los próximos 25-27 minutos quiero entender bien tu situación para ver si podemos ayudarte." Crear un ambiente relajado, sin presión.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot purple">2-7'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 2–7</div>
-          <div class="tl-title">Desafíos y problemas actuales</div>
-          <div class="tl-desc">¿Cuál es el mayor reto que tienes ahora para conseguir clientes? ¿Qué no está funcionando? Escucha, no hables. Toma nota mental de los puntos de dolor.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot purple">8-12'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 8–12</div>
-          <div class="tl-title">Deseos y objetivos</div>
-          <div class="tl-desc">Si en 6 meses esto funcionara perfectamente, ¿cómo sería? ¿Qué número de clientes nuevos por mes te cambiaría el negocio? Construyes la visión del éxito que él quiere.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot yellow">13-17'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 13–17</div>
-          <div class="tl-title">Situación actual detallada</div>
-          <div class="tl-desc">¿Qué has probado antes? ¿Has trabajado con alguna agencia? ¿Qué funcionó, qué no? ¿Tienes Google Ads activos? Esto te ayuda a elegir el tier correcto y anticipar objeciones.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot yellow">18-19'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 18–19</div>
-          <div class="tl-title">Presupuesto disponible</div>
-          <div class="tl-desc">¿Cuánto puedes invertir por mes en marketing? Incluye tanto nuestra fee como el presupuesto de ads. Esta respuesta confirma o descarta el tier. Si dice menos de €700/mes total, INICIO. Si dice €1.300-1.600, ACTIVO.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot green">20-21'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 20–21</div>
-          <div class="tl-title">Temperatura de entusiasmo (escala 1-10)</div>
-          <div class="tl-desc">Pregunta directa: "En una escala del 1 al 10, ¿qué tan motivado estás para resolver esto ahora mismo?"</div>
-          <div class="tl-tip">Si dice menos de 8 → Psicología inversa: "Entonces quizás no es el momento adecuado para ti." Esto activa el instinto de no perder la oportunidad.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot green">22-23'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 22–23</div>
-          <div class="tl-title">Disponibilidad de tiempo</div>
-          <div class="tl-desc">¿Tienes tiempo para implementar este sistema? ¿Puedes dedicar 2-3h por semana al seguimiento? Esto filtra a quien no está realmente comprometido.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot red">24'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minuto 24</div>
-          <div class="tl-title">¿Listo para empezar ahora?</div>
-          <div class="tl-desc">Si la temperatura es alta: "¿Estás en posición de empezar en los próximos 7-14 días si la propuesta tiene sentido para ti?" Esto te dice si hay urgencia real.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot red">24-26'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minutos 24–26</div>
-          <div class="tl-title">Otros cursos o inversiones actuales</div>
-          <div class="tl-desc">¿Estás invirtiendo ahora mismo en otra formación o en otro servicio de marketing? Esto revela si hay competencia por su presupuesto y cómo posicionarte.</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left">
-          <div class="tl-dot purple">27'</div>
-          <div class="tl-line"></div>
-        </div>
-        <div class="tl-content">
-          <div class="tl-time">Minuto 27</div>
-          <div class="tl-title">Cierre → Fija la 2ª cita</div>
-          <div class="tl-desc">Si hay fit: "Perfecto. Lo que me cuentas encaja bien con lo que hacemos. Voy a preparar una propuesta personalizada para ti. ¿Podemos tener una segunda llamada de 30-40 minutos para revisarla juntos?"</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROTOCOLO 2ª CITA -->
-  <div class="section">
-    <div class="section-label">Segunda llamada</div>
-    <h2>Protocolo 2ª Cita</h2>
-    <p>La 2ª cita es donde se presenta la solución y se gestiona el cierre. Viene después de la llamada conoscitiva.</p>
-
-    <div class="second-apt">
-      <div class="sa-step">
-        <div class="sa-num">1</div>
-        <div class="sa-body">
-          <div class="sa-title">Primeros 5-10 min: Riepilogo de la 1ª llamada</div>
-          <div class="sa-desc">Empieza tú: "En nuestra llamada anterior me dijiste que..." Repite sus problemas y objetivos con sus propias palabras. Esto demuestra que escuchaste y crea el contexto para la solución.</div>
-        </div>
-      </div>
-      <div class="sa-step">
-        <div class="sa-num">2</div>
-        <div class="sa-body">
-          <div class="sa-title">Presenta la solución personalizada</div>
-          <div class="sa-desc">Muestra el paquete que corresponde a su situación. Explica qué incluye, cómo funciona, y por qué es la opción correcta para él específicamente (no genérico).</div>
-        </div>
-      </div>
-      <div class="sa-step">
-        <div class="sa-num">3</div>
-        <div class="sa-body">
-          <div class="sa-title">Muestra el precio con confianza</div>
-          <div class="sa-desc">Di el número con pausa después. No lo justifiques inmediatamente. Deja que procese. La justificación vive en el valor que ya presentaste, no en el precio.</div>
-        </div>
-      </div>
-      <div class="sa-step">
-        <div class="sa-num">4</div>
-        <div class="sa-body">
-          <div class="sa-title">Gestiona las objeciones</div>
-          <div class="sa-desc">Ver Módulo 05 para los scripts exactos. Cada objeción tiene una respuesta probada. No improvises.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- RESUMEN TABLE -->
+  <!-- RESUMEN -->
   <div class="section">
     <div class="section-label">Resumen del proceso</div>
-    <h2>El Proceso de Un Vistazo</h2>
-
+    <h2>De Un Vistazo</h2>
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
             <th>Fase</th>
-            <th>Herramienta</th>
+            <th>Canal</th>
             <th>Objetivo</th>
-            <th>Duración</th>
+            <th>Responsable</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="td-label">Apertura DM</td>
-            <td>IG / Facebook</td>
+            <td class="td-label">Contacto inicial</td>
+            <td>Online / presencial</td>
             <td>Iniciar conversación real</td>
-            <td>1-3 mensajes</td>
+            <td style="color: var(--accent); font-weight:700;">Álvaro</td>
           </tr>
           <tr>
-            <td class="td-label">Transición a llamada</td>
-            <td>DM / WhatsApp</td>
-            <td>Conseguir que acepte la 1ª call</td>
-            <td>3-7 días</td>
+            <td class="td-label">Calificación</td>
+            <td>Chat / WhatsApp / en persona</td>
+            <td>¿Problema real? ¿Budget? ¿Fit?</td>
+            <td style="color: var(--accent); font-weight:700;">Álvaro</td>
           </tr>
           <tr>
-            <td class="td-label">1ª Llamada Conoscitiva</td>
-            <td>Teléfono / Video</td>
-            <td>Diagnosticar → fit → fija 2ª cita</td>
-            <td>27 minutos</td>
+            <td class="td-label">Registro cita</td>
+            <td>marcomarengo.es</td>
+            <td>Cita confirmada + recordatorio</td>
+            <td style="color: var(--accent); font-weight:700;">Álvaro</td>
           </tr>
           <tr>
-            <td class="td-label">2ª Cita</td>
-            <td>Video / Presencial (iPad)</td>
-            <td>Presentar propuesta → cierre</td>
-            <td>30-40 minutos</td>
+            <td class="td-label">1ª Llamada (15 min)</td>
+            <td>Teléfono / video</td>
+            <td>Diagnóstico → fit → fija 2ª cita</td>
+            <td style="color: var(--green); font-weight:700;">Marco</td>
+          </tr>
+          <tr>
+            <td class="td-label">2ª Cita (30-40 min)</td>
+            <td>Video / presencial</td>
+            <td>Propuesta personalizada → cierre</td>
+            <td style="color: var(--green); font-weight:700;">Marco</td>
           </tr>
           <tr>
             <td class="td-label">Cierre</td>
             <td>Email con IBAN</td>
             <td>50% anticipo → setup empieza</td>
-            <td>24h máx</td>
+            <td style="color: var(--green); font-weight:700;">Marco</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="note-box">
-    <strong>Nota:</strong> El proceso completo — incluyendo técnicas avanzadas de diagnóstico, gestión de temperatura, y cierre consultivo — se profundiza en la formación avanzada. Este módulo cubre la base operativa que necesitas para empezar.
-  </div>
-
-  <div style="margin-top: 32px;" class="next-module">
+  <div class="next-module">
     <div>
       <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
       <div style="font-size:18px; font-weight:800; color: var(--text);">Manejo de Objeciones</div>
@@ -477,9 +788,21 @@ No es una presentación de ventas — es una conversación para ver si hay algo 
   </footer>
 </div>
 
+<div class="font-controls">
+  <button class="font-btn" onclick="changeFontSize(-1)" title="Reducir texto">A−</button>
+  <button class="font-btn" onclick="changeFontSize(1)" title="Aumentar texto">A+</button>
+</div>
+
 <script>
   localStorage.setItem('visited_04-el-proceso', '1');
-  // Persist checklist state
+  let currentSize = parseInt(localStorage.getItem('prefFontSize') || '16');
+  document.body.style.fontSize = currentSize + 'px';
+  function changeFontSize(delta) {
+    currentSize = Math.max(13, Math.min(22, currentSize + delta));
+    document.body.style.fontSize = currentSize + 'px';
+    localStorage.setItem('prefFontSize', currentSize);
+  }
+  // Persist checklist
   const checks = document.querySelectorAll('#dailyChecklist input[type="checkbox"]');
   checks.forEach((cb, i) => {
     const saved = localStorage.getItem('checklist_04_' + i);

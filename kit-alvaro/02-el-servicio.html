@@ -1,341 +1,437 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>02 — El Sistema MOTOR | Kit Álvaro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
-    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
-    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
-    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
-  }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 — El Sistema MOTOR | Kit Álvaro</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+          --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+          --text: #e8eaf0; --text-muted: #8b8fa8; --text-body: #c8cad8;
+          --accent: #6c63ff; --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+          --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+        .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+        .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+        .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+        .nav-links a.active { background: var(--accent-light); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+        .module-hero { margin-bottom: 48px; }
+        .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+        .module-lead { font-size: 18px; color: var(--text-body); line-height: 1.6; max-width: 600px; }
+        .section { margin-bottom: 56px; }
+        .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+        h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+        h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+        p { margin-bottom: 16px; color: var(--text-body); }
+        p strong { color: var(--text); }
+        .table-wrapper { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        thead tr { background: #13151e; }
+        th { padding: 14px 16px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+        th.tier-inicio { color: #93c5fd; }
+        th.tier-activo { color: var(--green); }
+        th.tier-total { color: var(--yellow); }
+        td { padding: 14px 16px; font-size: 15px; color: var(--text-body); border-bottom: 1px solid var(--border); vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+        .td-label { font-weight: 700; color: var(--text); font-size: 14px; }
+        .td-num { font-weight: 800; font-size: 17px; }
+        .td-inicio { color: #93c5fd; }
+        .td-activo { color: var(--green); }
+        .td-total { color: var(--yellow); }
+        .td-big { font-size: 20px; font-weight: 900; }
+        .td-note { font-size: 12px; color: var(--text-muted); font-weight: 400; display: block; margin-top: 2px; }
+        .bar-chart { display: flex; flex-direction: column; gap: 20px; }
+        .bar-item { display: flex; flex-direction: column; gap: 8px; }
+        .bar-label { display: flex; justify-content: space-between; align-items: baseline; }
+        .bar-tier { font-size: 14px; font-weight: 700; color: var(--text); }
+        .bar-value { font-size: 20px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+        .bar-track { background: rgba(255,255,255,0.05); border-radius: 100px; height: 28px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 100px; display: flex; align-items: center; padding-left: 14px; font-size: 12px; font-weight: 700; color: rgba(0,0,0,0.7); }
+        .bar-fill.inicio { background: #93c5fd; width: 36.3%; }
+        .bar-fill.activo { background: var(--green); width: 63.7%; }
+        .bar-fill.total { background: var(--yellow); width: 100%; }
+        .bar-sub { font-size: 12px; color: var(--text-muted); }
+        .decision-table { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+        .dt-header { background: #13151e; display: grid; grid-template-columns: 1fr 1fr 1fr; }
+        .dt-header div { padding: 12px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); border-right: 1px solid var(--border); }
+        .dt-header div:last-child { border-right: none; }
+        .dt-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--border); }
+        .dt-row:nth-child(odd) { background: rgba(255,255,255,0.02); }
+        .dt-cell { padding: 14px 16px; font-size: 14px; color: var(--text-body); border-right: 1px solid var(--border); display: flex; align-items: center; }
+        .dt-cell:last-child { border-right: none; }
+        .dt-cell.red-text { color: var(--red); font-weight: 700; }
+        .dt-cell.highlight { font-weight: 700; font-size: 15px; color: var(--text); }
+        .rule-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; }
+        .rule-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .rule-item:last-child { border-bottom: none; }
+        .rule-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .rule-icon.alert { background: rgba(255,107,107,0.15); }
+        .rule-icon.ok { background: var(--green-light); }
+        .rule-body { flex: 1; }
+        .rule-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+        .rule-desc { font-size: 14px; color: var(--text-body); }
+        .rule-desc em { color: var(--yellow); font-style: normal; }
+        .qualify-box { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+        .qualify-question { font-size: clamp(20px,4vw,28px); font-weight: 900; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
+        .qualify-sub { font-size: 14px; color: var(--text-body); }
+        .alert-box { background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.3); border-radius: 12px; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; }
+        .alert-icon { font-size: 20px; flex-shrink: 0; }
+        .alert-text { font-size: 15px; color: var(--text-body); }
+        .alert-text strong { color: var(--text); }
+        .info-box { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.3); border-radius: 12px; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; margin-top: 16px; }
+        .info-box .info-text { font-size: 15px; color: var(--text-body); }
+        .info-box .info-text strong { color: var(--text); }
 
-  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
-  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
-  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
-  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
-  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
-  .nav-links a.active { background: var(--accent-light); }
+        /* PRODUCTO GRADUAL CARDS */
+        .grad-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
+        .grad-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+        .grad-card-icon { font-size: 24px; margin-bottom: 10px; }
+        .grad-card-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+        .grad-card-desc { font-size: 13px; color: var(--text-body); line-height: 1.5; }
 
-  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+        /* JOURNEY PROSPECT */
+        .prospect-journey { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 20px 0; }
+        .pj-step { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 13px; text-align: center; }
+        .pj-step .pj-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+        .pj-step .pj-name { font-weight: 700; color: var(--text); }
+        .pj-arrow { color: var(--text-muted); font-size: 18px; padding: 0 8px; }
 
-  .module-hero { margin-bottom: 48px; }
-  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
-  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+        .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+        .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
 
-  .section { margin-bottom: 56px; }
-  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
-  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
-  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-  p { margin-bottom: 16px; color: var(--text-muted); }
-  p strong { color: var(--text); }
+        /* FONT CONTROLS */
+        .font-controls { position: fixed; bottom: 24px; right: 24px; display: flex; gap: 8px; z-index: 200; }
+        .font-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text); width: 44px; height: 44px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .font-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* TABLE */
-  .table-wrapper { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
-  table { width: 100%; border-collapse: collapse; min-width: 600px; }
-  thead tr { background: #13151e; }
-  th { padding: 14px 16px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
-  th:first-child { color: var(--text-muted); }
-  th.tier-inicio { color: #93c5fd; }
-  th.tier-activo { color: var(--green); }
-  th.tier-total { color: var(--yellow); }
-  td { padding: 14px 16px; font-size: 15px; color: var(--text-muted); border-bottom: 1px solid var(--border); vertical-align: top; }
-  tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-  .td-label { font-weight: 700; color: var(--text); font-size: 14px; }
-  .td-num { font-weight: 800; font-size: 17px; }
-  .td-inicio { color: #93c5fd; }
-  .td-activo { color: var(--green); }
-  .td-total { color: var(--yellow); }
-  .td-big { font-size: 20px; font-weight: 900; }
-
-  /* BAR CHART */
-  .bar-chart { display: flex; flex-direction: column; gap: 20px; }
-  .bar-item { display: flex; flex-direction: column; gap: 8px; }
-  .bar-label { display: flex; justify-content: space-between; align-items: baseline; }
-  .bar-tier { font-size: 14px; font-weight: 700; color: var(--text); }
-  .bar-value { font-size: 20px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
-  .bar-track { background: rgba(255,255,255,0.05); border-radius: 100px; height: 28px; overflow: hidden; position: relative; }
-  .bar-fill { height: 100%; border-radius: 100px; display: flex; align-items: center; padding-left: 14px; font-size: 12px; font-weight: 700; color: rgba(0,0,0,0.7); transition: width 1.2s ease; }
-  .bar-fill.inicio { background: #93c5fd; width: 36.3%; }
-  .bar-fill.activo { background: var(--green); width: 63.7%; }
-  .bar-fill.total { background: var(--yellow); width: 100%; }
-  .bar-sub { font-size: 12px; color: var(--text-muted); }
-
-  /* DECISION TABLE */
-  .decision-table { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-  .dt-header { background: #13151e; display: grid; grid-template-columns: 1fr 1fr 1fr; }
-  .dt-header div { padding: 12px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); border-right: 1px solid var(--border); }
-  .dt-header div:last-child { border-right: none; }
-  .dt-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--border); }
-  .dt-row:nth-child(odd) { background: rgba(255,255,255,0.02); }
-  .dt-cell { padding: 14px 16px; font-size: 14px; border-right: 1px solid var(--border); display: flex; align-items: center; }
-  .dt-cell:last-child { border-right: none; }
-  .dt-cell.highlight { font-weight: 700; font-size: 16px; }
-
-  /* RULES */
-  .rule-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; }
-  .rule-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
-  .rule-item:last-child { border-bottom: none; }
-  .rule-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .rule-icon.alert { background: rgba(255,107,107,0.15); }
-  .rule-icon.ok { background: var(--green-light); }
-  .rule-body { flex: 1; }
-  .rule-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-  .rule-desc { font-size: 14px; color: var(--text-muted); }
-
-  /* QUALIFY HIGHLIGHT */
-  .qualify-box { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
-  .qualify-question { font-size: clamp(20px,4vw,28px); font-weight: 900; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
-  .qualify-sub { font-size: 14px; color: var(--text-muted); }
-
-  /* ALERT */
-  .alert-box { background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.3); border-radius: 12px; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; }
-  .alert-icon { font-size: 20px; flex-shrink: 0; }
-  .alert-text { font-size: 15px; color: var(--text); }
-
-  .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .next-module a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
-
-  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
-
-  @media print {
-    body { background: white; color: black; font-size: 12px; }
-    .nav, .next-module { display: none; }
-    .table-wrapper { border: 1px solid #ccc; }
-    td, th { border: 1px solid #ccc !important; }
-    .bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    a { color: black; }
-  }
-
-  @media (max-width: 600px) {
-    .dt-header, .dt-row { grid-template-columns: 1fr 1fr; }
-    .dt-cell:nth-child(3), .dt-header div:nth-child(3) { display: none; }
-  }
-</style>
+        @media print { body { background: white; color: black; } .nav, .next-module, .font-controls { display: none; } .table-wrapper { border: 1px solid #ccc; } td, th { border: 1px solid #ccc !important; } a { color: black; } }
+        @media (max-width: 600px) { .dt-header, .dt-row { grid-template-columns: 1fr 1fr; } .dt-cell:nth-child(3), .dt-header div:nth-child(3) { display: none; } .font-controls { bottom: 16px; right: 16px; } }
+    </style>
 </head>
 <body>
-
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-back">← Volver al índice</a>
-    <div class="nav-links">
-      <a href="01-bienvenida.html">01</a>
-      <a href="02-el-servicio.html" class="active">02</a>
-      <a href="03-tu-compensacion.html">03</a>
-      <a href="04-el-proceso.html">04</a>
-      <a href="05-objeciones.html">05</a>
-      <a href="06-practica.html">06</a>
-    </div>
-  </div>
-</nav>
-
-<div class="container">
-
-  <div class="module-hero">
-    <div class="module-num">Módulo 02</div>
-    <h1 class="module-title">El Sistema MOTOR</h1>
-    <p class="module-lead">Los 3 paquetes que vendemos, a quién van dirigidos, y la única pregunta que necesitas para saber cuál ofrecer.</p>
-  </div>
-
-  <!-- LOS 3 PAQUETES -->
-  <div class="section">
-    <div class="section-label">Los paquetes</div>
-    <h2>Los 3 Paquetes MOTOR</h2>
-
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Qué incluye</th>
-            <th class="tier-inicio">MOTOR INICIO</th>
-            <th class="tier-activo">MOTOR ACTIVO</th>
-            <th class="tier-total">MOTOR TOTAL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="td-label">Setup (una sola vez)</td>
-            <td class="td-num td-inicio">€1.500</td>
-            <td class="td-num td-activo">€2.500</td>
-            <td class="td-num td-total">€4.000</td>
-          </tr>
-          <tr>
-            <td class="td-label">Fee mensual</td>
-            <td class="td-num td-inicio">€500/mes</td>
-            <td class="td-num td-activo">€900/mes</td>
-            <td class="td-num td-total">€1.400/mes</td>
-          </tr>
-          <tr>
-            <td class="td-label">Duración mínima</td>
-            <td>6 meses</td>
-            <td>6 meses</td>
-            <td>6 meses</td>
-          </tr>
-          <tr>
-            <td class="td-label">Facturación cliente</td>
-            <td>€150K–€300K/año</td>
-            <td>€300K–€700K/año</td>
-            <td>€700K+/año</td>
-          </tr>
-          <tr>
-            <td class="td-label">Sector típico (Orihuela)</td>
-            <td>Bar, chiringuito, escuela deportiva</td>
-            <td>Restaurante, clínica, inmobiliaria</td>
-            <td>Hotel, real estate premium</td>
-          </tr>
-          <tr>
-            <td class="td-label">Canales incluidos</td>
-            <td>Google Ads + Email</td>
-            <td>Google Ads + Email + Telegram</td>
-            <td>Todo + multicanal avanzado</td>
-          </tr>
-          <tr>
-            <td class="td-label">Presupuesto ads cliente</td>
-            <td style="color: var(--text-muted);">€200–400/mes (paga él directamente)</td>
-            <td style="color: var(--text-muted);">€400–700/mes</td>
-            <td style="color: var(--text-muted);">€700–1.200/mes</td>
-          </tr>
-          <tr>
-            <td class="td-label">Valor total año 1</td>
-            <td class="td-big td-inicio">€4.500</td>
-            <td class="td-big td-activo">€7.900</td>
-            <td class="td-big td-total">€12.400</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- GRÁFICO BARRAS -->
-  <div class="section">
-    <div class="section-label">Valor comparativo</div>
-    <h2>Valor Total — Año 1 por Tier</h2>
-
-    <div class="bar-chart">
-      <div class="bar-item">
-        <div class="bar-label">
-          <span class="bar-tier">MOTOR INICIO</span>
-          <span class="bar-value td-inicio">€4.500</span>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-back">← Volver al índice</a>
+            <div class="nav-links">
+                <a href="01-bienvenida.html">01</a>
+                <a href="02-el-servicio.html" class="active">02</a>
+                <a href="03-tu-compensacion.html">03</a>
+                <a href="04-el-proceso.html">04</a>
+                <a href="05-objeciones.html">05</a>
+                <a href="06-practica.html">06</a>
+            </div>
         </div>
-        <div class="bar-track"><div class="bar-fill inicio">INICIO</div></div>
-        <div class="bar-sub">Setup €1.500 + 6 meses × €500 = €4.500</div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-label">
-          <span class="bar-tier">MOTOR ACTIVO</span>
-          <span class="bar-value td-activo">€7.900</span>
+    </nav>
+
+    <div class="container">
+        <div class="module-hero">
+            <div class="module-num">Módulo 02</div>
+            <h1 class="module-title">El Sistema MOTOR</h1>
+            <p class="module-lead">Los paquetes que vendemos, a quién van dirigidos, y la única pregunta que necesitas para saber qué ofrecer.</p>
         </div>
-        <div class="bar-track"><div class="bar-fill activo">ACTIVO</div></div>
-        <div class="bar-sub">Setup €2.500 + 6 meses × €900 = €7.900</div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-label">
-          <span class="bar-tier">MOTOR TOTAL</span>
-          <span class="bar-value td-total">€12.400</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill total">TOTAL</div></div>
-        <div class="bar-sub">Setup €4.000 + 6 meses × €1.400 = €12.400</div>
-      </div>
+
+        <!-- PAQUETES MOTOR -->
+        <section class="section">
+            <div class="section-label">Los paquetes principales</div>
+            <h2>Los 3 Paquetes MOTOR</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Qué incluye</th>
+                            <th class="tier-inicio">MOTOR INICIO</th>
+                            <th class="tier-activo">MOTOR ACTIVO</th>
+                            <th class="tier-total">MOTOR TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-label">Setup (una sola vez)</td>
+                            <td><span class="td-num td-inicio">€1.500</span></td>
+                            <td><span class="td-num td-activo">€2.500</span></td>
+                            <td><span class="td-num td-total">€4.000</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">Fee mensual</td>
+                            <td><span class="td-num td-inicio">€500/mes</span></td>
+                            <td><span class="td-num td-activo">€900/mes</span></td>
+                            <td><span class="td-num td-total">€1.400/mes</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">Duración mínima</td>
+                            <td>
+                                <span class="td-num td-inicio">3 meses</span>
+                                <span class="td-note">Luego: mensual (BAI) / trimestral (servicios)</span>
+                            </td>
+                            <td>
+                                <span class="td-num td-activo">3 meses</span>
+                                <span class="td-note">Luego: mensual (BAI) / trimestral (servicios)</span>
+                            </td>
+                            <td>
+                                <span class="td-num td-total">3 meses</span>
+                                <span class="td-note">Luego: mensual (BAI) / trimestral (servicios)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">Facturación cliente</td>
+                            <td><span class="td-num td-inicio">€150K–€300K/año</span></td>
+                            <td><span class="td-num td-activo">€300K–€700K/año</span></td>
+                            <td><span class="td-num td-total">€700K+/año</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">Sector típico</td>
+                            <td><span class="td-num td-inicio">Bar, chiringuito, escuela deportiva</span></td>
+                            <td><span class="td-num td-activo">Restaurante, clínica, inmobiliaria</span></td>
+                            <td><span class="td-num td-total">Hotel, real estate premium</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">Canales incluidos</td>
+                            <td><span class="td-num td-inicio">Google Ads + Email</span></td>
+                            <td><span class="td-num td-activo">Google Ads + Email + Telegram</span></td>
+                            <td><span class="td-num td-total">Todo + multicanal avanzado</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">Presupuesto ads cliente</td>
+                            <td><span class="td-num td-inicio">€200–400/mes (paga él directamente)</span></td>
+                            <td><span class="td-num td-activo">€400–700/mes</span></td>
+                            <td><span class="td-num td-total">€700–1.200/mes</span></td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">Valor total año 1</td>
+                            <td><span class="td-num td-big td-inicio">€3.000</span></td>
+                            <td><span class="td-num td-big td-activo">€5.200</span></td>
+                            <td><span class="td-num td-big td-total">€8.200</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                <div style="font-size:20px; flex-shrink:0;">🔄</div>
+                <div class="info-text"><strong>Renovación:</strong> Pasados los 3 meses mínimos, el cliente renueva en dos partes: el fee de <strong>BAI</strong> (la herramienta) se paga mensualmente, y los servicios de Marco (estrategia, gestión) se renuevan trimestralmente. Esto da flexibilidad al cliente y estabilidad a nosotros.</div>
+            </div>
+        </section>
+
+        <!-- VALOR COMPARATIVO -->
+        <section class="section">
+            <div class="section-label">Valor comparativo</div>
+            <h2>Valor Total — Año 1 por Tier</h2>
+
+            <div class="bar-chart">
+                <div class="bar-item">
+                    <div class="bar-label">
+                        <span class="bar-tier">MOTOR INICIO</span>
+                        <span class="bar-value td-inicio">€3.000</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill inicio">Setup €1.500 + 3 meses × €500</div>
+                    </div>
+                    <div class="bar-sub">Setup + 3 meses mínimos</div>
+                </div>
+                <div class="bar-item">
+                    <div class="bar-label">
+                        <span class="bar-tier">MOTOR ACTIVO</span>
+                        <span class="bar-value td-activo">€5.200</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill activo">Setup €2.500 + 3 meses × €900</div>
+                    </div>
+                    <div class="bar-sub">Setup + 3 meses mínimos</div>
+                </div>
+                <div class="bar-item">
+                    <div class="bar-label">
+                        <span class="bar-tier">MOTOR TOTAL</span>
+                        <span class="bar-value td-total">€8.200</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill total">Setup €4.000 + 3 meses × €1.400</div>
+                    </div>
+                    <div class="bar-sub">Setup + 3 meses mínimos</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CUALIFICACIÓN -->
+        <section class="section">
+            <div class="section-label">Cualificación</div>
+            <h2>La Pregunta Clave</h2>
+
+            <div class="qualify-box">
+                <div class="qualify-question">¿Cuánto facturas al año?</div>
+                <div class="qualify-sub">Esta es la única pregunta que necesitas para saber qué paquete proponer — o si el prospecto encaja con otro tipo de solución.</div>
+            </div>
+
+            <div class="decision-table">
+                <div class="dt-header">
+                    <div>Facturación anual</div>
+                    <div>Tipo de cliente</div>
+                    <div>Qué preparar</div>
+                </div>
+                <div class="dt-row">
+                    <td class="dt-cell red-text">Menos de €150K</td>
+                    <td class="dt-cell red-text">Fuera de target Motor</td>
+                    <td class="dt-cell">No confirmar cita Motor. Ver opciones graduales → sección siguiente.</td>
+                </div>
+                <div class="dt-row">
+                    <td class="dt-cell highlight">€150K–€300K</td>
+                    <td class="dt-cell highlight">MOTOR INICIO</td>
+                    <td class="dt-cell">Caso de estudio: bar, chiringuito, escuela deportiva</td>
+                </div>
+                <div class="dt-row">
+                    <td class="dt-cell highlight">€300K–€700K</td>
+                    <td class="dt-cell highlight">MOTOR ACTIVO</td>
+                    <td class="dt-cell">Caso de estudio: restaurante, clínica, inmobiliaria</td>
+                </div>
+                <div class="dt-row">
+                    <td class="dt-cell highlight">€700K+</td>
+                    <td class="dt-cell highlight">MOTOR TOTAL</td>
+                    <td class="dt-cell">Caso de estudio: hotel, real estate premium</td>
+                </div>
+            </div>
+
+            <div class="alert-box" style="margin-top: 24px;">
+                <div class="alert-icon">💡</div>
+                <div class="alert-text">Si el prospecto no sabe exactamente su facturación (pasa), busca el negocio en Google Maps / TripAdvisor / Idealista antes y estima. Si no puedes estimarlo, la pregunta <strong>"¿cuánto gastas actualmente en marketing?"</strong> también te orienta.</div>
+            </div>
+        </section>
+
+        <!-- CLIENTES GRADUALES -->
+        <section class="section">
+            <div class="section-label">Clientes que no encajan en MOTOR (todavía)</div>
+            <h2>¿Qué Vendemos a Negocios Más Pequeños?</h2>
+
+            <p>No todos los prospectos tienen el presupuesto para MOTOR desde el primer día. Eso no significa que no podamos ayudarlos — significa que el punto de entrada es diferente. Nuestro objetivo es ayudar solo a quien está en target, entender su problema real y el presupuesto disponible, y proponer el paso correcto para ellos.</p>
+
+            <div class="grad-cards">
+                <div class="grad-card">
+                    <div class="grad-card-icon">🧠</div>
+                    <div class="grad-card-title">Pack de Consultoría</div>
+                    <div class="grad-card-desc">Sesiones puntuales de estrategia. Ideal para quien quiere orientación sin comprometerse a un servicio mensual todavía.</div>
+                </div>
+                <div class="grad-card">
+                    <div class="grad-card-icon">🤖</div>
+                    <div class="grad-card-title">BAI Base</div>
+                    <div class="grad-card-desc">Solo el acceso a la herramienta de automatización, sin gestión incluida. El cliente lo usa por su cuenta con formación inicial.</div>
+                </div>
+                <div class="grad-card">
+                    <div class="grad-card-icon">📍</div>
+                    <div class="grad-card-title">GBP + Perfiles Online</div>
+                    <div class="grad-card-desc">Optimización de Google Business Profile y presencia digital básica. Primeros resultados visibles en semanas.</div>
+                </div>
+                <div class="grad-card">
+                    <div class="grad-card-icon">🎓</div>
+                    <div class="grad-card-title">Formación</div>
+                    <div class="grad-card-desc">Consultas formativas, videos explicativos, acceso a agentes de IA. Para quien quiere aprender antes de delegar.</div>
+                </div>
+            </div>
+
+            <div style="font-size:13px; font-weight:700; color: var(--text-muted); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px;">El camino natural del cliente gradual</div>
+            <div class="prospect-journey">
+                <div class="pj-step">
+                    <div class="pj-label">Entrada</div>
+                    <div class="pj-name">Consulta / BAI Base</div>
+                </div>
+                <div class="pj-arrow">→</div>
+                <div class="pj-step">
+                    <div class="pj-label">Ve resultados</div>
+                    <div class="pj-name">Optimización GBP</div>
+                </div>
+                <div class="pj-arrow">→</div>
+                <div class="pj-step">
+                    <div class="pj-label">Confía en el sistema</div>
+                    <div class="pj-name">MOTOR INICIO</div>
+                </div>
+                <div class="pj-arrow">→</div>
+                <div class="pj-step">
+                    <div class="pj-label">Crece</div>
+                    <div class="pj-name">MOTOR ACTIVO</div>
+                </div>
+            </div>
+
+            <div class="alert-box" style="margin-top: 20px;">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-text"><strong>Regla de oro:</strong> Solo ayudamos a quien está en target y tiene un problema real. Si el budget es claramente insuficiente incluso para las opciones graduales, no perdemos el tiempo — ni el nuestro ni el suyo. Califica antes de profundizar.</div>
+            </div>
+        </section>
+
+        <!-- REGLAS DE CONTRATO -->
+        <section class="section">
+            <div class="section-label">Reglas de contrato</div>
+            <h2>Lo Que No Es Negociable</h2>
+
+            <div class="rule-box">
+                <div class="rule-item">
+                    <div class="rule-icon ok">🔒</div>
+                    <div class="rule-body">
+                        <div class="rule-title">50% anticipo antes de empezar</div>
+                        <div class="rule-desc">El setup no empieza hasta recibir el 50% del setup. No hay excepciones. No hay plazos. Esta regla protege a ambas partes y filtra a los clientes que no están comprometidos. La frase exacta al cierre: <em>"Te mando el email con el IBAN. El 50% antes de mañana y empezamos esta semana."</em></div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-icon alert">⚠️</div>
+                    <div class="rule-body">
+                        <div class="rule-title">Sin garantías sobre resultados</div>
+                        <div class="rule-desc">No ofrecemos garantías de resultados para servicios que no dependen 100% de nosotros — como el comportamiento del mercado, el presupuesto de ads del cliente, o factores externos. Lo que sí garantizamos es nuestro trabajo: estrategia, ejecución y seguimiento constante.</div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-icon alert">⚠️</div>
+                    <div class="rule-body">
+                        <div class="rule-title">Nota interna: Meta Ads temporalmente bloqueado</div>
+                        <div class="rule-desc">En los contratos y presentaciones usa el término genérico <strong>"campañas digitales"</strong>. Google Ads + Email son los canales activos ahora. Meta se reactiva cuando se resuelva la cuenta.</div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-icon ok">📎</div>
+                    <div class="rule-body">
+                        <div class="rule-title">Recursos y guías: siempre vía landing page</div>
+                        <div class="rule-desc">Cualquier PDF, guía o recurso gratuito se envía <strong>solo con el enlace a la landing page</strong> — nunca directamente. El prospecto se registra → obtenemos sus datos. La frase: <em>"Te mando el enlace donde puedes acceder — así queda guardado para ti."</em></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="next-module">
+            <div>
+                <div class="section-label">Siguiente módulo</div>
+                <h2 style="border: none; padding: 0; margin: 0;">Cuánto Puedes Ganar</h2>
+            </div>
+            <a href="03-tu-compensacion.html">Módulo 03 →</a>
+        </section>
+
+        <footer class="footer">
+            Engo Agency · Orihuela Coast · Formación Interna
+        </footer>
     </div>
-  </div>
 
-  <!-- PREGUNTA CLAVE -->
-  <div class="section">
-    <div class="section-label">Cualificación</div>
-    <h2>La Pregunta Clave</h2>
-
-    <div class="qualify-box">
-      <div class="qualify-question">"¿Cuánto facturas al año?"</div>
-      <div class="qualify-sub">Esta es la única pregunta que necesitas para saber qué paquete proponer. Todo lo demás viene después.</div>
+    <div class="font-controls">
+      <button class="font-btn" onclick="changeFontSize(-1)" title="Reducir texto">A−</button>
+      <button class="font-btn" onclick="changeFontSize(1)" title="Aumentar texto">A+</button>
     </div>
 
-    <div class="decision-table">
-      <div class="dt-header">
-        <div>Facturación anual</div>
-        <div>Paquete</div>
-        <div>Qué preparar</div>
-      </div>
-      <div class="dt-row">
-        <div class="dt-cell" style="color: var(--red); font-weight: 700;">Menos de €150K</div>
-        <div class="dt-cell" style="color: var(--red);">Fuera de target</div>
-        <div class="dt-cell" style="font-size: 13px; color: var(--text-muted);">No confirmar cita. Budget insuficiente para ads + fee.</div>
-      </div>
-      <div class="dt-row">
-        <div class="dt-cell highlight" style="color: #93c5fd;">€150K–€300K</div>
-        <div class="dt-cell highlight td-inicio">MOTOR INICIO</div>
-        <div class="dt-cell" style="font-size: 13px;">Caso de estudio: bar, chiringuito, escuela deportiva</div>
-      </div>
-      <div class="dt-row">
-        <div class="dt-cell highlight" style="color: var(--green);">€300K–€700K</div>
-        <div class="dt-cell highlight td-activo">MOTOR ACTIVO</div>
-        <div class="dt-cell" style="font-size: 13px;">Caso de estudio: restaurante, clínica, inmobiliaria</div>
-      </div>
-      <div class="dt-row">
-        <div class="dt-cell highlight" style="color: var(--yellow);">€700K+</div>
-        <div class="dt-cell highlight td-total">MOTOR TOTAL</div>
-        <div class="dt-cell" style="font-size: 13px;">Caso de estudio: hotel, real estate premium</div>
-      </div>
-    </div>
-
-    <p style="margin-top: 16px; font-size: 14px;">Si el prospecto no sabe exactamente su facturación (pasa), busca el negocio en Google Maps / TripAdvisor / Idealista antes de la call y estima.</p>
-  </div>
-
-  <!-- REGLAS NO NEGOCIABLES -->
-  <div class="section">
-    <div class="section-label">Reglas de contrato</div>
-    <h2>Lo Que No Es Negociable</h2>
-
-    <div class="rule-box">
-      <div class="rule-item">
-        <div class="rule-icon alert">🔒</div>
-        <div class="rule-body">
-          <div class="rule-title">50% anticipo antes de empezar</div>
-          <div class="rule-desc">El setup no empieza hasta recibir el 50% del setup. No hay excepciones. No hay plazos. Esta regla protege a ambas partes y filtra a los clientes que no están comprometidos. La frase exacta al cierre: <em style="color: var(--text);">"Te mando el email con el IBAN. El 50% antes de mañana y empezamos esta semana."</em></div>
-        </div>
-      </div>
-      <div class="rule-item">
-        <div class="rule-icon ok">🛡️</div>
-        <div class="rule-body">
-          <div class="rule-title">Garantía 90 días</div>
-          <div class="rule-desc">Si en 90 días no se generan citas/contactos cualificados: reembolso completo del setup + €200 de compensación. Esta garantía se da porque el sistema funciona. Úsala para disolver el miedo al riesgo del cliente.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ALERT META ADS -->
-  <div class="section">
-    <div class="alert-box">
-      <div class="alert-icon">⚠️</div>
-      <div class="alert-text"><strong>Nota interna:</strong> Meta Ads está temporalmente bloqueado. En los contratos y presentaciones usa el término genérico <strong>"campañas digitales"</strong>. Google Ads + Email son los canales activos ahora. Meta se reactiva en cuanto se resuelva la cuenta.</div>
-    </div>
-  </div>
-
-  <div class="next-module">
-    <div>
-      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
-      <div style="font-size:18px; font-weight:800; color: var(--text);">Cuánto Puedes Ganar</div>
-    </div>
-    <a href="03-tu-compensacion.html">Módulo 03 →</a>
-  </div>
-
-  <footer class="footer">
-    Engo Agency · Orihuela Coast · Formación Interna
-  </footer>
-
-</div>
-
-<script>localStorage.setItem('visited_02-el-servicio', '1');</script>
+    <script>
+        localStorage.setItem('visited_02-el-servicio', '1');
+        let currentSize = parseInt(localStorage.getItem('prefFontSize') || '16');
+        document.body.style.fontSize = currentSize + 'px';
+        function changeFontSize(delta) {
+          currentSize = Math.max(13, Math.min(22, currentSize + delta));
+          document.body.style.fontSize = currentSize + 'px';
+          localStorage.setItem('prefFontSize', currentSize);
+        }
+    </script>
 </body>
 </html>
