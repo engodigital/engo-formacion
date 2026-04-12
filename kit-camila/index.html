@@ -207,15 +207,8 @@
 
 <script>
   const modules = ['01-tu-rol','02-el-script','03-como-agendar','04-practica','05-compensacion'];
-  function updateProgress() {
-    let done = 0;
-    modules.forEach(m => { if(localStorage.getItem('camila_visited_'+m)) done++; });
-    const pct = Math.round((done/modules.length)*100);
-    document.getElementById('progressBar').style.width = pct + '%';
-    const label = document.querySelector('.progress-bar-label');
-    if(label) label.textContent = 'Tu progreso — ' + done + ' de ' + modules.length + ' módulos completados';
-  }
-  updateProgress();
+  // Progreso siempre desde 0 al abrir el índice
+  modules.forEach(m => localStorage.removeItem('camila_visited_' + m));
 </script>
 </body>
 </html>
