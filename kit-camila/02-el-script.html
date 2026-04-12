@@ -14,6 +14,7 @@
     --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
     --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
     --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+    --red-light: rgba(255,107,107,0.12);
   }
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
@@ -39,6 +40,30 @@
   h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
   p { margin-bottom: 16px; color: var(--text-muted); }
   p strong { color: var(--text); }
+
+  /* BUYER PERSONA */
+  .persona-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 28px; }
+  .persona-intro { font-size: 15px; color: var(--text-muted); margin-bottom: 20px; }
+  .persona-traits { display: flex; flex-wrap: wrap; gap: 8px; }
+  .trait-tag { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); color: var(--accent); font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 100px; }
+
+  /* FLAGS GRID */
+  .flags-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .flag-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+  .flag-card.green-card { border-top: 3px solid var(--green); }
+  .flag-card.red-card { border-top: 3px solid var(--red); }
+  .flag-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .flag-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .flag-icon.green { background: var(--green-light); }
+  .flag-icon.red { background: var(--red-light); }
+  .flag-title { font-size: 16px; font-weight: 800; }
+  .flag-title.green { color: var(--green); }
+  .flag-title.red { color: var(--red); }
+  .flag-list { display: flex; flex-direction: column; gap: 8px; }
+  .flag-item { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text-muted); }
+  .flag-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+  .flag-dot.green { background: var(--green); }
+  .flag-dot.red { background: var(--red); }
 
   /* SCRIPT CARDS */
   .script-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 20px; }
@@ -100,6 +125,7 @@
   }
 
   @media (max-width: 600px) {
+    .flags-grid { grid-template-columns: 1fr; }
     .qualif-cards { grid-template-columns: 1fr; }
     .script-text { font-size: 13px; padding: 16px; }
     .copy-btn { position: static; margin-top: 12px; width: 100%; }
@@ -116,6 +142,7 @@
       <a href="02-el-script.html" class="active">02</a>
       <a href="03-como-agendar.html">03</a>
       <a href="04-practica.html">04</a>
+      <a href="05-compensacion.html">05</a>
     </div>
   </div>
 </nav>
@@ -128,37 +155,110 @@
     <p class="module-lead">Estos son los únicos mensajes que necesitas. No improvises. No añadas ni quites. Cuando el script salga solo, sin pensar, estás lista.</p>
   </div>
 
-  <!-- SCRIPT 1: NUEVO SEGUIDOR -->
+  <!-- BUYER PERSONA -->
   <div class="section">
-    <div class="section-label">Script 1</div>
-    <h2>Primer Mensaje — Nuevo Seguidor</h2>
+    <div class="section-label">A quién buscas</div>
+    <h2>El Cliente Ideal — Buyer Persona</h2>
+    <p>Antes de abrir la boca con cualquier persona, necesitas saber si merece tu tiempo. Este es el perfil exacto del cliente que buscamos.</p>
 
-    <div class="script-card green-border">
-      <span class="script-label green">Cuándo usarlo</span>
-      <div class="script-title">Alguien nuevo empieza a seguir a Marco en Instagram</div>
-      <div class="script-context">Úsalo en las primeras 24 horas desde que sigan. Antes de cualquier otro contacto. No esperes a que ellos escriban.</div>
-      <div class="script-text" id="script1">
-        Hola [NOMBRE], he visto que has empezado a seguirnos, ¡encantada de conocerte! ¿A qué te dedicas? ¿Qué te llevó a seguirnos?
-        <button class="copy-btn" onclick="copyScript('script1', this)">Copiar</button>
+    <div class="persona-box">
+      <div class="persona-intro">Empresario/a local con negocio establecido que quiere más clientes pero no sabe cómo conseguirlos con el marketing digital. Tiene presupuesto, tiene urgencia, y ya lo ha intentado solo sin éxito.</div>
+      <div class="persona-traits">
+        <span class="trait-tag">Negocio propio 1+ año</span>
+        <span class="trait-tag">Restaurante / Clínica / Inmobiliaria</span>
+        <span class="trait-tag">Retail / Centro de estética</span>
+        <span class="trait-tag">Abogados / Servicios locales</span>
+        <span class="trait-tag">Quiere crecer</span>
+        <span class="trait-tag">Presupuesto disponible</span>
+        <span class="trait-tag">No tiene tiempo de hacerlo él mismo</span>
+        <span class="trait-tag">Ya probó cosas sin resultado</span>
       </div>
-      <div class="script-note">Usa el nombre real de la persona. Si no está en el perfil, empieza con "Hola," sin nombre. Nunca mandes más de un mensaje inicial sin respuesta.</div>
+    </div>
+
+    <div class="flags-grid">
+      <div class="flag-card green-card">
+        <div class="flag-header">
+          <div class="flag-icon green">✓</div>
+          <div class="flag-title green">Green Flags</div>
+        </div>
+        <div class="flag-list">
+          <div class="flag-item"><div class="flag-dot green"></div><span>Tiene negocio propio desde hace más de 1 año</span></div>
+          <div class="flag-item"><div class="flag-dot green"></div><span>Dice que le faltan clientes o quiere crecer</span></div>
+          <div class="flag-item"><div class="flag-dot green"></div><span>Ya probó algo (redes, Google, volantes) sin resultados</span></div>
+          <div class="flag-item"><div class="flag-dot green"></div><span>Tiene prisa: "necesito esto antes de verano"</span></div>
+          <div class="flag-item"><div class="flag-dot green"></div><span>Tiene empleados o un local físico</span></div>
+          <div class="flag-item"><div class="flag-dot green"></div><span>Viene referido por alguien que ya confía en Marco</span></div>
+        </div>
+      </div>
+      <div class="flag-card red-card">
+        <div class="flag-header">
+          <div class="flag-icon red">✗</div>
+          <div class="flag-title red">Red Flags</div>
+        </div>
+        <div class="flag-list">
+          <div class="flag-item"><div class="flag-dot red"></div><span>No tiene negocio propio (trabaja para alguien)</span></div>
+          <div class="flag-item"><div class="flag-dot red"></div><span>Lleva menos de 1 año o acaba de abrir</span></div>
+          <div class="flag-item"><div class="flag-dot red"></div><span>Quiere aprender a hacerlo él mismo</span></div>
+          <div class="flag-item"><div class="flag-dot red"></div><span>Dice "no tengo presupuesto ahora"</span></div>
+          <div class="flag-item"><div class="flag-dot red"></div><span>Solo quiere consejo gratis / información</span></div>
+          <div class="flag-item"><div class="flag-dot red"></div><span>Freelancer sin equipo ni local</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.2); border-radius: 12px; padding: 16px 20px;">
+      <p style="margin: 0; font-size: 14px; color: var(--text-muted);"><strong style="color: var(--text);">Regla práctica:</strong> Una green flag no garantiza nada. Dos o más green flags juntas = merece las 2 preguntas de cualificación. Una red flag = cierra amablemente y pasa al siguiente.</p>
     </div>
   </div>
 
-  <!-- SCRIPT 2: INBOUND -->
+  <!-- SCRIPT 1: PRIMER CONTACTO EN PERSONA -->
+  <div class="section">
+    <div class="section-label">Script 1</div>
+    <h2>Primer Contacto — En Persona</h2>
+
+    <div class="script-card green-border">
+      <span class="script-label green">Cuándo usarlo</span>
+      <div class="script-title">Alguien nuevo que acabas de conocer y parece encajar con el perfil</div>
+      <div class="script-context">Evento, gimnasio, mercado, bar, reunión, situación cotidiana. Lo usas justo después de intercambiar dos palabras y saber a qué se dedica. Es natural, no agresivo.</div>
+      <div class="script-text" id="script1">
+        ¡Qué interesante! ¿Y cómo consigues habitualmente los clientes? ¿Funciona bien o estás buscando crecer?
+        <button class="copy-btn" onclick="copyScript('script1', this)">Copiar</button>
+      </div>
+      <div class="script-note">No expliques nada de lo que haces tú todavía. Solo escucha su respuesta. Si abre una puerta (dice que le falta algo), tienes tu entrada. Si no, no forces.</div>
+    </div>
+  </div>
+
+  <!-- SCRIPT 2: CONTACTO REFERIDO -->
   <div class="section">
     <div class="section-label">Script 2</div>
-    <h2>Respuesta Inbound — Pide una Guía o Recurso</h2>
+    <h2>Contacto Referido — Te Lo Presentaron</h2>
 
     <div class="script-card purple-border">
       <span class="script-label purple">Cuándo usarlo</span>
-      <div class="script-title">Alguien comenta en un post pidiendo la guía gratuita u otro material</div>
-      <div class="script-context">NUNCA mandes el material directamente. Primero escribe por DM, haz las preguntas, y solo después — si es prospecto válido — agenda la cita. El material se manda desde Marco, no tú.</div>
+      <div class="script-title">Alguien te lo presenta directamente o sabes que viene de un conocido común</div>
+      <div class="script-context">Úsalo cuando ya hay un contexto compartido. El hecho de que venga referido hace que la conversación sea más fácil desde el principio.</div>
       <div class="script-text" id="script2">
-        Hola [NOMBRE], te escribo por lo de la guía. Antes de enviártela, ¿me puedes contar a qué te dedicas? ¿Qué te llevó a pedirla?
+        Hola [NOMBRE], [NOMBRE DEL CONOCIDO EN COMÚN] me habló de ti y del negocio que tienes. Me parece muy interesante. ¿Cómo va todo?
         <button class="copy-btn" onclick="copyScript('script2', this)">Copiar</button>
       </div>
-      <div class="script-note">Si insisten en recibir la guía antes de responder, diles: "La personalizo un poco según tu sector, por eso necesito saber a qué te dedicas."</div>
+      <div class="script-note">Deja que él hable primero. Tu trabajo es escuchar y detectar si hay dolor (falta de clientes, marketing que no funciona, querer crecer). Cuando aparezca el dolor, tienes tu momento.</div>
+    </div>
+  </div>
+
+  <!-- SCRIPT 3: SEGUIMIENTO WHATSAPP -->
+  <div class="section">
+    <div class="section-label">Script 3</div>
+    <h2>Seguimiento por WhatsApp — Después de Conocerse</h2>
+
+    <div class="script-card purple-border">
+      <span class="script-label purple">Cuándo usarlo</span>
+      <div class="script-title">Le conociste en persona, intercambiasteis contacto, y ahora quieres abrir la conversación</div>
+      <div class="script-context">Envíalo en las primeras 24-48h después de conocerle. No esperes más. Cuanto antes, más natural.</div>
+      <div class="script-text" id="script3">
+        Hola [NOMBRE], soy [TU NOMBRE], nos conocimos ayer en [LUGAR]. Me alegró conocerte. ¿Cómo va el negocio últimamente?
+        <button class="copy-btn" onclick="copyScript('script3', this)">Copiar</button>
+      </div>
+      <div class="script-note">Si ya le mencionaste algo sobre marketing en persona, puedes añadir: "Estuve pensando en lo que me dijiste sobre [problema que mencionó]." Eso muestra que escuchaste.</div>
     </div>
   </div>
 
@@ -166,7 +266,7 @@
   <div class="section">
     <div class="section-label">Cualificación</div>
     <h2>Las 2 Preguntas de Cualificación</h2>
-    <p>Después del primer mensaje, si hay respuesta, haz estas dos preguntas en la misma conversación — no necesariamente juntas.</p>
+    <p>Cuando alguien te ha respondido y parece interesado, haz estas dos preguntas. No las hagas juntas — de forma natural, en la conversación.</p>
 
     <div class="qualif-cards">
       <div class="qualif-card">
@@ -178,20 +278,20 @@
         <div class="qualif-q" style="margin-top: 8px;">Si respondió sí:</div>
         <div class="qualif-num" style="margin-top: 8px;">P2</div>
         <div class="qualif-q">¿Cuánto llevas con él?</div>
-        <div class="qualif-why">Menos de 1 año = puede no ser target. Avisa a Álvaro y él decide si vale la pena seguir.</div>
+        <div class="qualif-why">Menos de 1 año puede no ser target. Avisa a Marco y él decide si vale la pena continuar.</div>
       </div>
     </div>
 
     <div class="script-card" style="margin-top: 16px;">
       <span class="script-label green">Cómo hacerlas de forma natural</span>
-      <div class="script-text" id="script3">
-        ¿Tienes tu propio negocio o trabajas para alguien?
-        <button class="copy-btn" onclick="copyScript('script3', this)">Copiar</button>
+      <div class="script-text" id="script4">
+        ¿Y el negocio es tuyo propio o trabajas con alguien?
+        <button class="copy-btn" onclick="copyScript('script4', this)">Copiar</button>
       </div>
       <div style="margin-top: 12px;">
-      <div class="script-text" id="script4">
+      <div class="script-text" id="script5">
         ¡Genial! ¿Cuánto tiempo llevas con él?
-        <button class="copy-btn" onclick="copyScript('script4', this)">Copiar</button>
+        <button class="copy-btn" onclick="copyScript('script5', this)">Copiar</button>
       </div>
       </div>
     </div>
@@ -199,18 +299,18 @@
 
   <!-- PROPUESTA CITA -->
   <div class="section">
-    <div class="section-label">Script 3</div>
+    <div class="section-label">Script 4</div>
     <h2>Propuesta de la Cita</h2>
 
     <div class="script-card yellow-border">
       <span class="script-label yellow">Cuándo usarlo</span>
       <div class="script-title">Después de confirmar que tiene negocio propio con más de 1 año</div>
-      <div class="script-context">Solo cuando está cualificado. No propongas la cita antes de hacer las 2 preguntas.</div>
-      <div class="script-text" id="script5">
-        Oye, ¿te interesaría tener una llamada rápida — unos 20 minutos — con un miembro de nuestro equipo para conocernos y ver si podemos ayudarte? Sin compromiso, solo para entender tu situación.
-        <button class="copy-btn" onclick="copyScript('script5', this)">Copiar</button>
+      <div class="script-context">Solo cuando está cualificado. No propongas la cita antes de hacer las 2 preguntas. Si las hiciste y el perfil encaja, no esperes: propón la cita en ese mismo momento.</div>
+      <div class="script-text" id="script6">
+        Oye, lo que me cuentas tiene mucho sentido. Tengo un compañero de equipo que se dedica exactamente a esto — ayudar a negocios como el tuyo a conseguir más clientes con publicidad online. ¿Tendrías 20 minutos esta semana para una llamada rápida, sin compromiso, para ver si podría ayudarte?
+        <button class="copy-btn" onclick="copyScript('script6', this)">Copiar</button>
       </div>
-      <div class="script-note">Si dicen "sí": pasa directamente al Módulo 03 para agendar. Si dicen "no sé" o "quizás más adelante": avisa a Álvaro y deja el seguimiento en su mano.</div>
+      <div class="script-note">Si dicen "sí": pasa directamente al Módulo 03 para agendar. Si dicen "no sé" o "quizás más adelante": avisa a Marco con el contexto y deja que él decida si hace seguimiento.</div>
     </div>
   </div>
 
@@ -218,28 +318,28 @@
   <div class="section">
     <div class="section-label">Rutina diaria</div>
     <h2>Tu Checklist Diaria</h2>
-    <p>Haz esto cada día, en orden. Si no puedes en un día concreto, avisa a Álvaro.</p>
+    <p>Haz esto cada día, en orden. Si no puedes en un día concreto, avisa a Marco.</p>
 
     <div class="checklist" id="dailyChecklist">
       <div class="check-item" onclick="toggleCheck(this, 'check_nuevos')" data-key="check_nuevos">
         <div class="check-box"><span class="check-tick">✓</span></div>
-        <span class="check-text">Escribí a todos los nuevos seguidores de las últimas 24h</span>
+        <span class="check-text">Contacté o di seguimiento a personas que conocí en los últimos 3 días</span>
       </div>
       <div class="check-item" onclick="toggleCheck(this, 'check_noread')" data-key="check_noread">
         <div class="check-box"><span class="check-tick">✓</span></div>
-        <span class="check-text">Ninguna chat sin leer desde hace más de 3 días</span>
+        <span class="check-text">Ninguna conversación activa sin respuesta desde hace más de 3 días</span>
       </div>
       <div class="check-item" onclick="toggleCheck(this, 'check_followup')" data-key="check_followup">
         <div class="check-box"><span class="check-tick">✓</span></div>
-        <span class="check-text">Hice follow-up a quienes no respondieron ayer</span>
+        <span class="check-text">Hice seguimiento a quienes no respondieron ayer</span>
       </div>
       <div class="check-item" onclick="toggleCheck(this, 'check_citas')" data-key="check_citas">
         <div class="check-box"><span class="check-tick">✓</span></div>
-        <span class="check-text">Verifiqué que las citas agendadas están confirmadas en GHL</span>
+        <span class="check-text">Verifiqué que las citas agendadas de esta semana están confirmadas</span>
       </div>
-      <div class="check-item" onclick="toggleCheck(this, 'check_alvaro')" data-key="check_alvaro">
+      <div class="check-item" onclick="toggleCheck(this, 'check_marco')" data-key="check_marco">
         <div class="check-box"><span class="check-tick">✓</span></div>
-        <span class="check-text">Actualicé a Álvaro sobre el estado de cada chat activo</span>
+        <span class="check-text">Actualicé a Marco sobre el estado de cada prospecto activo</span>
       </div>
     </div>
     <p style="font-size: 13px; margin-top: 14px; color: var(--text-muted);">La checklist se guarda automáticamente en este navegador. Márcalas cada día al terminar.</p>
@@ -261,22 +361,22 @@
       <div class="rule-item">
         <div class="rule-num">2</div>
         <div class="rule-body">
-          <div class="rule-title">NUNCA mandes material sin preguntar antes</div>
-          <div class="rule-desc">Una guía, un PDF, un enlace enviados sin contexto cierran la conversación. La persona lo lee (o no), y ya no tiene motivos para responder. Material = cierre de puerta.</div>
+          <div class="rule-title">NUNCA expliques el servicio antes de la cita</div>
+          <div class="rule-desc">Cuanto más explicas, menos necesita la persona hablar con Marco. Tu rol es crear curiosidad y urgencia para la llamada — no resolver sus dudas tú. Deja eso para Marco.</div>
         </div>
       </div>
       <div class="rule-item">
         <div class="rule-num">3</div>
         <div class="rule-body">
-          <div class="rule-title">Si preguntan el precio → redirige a Álvaro</div>
-          <div class="rule-desc">"De eso se encarga mi responsable en la reunión, yo solo gestiono las agendas." Esta frase funciona. No intentes explicar precios aunque los sepas.</div>
+          <div class="rule-title">Si preguntan el precio → redirige a Marco</div>
+          <div class="rule-desc">"De eso habla Marco directamente en la llamada, según cada situación." Esta frase funciona. No intentes explicar precios aunque los sepas.</div>
         </div>
       </div>
       <div class="rule-item">
         <div class="rule-num">4</div>
         <div class="rule-body">
-          <div class="rule-title">Objetivo de cada chat: llegar a la cita, no informar</div>
-          <div class="rule-desc">Cuanto más informas, menos necesita la persona hablar con Marco. Tu rol es crear curiosidad y urgencia para la llamada — no resolver sus dudas por escrito.</div>
+          <div class="rule-title">Objetivo de cada conversación: llegar a la cita, no informar</div>
+          <div class="rule-desc">No eres la vendedora. No eres la consultora. Eres la persona que abre la puerta. Cuando alguien dice "sí" a la llamada, tu trabajo ya está hecho.</div>
         </div>
       </div>
     </div>
@@ -286,7 +386,7 @@
   <div class="next-module">
     <div>
       <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
-      <div style="font-size:18px; font-weight:800; color: var(--text);">Cómo Agendar la Cita en GHL</div>
+      <div style="font-size:18px; font-weight:800; color: var(--text);">Cómo Agendar la Cita</div>
     </div>
     <a href="03-como-agendar.html">Módulo 03 →</a>
   </div>
@@ -302,7 +402,6 @@
 
   function copyScript(id, btn) {
     const el = document.getElementById(id);
-    // Get text without button
     const clone = el.cloneNode(true);
     const btnEl = clone.querySelector('button');
     if(btnEl) btnEl.remove();
@@ -326,18 +425,15 @@
     localStorage.setItem('camila_daily_' + key, isDone ? '1' : '0');
   }
 
-  // Load checklist state (reset daily — based on date)
   const today = new Date().toDateString();
   const savedDate = localStorage.getItem('camila_checklist_date');
   if(savedDate !== today) {
-    // New day: reset all checks
-    ['check_nuevos','check_noread','check_followup','check_citas','check_alvaro'].forEach(k => {
+    ['check_nuevos','check_noread','check_followup','check_citas','check_marco'].forEach(k => {
       localStorage.removeItem('camila_daily_' + k);
     });
     localStorage.setItem('camila_checklist_date', today);
   }
 
-  // Apply saved state
   document.querySelectorAll('.check-item').forEach(item => {
     const key = item.dataset.key;
     if(localStorage.getItem('camila_daily_' + key) === '1') {

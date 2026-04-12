@@ -118,7 +118,7 @@
 <div class="progress-section">
   <h2>Módulos del kit</h2>
   <div class="progress-bar-container">
-    <div class="progress-bar-label">Tu progreso — 0 de 4 módulos completados</div>
+    <div class="progress-bar-label">Tu progreso — 0 de 5 módulos completados</div>
     <div class="progress-bar"><div class="progress-bar-fill" style="width:0%;" id="progressBar"></div></div>
   </div>
   <div class="progress-grid">
@@ -126,11 +126,12 @@
     <div class="progress-item"><div class="progress-num">02</div><div class="progress-label">El Script</div></div>
     <div class="progress-item"><div class="progress-num">03</div><div class="progress-label">Cómo Agendar</div></div>
     <div class="progress-item"><div class="progress-num">04</div><div class="progress-label">Practica con IA</div></div>
+    <div class="progress-item"><div class="progress-num">05</div><div class="progress-label">Plan de Ingresos</div></div>
   </div>
 </div>
 
 <div class="index-section">
-  <h2>Los 4 Módulos</h2>
+  <h2>Los 5 Módulos</h2>
 
   <a href="01-tu-rol.html" class="module-card">
     <div class="module-card-inner">
@@ -184,6 +185,19 @@
     </div>
   </a>
 
+  <a href="05-compensacion.html" class="module-card">
+    <div class="module-card-inner">
+      <div class="module-icon yellow">💰</div>
+      <div class="module-meta">
+        <div class="module-num">Módulo 05</div>
+        <div class="module-title">Tu Plan de Ingresos</div>
+        <div class="module-desc">Cuánto ganas por cada cita y por cada cliente cerrado. Proyecciones reales y tu plan de crecimiento a 6 meses.</div>
+        <span class="module-tag">Tu motivación</span>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </a>
+
 </div>
 
 <footer class="footer">
@@ -192,7 +206,7 @@
 </footer>
 
 <script>
-  const modules = ['01-tu-rol','02-el-script','03-como-agendar','04-practica'];
+  const modules = ['01-tu-rol','02-el-script','03-como-agendar','04-practica','05-compensacion'];
   function updateProgress() {
     let done = 0;
     modules.forEach(m => { if(localStorage.getItem('camila_visited_'+m)) done++; });

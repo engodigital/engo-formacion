@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>03 — Cómo Agendar la Cita en GHL | Kit Camila</title>
+<title>03 — Cómo Agendar la Cita | Kit Camila</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -40,34 +40,44 @@
   p { margin-bottom: 16px; color: var(--text-muted); }
   p strong { color: var(--text); }
 
+  /* OPTION CARDS */
+  .options-grid { display: flex; flex-direction: column; gap: 20px; }
+  .option-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+  .option-card.primary { border-color: rgba(0,212,170,0.4); }
+  .option-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .option-num { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; color: #fff; }
+  .option-num.green { background: var(--green); color: #0f1117; }
+  .option-num.purple { background: var(--accent); }
+  .option-num.yellow { background: rgba(255,209,102,0.2); color: var(--yellow); border: 1px solid rgba(255,209,102,0.4); font-size: 16px; }
+  .option-meta { flex: 1; }
+  .option-badge { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .option-badge.green { color: var(--green); }
+  .option-badge.purple { color: var(--accent); }
+  .option-badge.yellow { color: var(--yellow); }
+  .option-title { font-size: 19px; font-weight: 800; color: var(--text); }
+  .option-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+
+  /* LINK BOX */
+  .link-box { background: #111420; border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .link-text { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); word-break: break-all; flex: 1; }
+  .link-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 8px; white-space: nowrap; min-height: 44px; transition: opacity 0.2s; }
+  .link-btn:hover { opacity: 0.85; }
+
   /* STEPS */
   .steps { display: flex; flex-direction: column; gap: 0; }
-  .step { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); }
+  .step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--border); }
   .step:last-child { border-bottom: none; }
   .step-num-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-  .step-num { width: 44px; height: 44px; border-radius: 12px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; color: #fff; font-family: 'JetBrains Mono', monospace; }
-  .step-line { width: 2px; flex: 1; min-height: 20px; background: var(--border); margin-top: 8px; }
+  .step-num { width: 36px; height: 36px; border-radius: 10px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900; color: #fff; font-family: 'JetBrains Mono', monospace; }
+  .step-line { width: 2px; flex: 1; min-height: 16px; background: var(--border); margin-top: 6px; }
   .step:last-child .step-line { display: none; }
-  .step-body { flex: 1; padding-bottom: 8px; }
-  .step-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
-  .step-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
+  .step-body { flex: 1; padding-bottom: 6px; }
+  .step-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
 
-  /* SCREENSHOT PLACEHOLDER */
-  .screenshot-box { background: #111420; border: 2px dashed var(--border); border-radius: 14px; padding: 28px 24px; margin-top: 16px; }
-  .screenshot-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-  .screenshot-dots { display: flex; gap: 6px; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; }
-  .dot.red { background: var(--red); }
-  .dot.yellow { background: var(--yellow); }
-  .dot.green { background: var(--green); }
-  .screenshot-title-bar { flex: 1; background: rgba(255,255,255,0.05); border-radius: 6px; height: 24px; display: flex; align-items: center; padding: 0 12px; font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-  .screenshot-content { color: var(--text-muted); font-size: 14px; line-height: 1.8; }
-  .screenshot-content code { font-family: 'JetBrains Mono', monospace; background: rgba(108,99,255,0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
-  .screenshot-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-
-  /* DATA FIELDS */
-  .data-fields { display: flex; flex-direction: column; gap: 12px; }
-  .data-field { display: flex; gap: 16px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+  /* FORM SECTION */
+  .form-fields { display: flex; flex-direction: column; gap: 12px; }
+  .form-field { display: flex; gap: 16px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
   .field-num { width: 28px; height: 28px; background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--accent); flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
   .field-body { flex: 1; }
   .field-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
@@ -82,10 +92,9 @@
   .copy-btn:hover { background: var(--accent); color: #fff; }
   .copy-btn.copied { background: var(--green-light); border-color: rgba(0,212,170,0.3); color: var(--green); }
 
-  /* ALVARO BOX */
-  .alvaro-box { background: rgba(0,212,170,0.06); border: 1px solid rgba(0,212,170,0.25); border-radius: 14px; padding: 22px 26px; }
-  .alvaro-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 12px; }
-  .alvaro-msg { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); background: rgba(0,0,0,0.2); border-radius: 10px; padding: 14px 18px; line-height: 1.8; position: relative; }
+  /* INFO BOX */
+  .info-box { background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.2); border-radius: 12px; padding: 18px 22px; font-size: 14px; color: var(--text-muted); margin-top: 16px; }
+  .info-box strong { color: var(--text); }
 
   /* NEXT MODULE */
   .next-module { background: var(--accent-light); border: 1px solid rgba(108,99,255,0.3); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -95,9 +104,8 @@
 
   @media print {
     body { background: white; color: black; font-size: 12px; }
-    .nav, .next-module, .copy-btn { display: none; }
+    .nav, .next-module, .copy-btn, .link-btn { display: none; }
     .step { border-bottom: 1px solid #ddd; break-inside: avoid; }
-    .screenshot-box { border: 1px solid #ccc; }
     a { color: black; }
     h2 { border-left-color: #333; }
   }
@@ -108,7 +116,8 @@
     .step-line { display: none; }
     .msg-text { font-size: 13px; padding: 14px; }
     .copy-btn { position: static; margin-top: 10px; width: 100%; }
-    .alvaro-msg { font-size: 13px; }
+    .link-box { flex-direction: column; align-items: flex-start; }
+    .link-btn { width: 100%; justify-content: center; }
   }
 </style>
 </head>
@@ -122,6 +131,7 @@
       <a href="02-el-script.html">02</a>
       <a href="03-como-agendar.html" class="active">03</a>
       <a href="04-practica.html">04</a>
+      <a href="05-compensacion.html">05</a>
     </div>
   </div>
 </nav>
@@ -130,159 +140,165 @@
 
   <div class="module-hero">
     <div class="module-num">Módulo 03</div>
-    <h1 class="module-title">Cómo Agendar<br>la Cita en GHL</h1>
-    <p class="module-lead">El prospecto dijo que sí. Ahora tienes que registrar la cita correctamente, avisar a Álvaro, y confirmar al cliente. Tres pasos. Sin saltarse ninguno.</p>
+    <h1 class="module-title">Cómo Agendar<br>la Cita</h1>
+    <p class="module-lead">El prospecto dijo que sí. Ahora tienes 3 opciones. Usa la que encaja mejor con la situación. El sistema hace el resto automático.</p>
   </div>
 
-  <!-- ANTES DE AGENDAR -->
+  <!-- LAS 3 OPCIONES -->
   <div class="section">
-    <div class="section-label">Preparación</div>
-    <h2>Información Que Necesitas Antes de Abrir GHL</h2>
-    <p>No abras GHL sin tener estos datos. Si falta alguno, pregúntalo antes de intentar agendar.</p>
+    <div class="section-label">Las 3 opciones</div>
+    <h2>Cómo Registrar la Cita</h2>
+    <p>Marco ya tiene activas las automaciones para saber que el contacto viene de ti. Solo tienes que usar una de estas tres opciones:</p>
 
-    <div class="data-fields">
-      <div class="data-field">
+    <div class="options-grid">
+
+      <!-- OPCION A -->
+      <div class="option-card primary">
+        <div class="option-header">
+          <div class="option-num green">A</div>
+          <div class="option-meta">
+            <div class="option-badge green">Recomendado · Más rápido</div>
+            <div class="option-title">Tú agendas directamente</div>
+          </div>
+        </div>
+        <div class="option-desc">Entras en tu calendario personal, eliges el día y hora que acordaste con el prospecto, introduces sus datos. El sistema manda confirmación y recordatorios automáticos al prospecto. Marco recibe notificación inmediata.</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-num">1</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-body">
+              <div class="step-title">Abre tu calendario personal</div>
+              <div class="step-desc">Accede al link de abajo desde el móvil o el ordenador.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-num">2</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-body">
+              <div class="step-title">Elige el día y hora acordada</div>
+              <div class="step-desc">Selecciona el horario que el prospecto te confirmó. Solo aparecen horas disponibles.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-num">3</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-body">
+              <div class="step-title">Introduce los datos del prospecto</div>
+              <div class="step-desc">Nombre, apellido, WhatsApp o email. El sistema envía la confirmación directamente a él.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-num">4</div>
+            </div>
+            <div class="step-body">
+              <div class="step-title">Listo. El sistema hace el resto</div>
+              <div class="step-desc">El prospecto recibe confirmación + recordatorios. Marco recibe notificación de la cita.</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 20px;">
+          <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;">Tu link de calendario</div>
+          <div class="link-box">
+            <span class="link-text">leadconnectorhq.com/widget/bookings/llamada-conocimiento-30min-camila</span>
+            <a href="https://api.leadconnectorhq.com/widget/bookings/llamada-conocimiento-30min-camila" target="_blank" class="link-btn">Abrir calendario →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPCION B -->
+      <div class="option-card">
+        <div class="option-header">
+          <div class="option-num purple">B</div>
+          <div class="option-meta">
+            <div class="option-badge purple">Alternativa</div>
+            <div class="option-title">Envías el link al prospecto</div>
+          </div>
+        </div>
+        <div class="option-desc">Si el prospecto prefiere elegir él mismo el horario, le mandas el link directamente por WhatsApp. Él elige, el sistema confirma y manda los recordatorios solo. Marco sabe que viene de ti.</div>
+        <div class="msg-text" style="margin-top: 4px; position: relative;" id="msgLinkProspecto">
+          Oye [NOMBRE], aquí puedes elegir el horario que mejor te vaya para la llamada: [PEGAR TU LINK]. Son solo 20 minutos.
+          <button class="copy-btn" onclick="copyMsg('msgLinkProspecto', this)">Copiar</button>
+        </div>
+        <div class="info-box" style="margin-top: 12px;">
+          <strong>Tu link:</strong> api.leadconnectorhq.com/widget/bookings/llamada-conocimiento-30min-camila
+        </div>
+      </div>
+
+      <!-- OPCION C -->
+      <div class="option-card">
+        <div class="option-header">
+          <div class="option-num yellow">C</div>
+          <div class="option-meta">
+            <div class="option-badge yellow">Si quiere más info primero</div>
+            <div class="option-title">Le mandas a la web de Marco</div>
+          </div>
+        </div>
+        <div class="option-desc">Si el prospecto quiere ver quién es Marco antes de agendar, o quiere leer sobre el servicio, le mandas a la web. Ahí puede ver casos de éxito, entender el servicio, y agendar directamente si decide hacerlo.</div>
+        <div class="link-box" style="margin-top: 4px;">
+          <span class="link-text">marcomarengo.es</span>
+          <a href="https://marcomarengo.es" target="_blank" class="link-btn">Ver web →</a>
+        </div>
+        <div style="background: rgba(255,209,102,0.07); border: 1px solid rgba(255,209,102,0.25); border-radius: 10px; padding: 12px 16px; margin-top: 12px;">
+          <p style="margin: 0; font-size: 13px; color: var(--text-muted);"><strong style="color: var(--yellow);">Ojo:</strong> Esta opción es para cuando el prospecto quiere "pensárselo". Si ya dijo que sí, usa la opción A directamente — no le des más tiempo de dudar.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EL FORMULARIO DE NOTAS -->
+  <div class="section">
+    <div class="section-label">Registro obligatorio</div>
+    <h2>Rellena el Formulario Después de Agendar</h2>
+    <p>Cada vez que agendes una cita — sin importar qué opción usaste — rellena el formulario que te ha compartido Marco. Esto sirve para tres cosas: registrar al contacto en el sistema, activar sus recordatorios, y dar a Marco el contexto de la conversación.</p>
+
+    <div class="form-fields">
+      <div class="form-field">
         <div class="field-num">1</div>
         <div class="field-body">
           <div class="field-name">Nombre completo del prospecto <span class="field-required">Obligatorio</span></div>
-          <div class="field-note">Nombre y apellido. No solo el nombre de usuario de Instagram.</div>
+          <div class="field-note">Nombre y apellido completos, no el apodo o el nombre de usuario.</div>
         </div>
       </div>
-      <div class="data-field">
+      <div class="form-field">
         <div class="field-num">2</div>
         <div class="field-body">
           <div class="field-name">WhatsApp o email <span class="field-required">Obligatorio</span></div>
-          <div class="field-note">Al menos uno de los dos. WhatsApp es preferible para el recordatorio automático.</div>
+          <div class="field-note">Al menos uno de los dos. WhatsApp es preferible para que lleguen los recordatorios.</div>
         </div>
       </div>
-      <div class="data-field">
+      <div class="form-field">
         <div class="field-num">3</div>
         <div class="field-body">
-          <div class="field-name">Tipo de negocio y facturación aproximada</div>
-          <div class="field-note">Lo que te contó en la conversación: "restaurante en Orihuela", "clínica dental", "inmobiliaria". Facturación aproximada si la mencionó.</div>
+          <div class="field-name">Tipo de negocio</div>
+          <div class="field-note">Lo que te contó: "restaurante en Torrevieja", "clínica dental", "inmobiliaria", etc.</div>
         </div>
       </div>
-      <div class="data-field">
+      <div class="form-field">
         <div class="field-num">4</div>
         <div class="field-body">
-          <div class="field-name">Disponibilidad <span class="field-required">Obligatorio</span></div>
-          <div class="field-note">Al menos 2 opciones de fecha y hora. Marco trabaja en horario europeo (España). Confirma que la hora propuesta está libre antes de comprometerte.</div>
+          <div class="field-name">Cómo lo conociste</div>
+          <div class="field-note">Dónde os conocisteis: evento, gimnasio, referido de X persona, casual en la calle, etc.</div>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="field-num">5</div>
+        <div class="field-body">
+          <div class="field-name">Notas de la conversación</div>
+          <div class="field-note">Lo que te dijo que le preocupa o lo que quiere conseguir. Cuanto más contexto des a Marco, mejor preparado va a la llamada.</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- PASO A PASO GHL -->
-  <div class="section">
-    <div class="section-label">Proceso en GHL</div>
-    <h2>Paso a Paso — Agendar en el Calendario</h2>
-
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-num-col">
-          <div class="step-num">1</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-body">
-          <div class="step-title">Entra en GHL y ve a Contactos</div>
-          <div class="step-desc">Accede a la cuenta de Engo Agency en GoHighLevel. En el menú lateral, selecciona <strong>Contacts</strong>. Busca si el prospecto ya existe por nombre o email antes de crear uno nuevo.</div>
-          <div class="screenshot-box" style="margin-top: 16px;">
-            <div class="screenshot-header">
-              <div class="screenshot-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-              <div class="screenshot-title-bar">GoHighLevel · Contacts</div>
-            </div>
-            <div class="screenshot-label">Dónde buscar</div>
-            <div class="screenshot-content">
-              Menú lateral izquierdo → icono de personas → <code>Contacts</code><br>
-              Barra de búsqueda superior → escribe nombre o teléfono → Enter<br>
-              Si no aparece: botón <code>+ Add Contact</code> (esquina superior derecha)
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num-col">
-          <div class="step-num">2</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-body">
-          <div class="step-title">Crea el contacto si no existe</div>
-          <div class="step-desc">Rellena los campos con los datos que recogiste: nombre completo, WhatsApp, email (si tienes), tipo de negocio en el campo de notas. Guarda antes de continuar.</div>
-          <div class="screenshot-box" style="margin-top: 16px;">
-            <div class="screenshot-header">
-              <div class="screenshot-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-              <div class="screenshot-title-bar">GoHighLevel · Add Contact</div>
-            </div>
-            <div class="screenshot-label">Campos a rellenar</div>
-            <div class="screenshot-content">
-              <code>First Name</code> + <code>Last Name</code> → nombre completo<br>
-              <code>Phone</code> → número WhatsApp con código de país (+34 para España)<br>
-              <code>Email</code> → si tienes<br>
-              <code>Notes</code> → tipo negocio + breve contexto de la conversación
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num-col">
-          <div class="step-num">3</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-body">
-          <div class="step-title">Abre el calendario y crea la cita</div>
-          <div class="step-desc">Desde el contacto creado, ve a la sección de <strong>Appointments</strong>, o accede directamente desde el menú lateral → <strong>Calendars</strong>. Selecciona el calendario de Marco y crea la cita en el horario acordado.</div>
-          <div class="screenshot-box" style="margin-top: 16px;">
-            <div class="screenshot-header">
-              <div class="screenshot-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-              <div class="screenshot-title-bar">GoHighLevel · Calendars</div>
-            </div>
-            <div class="screenshot-label">Pasos en el calendario</div>
-            <div class="screenshot-content">
-              Menú lateral → <code>Calendars</code> → selecciona el calendario de Marco<br>
-              Clic en la franja horaria correspondiente → <code>+ New Appointment</code><br>
-              Asigna el contacto que acabas de crear<br>
-              Título: nombre del prospecto + tipo de negocio (ej: <code>Juan García – Restaurante</code>)<br>
-              Confirma duración: <code>20-30 minutos</code><br>
-              Guarda → el sistema envía recordatorio automático si tiene WhatsApp
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num-col">
-          <div class="step-num">4</div>
-          <div class="step-line"></div>
-        </div>
-        <div class="step-body">
-          <div class="step-title">Verifica que la cita quedó registrada</div>
-          <div class="step-desc">Antes de cerrar GHL, confirma visualmente que la cita aparece en el calendario con el nombre correcto, el contacto asignado y el horario exacto. Si hay algún error, corrígelo ahora.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- AVISAR ALVARO -->
-  <div class="section">
-    <div class="section-label">Comunicación interna</div>
-    <h2>Cómo Avisar a Álvaro</h2>
-    <p>Inmediatamente después de agendar — no después, no al final del día — envía este mensaje a Álvaro:</p>
-
-    <div class="alvaro-box">
-      <div class="alvaro-title">Mensaje estándar para Álvaro</div>
-      <div class="alvaro-msg" id="msgAlvaro">
-        Cita agendada ✓<br>
-        Nombre: [NOMBRE COMPLETO]<br>
-        Negocio: [TIPO DE NEGOCIO]<br>
-        Fecha/hora: [DÍA] a las [HORA]<br>
-        Contacto: [WHATSAPP / EMAIL]<br>
-        Notas: [breve contexto de la conversación]
-        <button class="copy-btn" onclick="copyMsgAlvaro(this)">Copiar</button>
-      </div>
+    <div class="info-box">
+      <strong>¿Por qué es importante el formulario?</strong> Marco ya tiene activas las automaciones para saber que el contacto viene de ti — pero necesita los datos para que funcionen correctamente. Si no rellenas el formulario, Marco no tiene contexto para la llamada y el prospecto puede no recibir recordatorios.
     </div>
   </div>
 
@@ -290,12 +306,12 @@
   <div class="section">
     <div class="section-label">Confirmación al cliente</div>
     <h2>Qué Le Dices al Prospecto Después de Agendar</h2>
-    <p>Confirma la cita por el mismo canal donde tuvisteis la conversación (DM de Instagram, WhatsApp, etc.). Usa este mensaje exacto:</p>
+    <p>Confirma la cita por el mismo canal donde estabais hablando. Usa este mensaje exacto:</p>
 
     <div class="msg-box">
       <div class="msg-label">Mensaje de confirmación al prospecto</div>
       <div class="msg-text" id="msgCliente">
-        Perfecto [NOMBRE], te he agendado con nuestro consultor el [DÍA] a las [HORA]. Recibirás un recordatorio. ¿Alguna duda antes de la llamada?
+        Perfecto [NOMBRE], ya está confirmada la llamada para el [DÍA] a las [HORA]. Recibirás un mensaje de confirmación. ¿Alguna duda antes?
         <button class="copy-btn" onclick="copyMsg('msgCliente', this)">Copiar</button>
       </div>
     </div>
@@ -308,7 +324,7 @@
   <!-- NEXT -->
   <div class="next-module">
     <div>
-      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Último módulo</div>
+      <div style="font-size:13px; color: var(--text-muted); margin-bottom:4px;">Siguiente módulo</div>
       <div style="font-size:18px; font-weight:800; color: var(--text);">Practica con IA</div>
     </div>
     <a href="04-practica.html">Módulo 04 →</a>
@@ -325,22 +341,6 @@
 
   function copyMsg(id, btn) {
     const el = document.getElementById(id);
-    const clone = el.cloneNode(true);
-    const btnEl = clone.querySelector('button');
-    if(btnEl) btnEl.remove();
-    const text = clone.textContent.trim();
-    navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '✓ Copiado';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
-    }).catch(() => {
-      btn.textContent = '✓ OK';
-      setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
-    });
-  }
-
-  function copyMsgAlvaro(btn) {
-    const el = document.getElementById('msgAlvaro');
     const clone = el.cloneNode(true);
     const btnEl = clone.querySelector('button');
     if(btnEl) btnEl.remove();

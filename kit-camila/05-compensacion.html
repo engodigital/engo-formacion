@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 — Tu Plan de Ingresos | Kit Camila</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8; --accent: #6c63ff;
+    --green: #00d4aa; --red: #ff6b6b; --yellow: #ffd166;
+    --blue: #93c5fd;
+    --accent-light: rgba(108,99,255,0.12); --green-light: rgba(0,212,170,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 560px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* COMPENSATION PILLARS */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .pillar { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; text-align: center; }
+  .pillar.p1 { border-top: 3px solid var(--green); }
+  .pillar.p2 { border-top: 3px solid var(--accent); }
+  .pillar.p3 { border-top: 3px solid var(--yellow); }
+  .pillar-icon { font-size: 28px; margin-bottom: 10px; }
+  .pillar-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .pillar-label.p1 { color: var(--green); }
+  .pillar-label.p2 { color: var(--accent); }
+  .pillar-label.p3 { color: var(--yellow); }
+  .pillar-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .pillar-amount { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 900; margin-bottom: 6px; }
+  .pillar-amount.p1 { color: var(--green); }
+  .pillar-amount.p2 { color: var(--accent); }
+  .pillar-amount.p3 { color: var(--yellow); }
+  .pillar-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* TIER CARDS */
+  .tier-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .tier-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .tier-card.inicio { border-top: 3px solid var(--blue); }
+  .tier-card.activo { border-top: 3px solid var(--green); }
+  .tier-card.total { border-top: 3px solid var(--yellow); }
+  .tier-name { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+  .tier-name.inicio { color: var(--blue); }
+  .tier-name.activo { color: var(--green); }
+  .tier-name.total { color: var(--yellow); }
+  .tier-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .tier-row:last-of-type { border-bottom: none; }
+  .tier-row span:first-child { color: var(--text-muted); }
+  .tier-row span:last-child { font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .tier-row span.inicio { color: var(--blue); }
+  .tier-row span.activo { color: var(--green); }
+  .tier-row span.total { color: var(--yellow); }
+  .tier-total-row { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 12px 14px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .tier-total-label { font-size: 13px; font-weight: 700; color: var(--text-muted); }
+  .tier-total-num { font-size: 24px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
+  .tier-total-num.inicio { color: var(--blue); }
+  .tier-total-num.activo { color: var(--green); }
+  .tier-total-num.total { color: var(--yellow); }
+
+  /* TABLE */
+  .table-wrapper { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; min-width: 480px; }
+  thead tr { background: #13151e; }
+  th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; font-size: 14px; color: var(--text-muted); border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .td-label { font-weight: 700; color: var(--text); }
+  .td-mono { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 16px; }
+  .td-inicio { color: var(--blue); }
+  .td-activo { color: var(--green); }
+  .td-total { color: var(--yellow); }
+
+  /* BAR CHART */
+  .bar-chart { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .bar-label { font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-tier { font-size: 11px; font-weight: 700; width: 56px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; background: rgba(255,255,255,0.05); border-radius: 100px; height: 22px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 100px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; font-weight: 800; color: rgba(0,0,0,0.75); min-width: 36px; }
+  .bar-fill.inicio { background: var(--blue); }
+  .bar-fill.activo { background: var(--green); }
+  .bar-fill.total { background: var(--yellow); }
+  .bar-euro { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+  .bar-euro.inicio { color: var(--blue); }
+  .bar-euro.activo { color: var(--green); }
+  .bar-euro.total { color: var(--yellow); }
+
+  /* MILESTONE */
+  .milestones { display: flex; flex-direction: column; gap: 0; }
+  .milestone { display: flex; gap: 20px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid var(--border); position: relative; }
+  .milestone:last-child { border-bottom: none; }
+  .milestone::before { content: ''; position: absolute; left: 21px; top: 66px; width: 2px; height: calc(100% - 44px); background: var(--border); }
+  .milestone:last-child::before { display: none; }
+  .ms-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; z-index: 1; }
+  .ms-icon.start { background: rgba(255,209,102,0.15); border: 2px solid rgba(255,209,102,0.3); }
+  .ms-icon.grow { background: var(--accent-light); border: 2px solid rgba(108,99,255,0.4); }
+  .ms-icon.level { background: var(--green-light); border: 2px solid rgba(0,212,170,0.4); }
+  .ms-body { flex: 1; }
+  .ms-phase { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .ms-phase.start { color: var(--yellow); }
+  .ms-phase.grow { color: var(--accent); }
+  .ms-phase.level { color: var(--green); }
+  .ms-title { font-size: 19px; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+  .ms-desc { font-size: 14px; color: var(--text-muted); }
+  .ms-bar { background: rgba(255,255,255,0.05); border-radius: 100px; height: 6px; overflow: hidden; margin-top: 10px; max-width: 280px; }
+  .ms-bar-fill { height: 100%; border-radius: 100px; }
+
+  /* MOTIVATIONAL */
+  .motive-box { background: linear-gradient(135deg, rgba(0,212,170,0.12) 0%, rgba(108,99,255,0.12) 100%); border: 1px solid rgba(0,212,170,0.25); border-radius: 20px; padding: 36px; text-align: center; }
+  .motive-text { font-size: clamp(18px,3vw,26px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 10px; }
+  .motive-sub { font-size: 15px; color: var(--text-muted); }
+
+  .info-box { background: rgba(108,99,255,0.08); border: 1px solid rgba(108,99,255,0.2); border-radius: 12px; padding: 16px 20px; font-size: 14px; color: var(--text-muted); margin-top: 16px; }
+  .info-box strong { color: var(--text); }
+
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    .nav { display: none; }
+    .tier-card, .pillar { border: 1px solid #ccc; break-inside: avoid; }
+    td, th { border: 1px solid #ccc !important; color: black !important; }
+    a { color: black; }
+    h2 { border-left-color: #333; }
+  }
+
+  @media (max-width: 600px) {
+    .pillars { grid-template-columns: 1fr; }
+    .tier-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Volver al índice</a>
+    <div class="nav-links">
+      <a href="01-tu-rol.html">01</a>
+      <a href="02-el-script.html">02</a>
+      <a href="03-como-agendar.html">03</a>
+      <a href="04-practica.html">04</a>
+      <a href="05-compensacion.html" class="active">05</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="module-hero">
+    <div class="module-num">Módulo 05</div>
+    <h1 class="module-title">Tu Plan<br>de Ingresos</h1>
+    <p class="module-lead">Cada cita que agendas vale dinero. Te explicamos exactamente cuánto, cuándo, y cómo crece con el tiempo.</p>
+  </div>
+
+  <!-- COMO FUNCIONA -->
+  <div class="section">
+    <div class="section-label">La estructura</div>
+    <h2>Cómo Funciona Tu Compensación</h2>
+    <p>Tu compensación tiene tres fuentes. La primera la cobras aunque el prospecto no cierre. Las otras dos las cobras cuando el prospecto se convierte en cliente.</p>
+
+    <div class="pillars">
+      <div class="pillar p1">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-label p1">Parte 1</div>
+        <div class="pillar-title">Por cita que se celebra</div>
+        <div class="pillar-amount p1">€20</div>
+        <div class="pillar-desc">Por cada cita que agendas y el prospecto asiste. Se paga a fin de mes.</div>
+      </div>
+      <div class="pillar p2">
+        <div class="pillar-icon">💰</div>
+        <div class="pillar-label p2">Parte 2</div>
+        <div class="pillar-title">Por cierre — setup</div>
+        <div class="pillar-amount p2">5%</div>
+        <div class="pillar-desc">Del setup cuando el prospecto que tú trajiste firma. Pago único al inicio.</div>
+      </div>
+      <div class="pillar p3">
+        <div class="pillar-icon">♻️</div>
+        <div class="pillar-label p3">Parte 3</div>
+        <div class="pillar-title">Bono recurrente</div>
+        <div class="pillar-amount p3">3%</div>
+        <div class="pillar-desc">Del mensual durante 4 meses por cada cliente activo que tú generaste.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Importante:</strong> La Parte 1 (€20 por cita) la cobras independientemente de si el cliente cierra o no. Las Partes 2 y 3 dependen del cierre. Cuanto más cualifiques bien antes de agendar, más altas son tus tasas de conversión — y más cobras.
+    </div>
+  </div>
+
+  <!-- CALCULOS POR TIER -->
+  <div class="section">
+    <div class="section-label">Cálculo exacto</div>
+    <h2>Cuánto Ganas por Cada Cliente Cerrado</h2>
+    <p>Los clientes de Marco entran en uno de estos tres planes. El tamaño del cliente determina tu comisión.</p>
+
+    <div class="tier-cards">
+      <div class="tier-card inicio">
+        <div class="tier-name inicio">MOTOR INICIO</div>
+        <div class="tier-row"><span>Cita asistida</span><span class="inicio">€20</span></div>
+        <div class="tier-row"><span>Setup €1.500 × 5%</span><span class="inicio">€75</span></div>
+        <div class="tier-row"><span>€500/mes × 3% × 4 meses</span><span class="inicio">€60</span></div>
+        <div class="tier-total-row">
+          <span class="tier-total-label">Total por cliente</span>
+          <span class="tier-total-num inicio">€155</span>
+        </div>
+      </div>
+      <div class="tier-card activo">
+        <div class="tier-name activo">MOTOR ACTIVO</div>
+        <div class="tier-row"><span>Cita asistida</span><span class="activo">€20</span></div>
+        <div class="tier-row"><span>Setup €2.500 × 5%</span><span class="activo">€125</span></div>
+        <div class="tier-row"><span>€900/mes × 3% × 4 meses</span><span class="activo">€108</span></div>
+        <div class="tier-total-row">
+          <span class="tier-total-label">Total por cliente</span>
+          <span class="tier-total-num activo">€253</span>
+        </div>
+      </div>
+      <div class="tier-card total">
+        <div class="tier-name total">MOTOR TOTAL</div>
+        <div class="tier-row"><span>Cita asistida</span><span class="total">€20</span></div>
+        <div class="tier-row"><span>Setup €4.000 × 5%</span><span class="total">€200</span></div>
+        <div class="tier-row"><span>€1.400/mes × 3% × 4 meses</span><span class="total">€168</span></div>
+        <div class="tier-total-row">
+          <span class="tier-total-label">Total por cliente</span>
+          <span class="tier-total-num total">€388</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESCENARIOS -->
+  <div class="section">
+    <div class="section-label">Proyección</div>
+    <h2>Cuánto Puedes Ganar</h2>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Clientes cerrados</th>
+            <th style="color: var(--blue);">INICIO (×€155)</th>
+            <th style="color: var(--green);">ACTIVO (×€253)</th>
+            <th style="color: var(--yellow);">TOTAL (×€388)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-label">1 cliente</td>
+            <td class="td-mono td-inicio">€155</td>
+            <td class="td-mono td-activo">€253</td>
+            <td class="td-mono td-total">€388</td>
+          </tr>
+          <tr>
+            <td class="td-label">3 clientes</td>
+            <td class="td-mono td-inicio">€465</td>
+            <td class="td-mono td-activo">€759</td>
+            <td class="td-mono td-total">€1.164</td>
+          </tr>
+          <tr>
+            <td class="td-label">5 clientes</td>
+            <td class="td-mono td-inicio">€775</td>
+            <td class="td-mono td-activo">€1.265</td>
+            <td class="td-mono td-total">€1.940</td>
+          </tr>
+          <tr>
+            <td class="td-label">10 clientes</td>
+            <td class="td-mono td-inicio">€1.550</td>
+            <td class="td-mono td-activo">€2.530</td>
+            <td class="td-mono td-total">€3.880</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 13px; margin-top: 12px; color: var(--text-muted);">* Ganancia por cliente cerrado: setup (pago único) + 4 meses de recurrente. Más las citas asistidas aunque no cierren.</p>
+
+    <div class="bar-chart" style="margin-top: 28px;">
+      <div class="bar-label">Ganancia con 5 clientes cerrados</div>
+      <div class="bar-row">
+        <div class="bar-tier" style="color: var(--blue);">INICIO</div>
+        <div class="bar-track"><div class="bar-fill inicio" style="width: 40%;">€775</div></div>
+        <div class="bar-euro inicio">€775</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-tier" style="color: var(--green);">ACTIVO</div>
+        <div class="bar-track"><div class="bar-fill activo" style="width: 65%;">€1.265</div></div>
+        <div class="bar-euro activo">€1.265</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-tier" style="color: var(--yellow);">TOTAL</div>
+        <div class="bar-track"><div class="bar-fill total" style="width: 100%;">€1.940</div></div>
+        <div class="bar-euro total">€1.940</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAN DE CRECIMIENTO -->
+  <div class="section">
+    <div class="section-label">Tu progresión</div>
+    <h2>Plan de Crecimiento</h2>
+    <p>La compensación crece con tu trayectoria. Cuanto más demuestras, más sube tu porcentaje en cada operación.</p>
+
+    <div class="milestones">
+      <div class="milestone">
+        <div class="ms-icon start">🌱</div>
+        <div class="ms-body">
+          <div class="ms-phase start">Fase Inicial — Ahora</div>
+          <div class="ms-title">Captadora de Citas</div>
+          <div class="ms-desc">€20 por cita asistida + 5% setup + 3% mensual (4 meses). Tu foco es aprender el script, cualificar bien, y llenar el calendario.</div>
+          <div class="ms-bar"><div class="ms-bar-fill" style="width: 35%; background: var(--yellow);"></div></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="ms-icon grow">⚡</div>
+        <div class="ms-body">
+          <div class="ms-phase grow">Fase de Crecimiento — Tras 5 cierres</div>
+          <div class="ms-title">Captadora Senior</div>
+          <div class="ms-desc">+1 punto en cada porcentaje: 6% setup + 4% mensual (4 meses). Para llegar aquí: 5 clientes cerrados a partir de tus citas y tasa de asistencia > 70%.</div>
+          <div class="ms-bar"><div class="ms-bar-fill" style="width: 65%; background: var(--accent);"></div></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="ms-icon level">🚀</div>
+        <div class="ms-body">
+          <div class="ms-phase level">Fase Avanzada — Objetivo 6 meses</div>
+          <div class="ms-title">Lead Captadora</div>
+          <div class="ms-desc">Puedes incorporar y entrenar a otros captadores. Cobras porcentaje sobre tus propias operaciones más un bono sobre los cierres de tu equipo. Estructura a definir con Marco.</div>
+          <div class="ms-bar"><div class="ms-bar-fill" style="width: 100%; background: var(--green);"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTIVATIONAL -->
+  <div class="section">
+    <div class="motive-box">
+      <div class="motive-text">"No hay techo. Solo hay conversaciones que todavía no has iniciado."</div>
+      <div class="motive-sub">Cada persona que conoces es una oportunidad en movimiento. Tu calendario vacío de hoy es tu próximo ingreso recurrente.</div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    Engo Agency · Orihuela Coast · Formación Interna<br>
+    <span style="font-size:11px;">Las cifras son aproximadas y sujetas a revisión con Marco.</span>
+  </footer>
+
+</div>
+
+<script>localStorage.setItem('camila_visited_05-compensacion', '1');</script>
+</body>
+</html>
