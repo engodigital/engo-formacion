@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 — Selezione Lead | Kit Nicola · Webloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8;
+    --accent: #10b981; --accent2: #0ea5e9;
+    --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(16,185,129,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  .principle-box { background: linear-gradient(135deg, #0f2d24 0%, #0f1117 100%); border: 2px solid var(--accent); border-radius: 16px; padding: 28px 32px; margin-bottom: 40px; }
+  .principle-text { font-size: clamp(16px,3vw,20px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+  .principle-sub { font-size: 15px; color: var(--text-muted); }
+  .highlight { color: var(--accent); }
+
+  .filter-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+  .filter-card.active-filter { border-color: rgba(16,185,129,0.4); }
+  .filter-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .filter-num { background: var(--accent); color: #fff; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; flex-shrink: 0; }
+  .filter-title { font-size: 18px; font-weight: 800; color: var(--text); }
+  .filter-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .filter-list { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+  .filter-list li { font-size: 14px; color: var(--text-muted); padding-left: 20px; position: relative; }
+  .filter-list li::before { content: '·'; color: var(--accent); position: absolute; left: 6px; font-weight: 900; }
+  .filter-list li.out::before { content: '✗'; color: var(--red); }
+  .filter-list li.in::before { content: '✓'; color: var(--accent); }
+  .filter-note { background: var(--accent-light); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #6ee7b7; margin-top: 12px; font-weight: 600; }
+  .filter-note.warn { background: rgba(255,209,102,0.08); border-color: rgba(255,209,102,0.3); color: #fcd34d; }
+
+  .range-box { background: var(--bg-card); border: 2px solid rgba(255,209,102,0.4); border-radius: 16px; padding: 24px 28px; margin: 20px 0; }
+  .range-title { font-size: 16px; font-weight: 800; color: #fcd34d; margin-bottom: 16px; }
+  .range-row { display: flex; justify-content: space-between; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; min-height: 52px; }
+  .range-label { font-size: 14px; color: var(--text-muted); }
+  .range-result { font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 20px; }
+  .range-result.no { background: rgba(255,107,107,0.15); color: var(--red); }
+  .range-result.ok { background: var(--accent-light); color: var(--accent); }
+
+  .col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .col2-item { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .col2-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .col2-item.up { border-color: rgba(16,185,129,0.3); }
+  .col2-item.down { border-color: rgba(255,107,107,0.3); }
+  .col2-item li { font-size: 13px; color: var(--text-muted); padding: 2px 0 2px 16px; position: relative; }
+  .col2-item.up li::before { content:'↑'; color:var(--accent); position:absolute; left:0; font-size:11px; }
+  .col2-item.down li::before { content:'↓'; color:var(--red); position:absolute; left:0; font-size:11px; }
+
+  /* OUTPUT TABLE */
+  .output-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; }
+  .output-row { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .output-row:last-child { border-bottom: none; }
+  .output-key { font-size: 13px; font-weight: 700; color: var(--text-muted); min-width: 160px; flex-shrink: 0; }
+  .output-val { font-size: 14px; color: var(--text); }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+  .badge.h { background: rgba(16,185,129,0.15); color: var(--accent); }
+  .badge.m { background: rgba(255,209,102,0.15); color: var(--yellow); }
+  .badge.l { background: rgba(255,107,107,0.15); color: var(--red); }
+
+  /* TEST FINALE */
+  .test-box { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(14,165,233,0.08) 100%); border: 1px solid rgba(16,185,129,0.3); border-radius: 16px; padding: 28px 32px; text-align: center; }
+  .test-q { font-size: clamp(17px,3vw,22px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 16px; }
+  .test-q em { color: var(--accent); font-style: normal; }
+  .test-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 500px; margin: 0 auto; }
+  .test-ans { border-radius: 10px; padding: 14px 16px; font-size: 14px; font-weight: 700; }
+  .test-ans.yes { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: var(--accent); }
+  .test-ans.no { background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.3); color: var(--red); }
+
+  .alert { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.3); border-radius: 12px; padding: 16px 20px; font-size: 14px; color: #fcd34d; line-height: 1.6; margin-top: 16px; }
+
+  .nav-bottom { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+  .nav-bottom a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+  @media(max-width:500px) { .col2 { grid-template-columns: 1fr; } .test-answers { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Indice</a>
+    <div class="nav-links">
+      <a href="01-il-metodo.html">01</a>
+      <a href="02-il-servizio.html">02</a>
+      <a href="03-selezione-lead.html" class="active">03</a>
+      <a href="04-la-consulenza.html">04</a>
+      <a href="05-obiezioni.html">05</a>
+      <a href="06-pratica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="module-hero">
+    <div class="module-num">Modulo 03</div>
+    <h1 class="module-title">Selezione Lead</h1>
+    <p class="module-lead">I 7 filtri per trovare i centri estetici migliori da contattare. Non il miglior centro — il migliore da chiamare oggi.</p>
+  </div>
+
+  <div class="principle-box">
+    <div class="principle-text">Non cerco i migliori centri estetici.<br>Cerco i centri estetici <span class="highlight">migliori da chiamare.</span></div>
+    <div class="principle-sub">Un centro eccellente già ben presidiato digitalmente non è un buon lead. Un centro pessimo non è un buon lead. Il punto dolce è nel mezzo: abbastanza serio da potersi permettere il servizio, abbastanza scoperto da aver bisogno di te.</div>
+  </div>
+
+  <!-- FILTRO 1 -->
+  <div class="section">
+    <div class="section-label">I 7 Filtri</div>
+    <h2>Filtro 1 — Target reale</h2>
+
+    <div class="filter-card active-filter">
+      <div class="filter-body">
+        <p style="margin-bottom:12px;"><strong style="color:var(--text);">Entrano nella lista:</strong></p>
+        <ul class="filter-list">
+          <li class="in">Centri estetici strutturati</li>
+          <li class="in">Beauty center</li>
+          <li class="in">Estetica avanzata (laser, anti-age, rimodellamento)</li>
+          <li class="in">Centri con trattamenti viso/corpo specialistici</li>
+          <li class="in">Tecnologie estetiche (pressoterapia, radiofrequenza, ecc.)</li>
+          <li class="in">Servizi percepiti a medio-alto valore</li>
+        </ul>
+        <p style="margin-top:16px; margin-bottom:12px;"><strong style="color:var(--text);">Escono o declassano:</strong></p>
+        <ul class="filter-list">
+          <li class="out">Micro attività poco strutturate</li>
+          <li class="out">Operatori solo a domicilio</li>
+          <li class="out">Profili improvvisati o senza segnali professionali</li>
+          <li class="out">Attività chiaramente low cost o non organizzate</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Filtro 2 — Contattabilità reale</h2>
+
+    <div class="filter-card active-filter">
+      <div class="filter-body">
+        <p><strong style="color:var(--text);">Se non riesco a chiamarli, il lead non esiste.</strong> Cerco:</p>
+        <ul class="filter-list">
+          <li class="in">Telefono pubblico e verificabile</li>
+          <li class="in">Indirizzo chiaro</li>
+          <li class="in">Sito o scheda Google pubblica</li>
+          <li class="in">Email (utile ma non necessaria)</li>
+        </ul>
+        <div class="filter-note warn">Se manca il telefono → priorità automaticamente più bassa. L'outreach è telefonico. Senza numero non si va da nessuna parte.</div>
+      </div>
+    </div>
+
+    <h2>Filtro 3 — Vitalità attuale</h2>
+
+    <div class="filter-card active-filter">
+      <div class="filter-body">
+        <p>Un centro può sembrare perfetto sulla carta ma essere inattivo o in difficoltà. <strong style="color:var(--text);">Controllo rapido:</strong></p>
+        <ul class="filter-list">
+          <li>Data ultima recensione Google → ferma da +6 mesi? → <strong style="color:var(--red);">declassa</strong></li>
+          <li>Data ultimo post social → fermo da +6 mesi? → <strong style="color:var(--red);">declassa</strong></li>
+          <li>Entrambi fermi? → <strong style="color:var(--red);">escludi</strong> salvo segnali contrari evidenti</li>
+        </ul>
+        <div class="filter-note warn">Non sprecare chiamate su attività che stanno chiudendo o che non hanno più energia commerciale.</div>
+      </div>
+    </div>
+
+    <h2>Filtro 4 — Punto dolce digitale</h2>
+
+    <div class="filter-card active-filter">
+      <div class="filter-body">
+        <p>Il lead perfetto non è né troppo forte né troppo debole online.</p>
+        <p style="margin-bottom:8px;"><strong style="color:var(--text);">Segnali positivi (entra):</strong></p>
+        <ul class="filter-list">
+          <li class="in">Sito presente ma datato, debole o non orientato alla conversione</li>
+          <li class="in">Scheda Google non valorizzata (poche foto, no Q&A, no risposta alle recensioni)</li>
+          <li class="in">Poca local SEO visibile</li>
+          <li class="in">Social presenti ma non strategici</li>
+          <li class="in">CTA deboli o assenti</li>
+          <li class="in">Differenziazione non comunicata</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="range-box">
+      <div class="range-title">📊 Soglie recensioni Google</div>
+      <div class="range-row">
+        <span class="range-label">Meno di 15 recensioni</span>
+        <span class="range-result no">Troppo piccolo / troppo nuovo</span>
+      </div>
+      <div class="range-row">
+        <span class="range-label">15 – 150 recensioni</span>
+        <span class="range-result ok">✓ Punto dolce — contatta</span>
+      </div>
+      <div class="range-row" style="border:none;">
+        <span class="range-label">Oltre 150 + profilo curato</span>
+        <span class="range-result no">Già presidiato — salta</span>
+      </div>
+    </div>
+
+    <h2>Filtro 5 — Spendibilità plausibile</h2>
+
+    <div class="filter-card active-filter">
+      <div class="filter-body">
+        <p>Non saprai mai quanto spendono. Stima dai segnali indiretti.</p>
+        <div class="col2">
+          <div class="col2-item up">
+            <div class="col2-title" style="color:var(--accent);">↑ Alza la probabilità</div>
+            <ul>
+              <li>Zona commerciale / residenziale medio-alta</li>
+              <li>Brand curato (logo, naming, visual)</li>
+              <li>Servizi specialistici ad alto margine</li>
+              <li>Sito esistente anche se datato</li>
+              <li>Team visibile (più operatrici)</li>
+              <li>Prezzi non dichiaratamente low cost</li>
+            </ul>
+          </div>
+          <div class="col2-item down">
+            <div class="col2-title" style="color:var(--red);">↓ Abbassa la probabilità</div>
+            <ul>
+              <li>Zona periferica con poca densità commerciale</li>
+              <li>Visual amatoriale o assente</li>
+              <li>Solo servizi base (ceretta, manicure)</li>
+              <li>Nessuna tecnologia visibile</li>
+              <li>Attività con una sola persona</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Filtro 6 — Utilità della mini-analisi</h2>
+
+    <div class="filter-card active-filter">
+      <div class="filter-body">
+        <p><strong style="color:var(--text);">La mini-analisi è il gancio della chiamata.</strong> Se non hai nulla da dire su un centro, il gancio non funziona.</p>
+        <p style="margin-bottom:8px;"><strong style="color:var(--accent);">Lead buono se puoi dire:</strong></p>
+        <ul class="filter-list">
+          <li class="in">"Ho guardato il tuo sito e ho trovato 2-3 aspetti concreti migliorabili"</li>
+          <li class="in">"La scheda Google ha margine evidente"</li>
+          <li class="in">"C'è un'opportunità SEO locale che non stai sfruttando"</li>
+        </ul>
+        <p style="margin-top:12px; margin-bottom:8px;"><strong style="color:var(--red);">Lead debole se:</strong></p>
+        <ul class="filter-list">
+          <li class="out">Il centro non ha quasi nulla online (niente da analizzare)</li>
+          <li class="out">Il centro è già molto ben impostato (niente da migliorare)</li>
+          <li class="out">Non riesci a costruire un'osservazione credibile in 5 minuti</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Filtro 7 — Chi decide</h2>
+
+    <div class="filter-card active-filter">
+      <div class="filter-body">
+        <p>Vuoi parlare con chi ha autorità di spesa, non con una dipendente.</p>
+        <ul class="filter-list">
+          <li><strong style="color:var(--text);">Centro piccolo / mono-sede</strong> → la titolare risponde quasi sempre lei. Procedi normalmente.</li>
+          <li><strong style="color:var(--text);">Centro strutturato / più sedi / team visibile</strong> → aggiungi nota "titolare non identificabile". La prima call potrebbe essere di pre-qualifica.</li>
+        </ul>
+        <div class="filter-note">Non è un motivo per escludere il lead — è un motivo per sapere già come impostare la chiamata.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="section">
+    <div class="section-label">Output</div>
+    <h2>Come classificare ogni lead</h2>
+
+    <div class="output-card">
+      <div class="output-row">
+        <div class="output-key">ICP Fit</div>
+        <div class="output-val">
+          <div class="badge-row">
+            <span class="badge h">Alto</span>
+            <span class="badge m">Medio</span>
+            <span class="badge l">Basso</span>
+          </div>
+        </div>
+      </div>
+      <div class="output-row">
+        <div class="output-key">Priorità chiamata</div>
+        <div class="output-val">
+          <div class="badge-row">
+            <span class="badge h">1 — Chiama oggi</span>
+            <span class="badge m">2 — Questa settimana</span>
+            <span class="badge l">3 — Bassa priorità</span>
+          </div>
+        </div>
+      </div>
+      <div class="output-row">
+        <div class="output-key">Spendibilità stimata</div>
+        <div class="output-val">
+          <div class="badge-row">
+            <span class="badge h">Alta</span>
+            <span class="badge m">Media</span>
+            <span class="badge l">Bassa</span>
+          </div>
+        </div>
+      </div>
+      <div class="output-row">
+        <div class="output-key">Note operative</div>
+        <div class="output-val" style="color:var(--text-muted); font-size:14px;">Titolare identificabile? Dati mancanti? Segnali particolari dalla mini-analisi?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEST FINALE -->
+  <div class="section">
+    <div class="section-label">Check finale</div>
+    <h2>Il test che ogni lead deve superare</h2>
+
+    <div class="test-box">
+      <div class="test-q">"Posso costruire una mini-analisi credibile su questo centro<br>e avere una <em>buona ragione</em> per chiamarli oggi?"</div>
+      <div class="test-answers">
+        <div class="test-ans yes">✓ Sì → entra nella lista</div>
+        <div class="test-ans no">✗ No / devo inventarmi qualcosa → esce</div>
+      </div>
+    </div>
+
+    <div class="alert" style="margin-top:20px;">
+      Il lead perfetto: centro locale avviato · trattamenti con buon margine · telefono verificabile · attività recente (ultimi 3 mesi) · tra 15 e 150 recensioni · presenza online presente ma migliorabile · titolare raggiungibile.
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a href="02-il-servizio.html">← 02 Il Servizio</a>
+    <a href="04-la-consulenza.html">04 La Consulenza →</a>
+  </div>
+
+  <footer class="footer">Webloom · Kit Formazione · Nicola Pin</footer>
+</div>
+<script>localStorage.setItem('visited_03-selezione-lead','1');</script>
+</body>
+</html>
