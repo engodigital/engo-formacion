@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 — Il Metodo | Kit Nicola · Webloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8;
+    --accent: #10b981; --accent2: #0ea5e9;
+    --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(16,185,129,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+  .card.green { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.06); }
+  .card.red { border-color: rgba(255,107,107,0.4); background: rgba(255,107,107,0.06); }
+  .card.yellow { border-color: rgba(255,209,102,0.4); background: rgba(255,209,102,0.06); }
+  .card.blue { border-color: rgba(14,165,233,0.4); background: rgba(14,165,233,0.06); }
+
+  .step-list { display: flex; flex-direction: column; gap: 0; }
+  .step-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .step-item:last-child { border-bottom: none; }
+  .step-num { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-light); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900; color: var(--accent); flex-shrink: 0; }
+  .step-num.red { background: rgba(255,107,107,0.12); border-color: rgba(255,107,107,0.3); color: var(--red); }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+  .cycle-grid { display: flex; flex-direction: column; gap: 8px; }
+  .cycle-step { display: flex; gap: 16px; align-items: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+  .cycle-badge { background: var(--accent); color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0; min-width: 80px; text-align: center; }
+  .cycle-badge.b { background: #0ea5e9; }
+  .cycle-badge.c { background: #8b5cf6; }
+  .cycle-badge.d { background: #f59e0b; }
+  .cycle-badge.e { background: var(--accent); }
+  .cycle-text { font-size: 15px; color: var(--text); font-weight: 600; }
+  .cycle-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .cycle-arrow { color: var(--accent); font-size: 18px; margin: 4px auto; text-align: center; }
+
+  .mantra-box { background: linear-gradient(135deg, #1a1d27 0%, #0f2d24 100%); border: 2px solid var(--accent); border-radius: 20px; padding: 36px 32px; text-align: center; margin: 40px 0; }
+  .mantra-text { font-size: clamp(20px,3.5vw,28px); font-weight: 900; color: var(--text); line-height: 1.3; margin-bottom: 10px; }
+  .mantra-sub { font-size: 15px; color: var(--text-muted); }
+  .mantra-highlight { color: var(--accent); }
+
+  .alert { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.3); border-radius: 12px; padding: 16px 20px; font-size: 14px; color: #fcd34d; line-height: 1.6; margin-top: 16px; }
+  .alert.green { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.3); color: #6ee7b7; }
+
+  .nav-bottom { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+  .nav-bottom a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Indice</a>
+    <div class="nav-links">
+      <a href="01-il-metodo.html" class="active">01</a>
+      <a href="02-il-servizio.html">02</a>
+      <a href="03-selezione-lead.html">03</a>
+      <a href="04-la-consulenza.html">04</a>
+      <a href="05-obiezioni.html">05</a>
+      <a href="06-pratica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="module-hero">
+    <div class="module-num">Modulo 01</div>
+    <h1 class="module-title">Il Metodo</h1>
+    <p class="module-lead">La filosofia che guida ogni consulenza Webloom. Prima di parlare di servizi, tecniche o prezzi — capisci questo.</p>
+  </div>
+
+  <!-- MANTRA -->
+  <div class="mantra-box">
+    <div class="mantra-text">Non sei un venditore.<br>Sei un <span class="mantra-highlight">diagnostico.</span></div>
+    <div class="mantra-sub">Il tuo lavoro è scoprire il problema reale del cliente — non convincerlo di nulla.</div>
+  </div>
+
+  <!-- IL TUO RUOLO -->
+  <div class="section">
+    <div class="section-label">Sezione A</div>
+    <h2>Il tuo ruolo come consulente Webloom</h2>
+
+    <div class="card green">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title">Identifichi il problema, non proponi soluzioni a freddo</div>
+            <div class="step-desc">Prima di ogni call, fai la mini-analisi digitale del centro. Entri nella conversazione con 2-3 osservazioni concrete, non con una brochure. Chi arriva con dati vince la fiducia in 2 minuti.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title">Qualifichi prima di investire tempo</div>
+            <div class="step-desc">Non ogni centro è il cliente giusto. Usi i 7 filtri (modulo 03) per capire se vale la pena fare la prima call. Un lead non qualificato è tempo sprecato per entrambi.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title">Conduci la consulenza in autonomia</div>
+            <div class="step-desc">Prima call (diagnostica), seconda call (proposta), gestione obiezioni, firma contratto: tutto lo gestisci tu. Il metodo è il tuo strumento — non hai bisogno di escalation per chiudere.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title">Sei il punto di riferimento del cliente</div>
+            <div class="step-desc">Il cliente compra da te, non da un brand astratto. La relazione personale è il tuo vantaggio competitivo rispetto alle grandi agenzie. Coltivala da subito.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card red">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num red">✗</div>
+          <div class="step-body">
+            <div class="step-title">Cosa NON fai</div>
+            <div class="step-desc">Non prometti risultati specifici senza dati. Non inventi numeri. Non entri in call senza aver fatto la mini-analisi. Non presenti il prezzo prima di aver capito il problema. Non spieghi la tecnologia — spieghi il risultato che ottengono.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IL CICLO -->
+  <div class="section">
+    <div class="section-label">Sezione B</div>
+    <h2>Il ciclo completo — Da lead a cliente</h2>
+
+    <p>Ogni cliente Webloom passa attraverso queste 5 fasi. Saltarne una abbassa il tasso di conversione.</p>
+
+    <div class="cycle-grid">
+      <div class="cycle-step">
+        <div class="cycle-badge">Fase 1</div>
+        <div>
+          <div class="cycle-text">Selezione lead</div>
+          <div class="cycle-sub">Applici i 7 filtri. Solo i lead che superano il test entrano nella lista chiamate.</div>
+        </div>
+      </div>
+      <div class="cycle-arrow">↓</div>
+      <div class="cycle-step">
+        <div class="cycle-badge b">Fase 2</div>
+        <div>
+          <div class="cycle-text">Mini-analisi digitale</div>
+          <div class="cycle-sub">5 minuti sul loro sito, scheda Google, social. Trovi 2-3 elementi concreti da portare in call.</div>
+        </div>
+      </div>
+      <div class="cycle-arrow">↓</div>
+      <div class="cycle-step">
+        <div class="cycle-badge c">Fase 3</div>
+        <div>
+          <div class="cycle-text">Prima call — Diagnostica (20 min)</div>
+          <div class="cycle-sub">Ascolti, fai domande, qualifichi. Chiudi chiedendo la seconda call se c'è fit.</div>
+        </div>
+      </div>
+      <div class="cycle-arrow">↓</div>
+      <div class="cycle-step">
+        <div class="cycle-badge d">Fase 4</div>
+        <div>
+          <div class="cycle-text">Seconda call — Proposta (60 min)</div>
+          <div class="cycle-sub">Presenti la diagnosi, la soluzione, il prezzo. Gestisci le obiezioni. Chiudi.</div>
+        </div>
+      </div>
+      <div class="cycle-arrow">↓</div>
+      <div class="cycle-step">
+        <div class="cycle-badge e">Fase 5</div>
+        <div>
+          <div class="cycle-text">Firma e onboarding</div>
+          <div class="cycle-sub">Contratto, acconto, consegna. Il cliente attivo è il tuo caso studio per i prossimi lead.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert green" style="margin-top:20px;">
+      La mini-analisi è la fase più sottovalutata. Chi entra in call con dati concreti sul business del prospect chiude il 30% in più. Non saltarla mai.
+    </div>
+  </div>
+
+  <!-- PRINCIPI GUIDA -->
+  <div class="section">
+    <div class="section-label">Sezione C</div>
+    <h2>I 4 principi che guidano ogni conversazione</h2>
+
+    <div class="card">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Problema prima di soluzione</div>
+            <div class="step-desc">Non parlare mai del servizio Webloom prima di aver capito e confermato il problema del cliente. Presentare una soluzione prima di diagnosticare il problema è come prescrivere una medicina senza visita.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Domande, non pitch</div>
+            <div class="step-desc">Chi fa le domande controlla la conversazione. Chi risponde è in posizione difensiva. In ogni fase del ciclo, la tua priorità è fare la domanda giusta — non trovare la risposta giusta.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Un passo alla volta</div>
+            <div class="step-desc">L'obiettivo della prima call non è chiudere il contratto — è ottenere la seconda call. L'obiettivo della seconda call è ottenere la firma. Non bruciare le fasi cercando di fare tutto subito.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Qualifica o esci</div>
+            <div class="step-desc">Se il cliente non passa la qualifica (fatturato, tipo di business, spendibilità), non insistere. Un "no" pulito oggi vale più di 4 settimane di follow-up con qualcuno che non comprerà mai.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENTALITA' -->
+  <div class="section">
+    <div class="section-label">Sezione D</div>
+    <h2>La mentalità giusta prima di ogni call</h2>
+
+    <div class="card yellow">
+      <h3 style="color:#fcd34d; margin-bottom:12px;">Prima di chiamare, chiediti:</h3>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(255,209,102,0.12); border-color:rgba(255,209,102,0.3); color:var(--yellow);">?</div>
+          <div class="step-body">
+            <div class="step-title">Ho fatto la mini-analisi?</div>
+            <div class="step-desc">Se non hai almeno 2 osservazioni concrete su sito, Google o social, non chiamare ancora.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(255,209,102,0.12); border-color:rgba(255,209,102,0.3); color:var(--yellow);">?</div>
+          <div class="step-body">
+            <div class="step-title">Qual è l'unico obiettivo di questa call?</div>
+            <div class="step-desc">Prima call → seconda call. Seconda call → firma. Non uscire dall'obiettivo.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(255,209,102,0.12); border-color:rgba(255,209,102,0.3); color:var(--yellow);">?</div>
+          <div class="step-body">
+            <div class="step-title">Sono pronto a sentire "no" senza insistere?</div>
+            <div class="step-desc">Qualificare in uscita è una competenza professionale, non una sconfitta. Il prospect che dice "no" correttamente qualificato ti rispetta di più.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      Il dettaglio che separa i consulenti ad alto tasso di conversione dagli altri: entrano in ogni call con curiosità genuina, non con l'ansia di chiudere. Il cliente lo sente. Cambia tutto.
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <div>
+      <div style="font-size:13px; color:var(--text-muted); margin-bottom:4px;">Prossimo modulo</div>
+      <div style="font-size:18px; font-weight:800;">02 — Il Servizio</div>
+    </div>
+    <a href="02-il-servizio.html">Avanti →</a>
+  </div>
+
+  <footer class="footer">Webloom · Kit Formazione · Nicola Pin</footer>
+</div>
+<script>localStorage.setItem('visited_01-il-metodo','1');</script>
+</body>
+</html>
