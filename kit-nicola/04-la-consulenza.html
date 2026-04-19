@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 — La Consulenza | Kit Nicola · Webloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8;
+    --accent: #10b981; --accent2: #0ea5e9;
+    --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(16,185,129,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item { display: flex; gap: 20px; align-items: flex-start; }
+  .timeline-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .t-badge { background: var(--accent); color: #fff; border-radius: 8px; padding: 5px 10px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+  .t-badge.b { background: #8b5cf6; }
+  .t-badge.c { background: #f59e0b; }
+  .t-badge.d { background: var(--accent); }
+  .t-line { width: 2px; background: var(--border); flex: 1; min-height: 24px; margin: 4px auto; }
+  .timeline-body { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; margin-bottom: 8px; flex: 1; }
+  .timeline-body.accent { border-color: rgba(16,185,129,0.4); }
+  .t-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .t-goal { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .t-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* DOMANDE */
+  .q-list { display: flex; flex-direction: column; gap: 10px; }
+  .q-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+  .q-cat { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-style: italic; line-height: 1.6; }
+  .q-why { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+  /* STRUTTURA 2a CALL */
+  .slide-grid { display: flex; flex-direction: column; gap: 8px; }
+  .slide-item { display: flex; gap: 14px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+  .slide-num { background: #161b2e; border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; min-width: 44px; text-align: center; }
+  .slide-num.key { background: var(--accent-light); border-color: rgba(16,185,129,0.3); color: var(--accent); }
+  .slide-num.lock { background: rgba(14,165,233,0.12); border-color: rgba(14,165,233,0.3); color: var(--accent2); }
+  .slide-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .slide-desc { font-size: 13px; color: var(--text-muted); }
+
+  /* CHIUSURA */
+  .close-script { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .close-header { background: #161b2e; padding: 10px 16px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .close-body { padding: 16px; font-size: 15px; color: #d1d5db; line-height: 1.75; font-style: italic; }
+  .close-body strong { color: var(--text); font-style: normal; }
+
+  .alert { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.3); border-radius: 12px; padding: 16px 20px; font-size: 14px; color: #fcd34d; line-height: 1.6; margin-top: 16px; }
+  .alert.green { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.3); color: #6ee7b7; }
+  .alert.blue { background: rgba(14,165,233,0.08); border-color: rgba(14,165,233,0.3); color: #7dd3fc; }
+
+  .nav-bottom { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+  .nav-bottom a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Indice</a>
+    <div class="nav-links">
+      <a href="01-il-metodo.html">01</a>
+      <a href="02-il-servizio.html">02</a>
+      <a href="03-selezione-lead.html">03</a>
+      <a href="04-la-consulenza.html" class="active">04</a>
+      <a href="05-obiezioni.html">05</a>
+      <a href="06-pratica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="module-hero">
+    <div class="module-num">Modulo 04</div>
+    <h1 class="module-title">La Consulenza</h1>
+    <p class="module-lead">Struttura completa della prima call e della seconda call. Ogni minuto ha uno scopo preciso.</p>
+  </div>
+
+  <!-- PRIMA CALL -->
+  <div class="section">
+    <div class="section-label">Fase 1</div>
+    <h2>Prima call — Diagnostica (20 min)</h2>
+
+    <p>Obiettivo unico: <strong>capire se c'è un problema reale che puoi risolvere</strong>, e ottenere il sì per la seconda call. Non vendere ancora nulla.</p>
+
+    <div class="timeline" style="margin-top:24px;">
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="t-badge">0–2 min</div>
+          <div class="t-line"></div>
+        </div>
+        <div class="timeline-body accent">
+          <div class="t-goal">Apertura</div>
+          <div class="t-title">Stabilisci il contesto e la durata</div>
+          <div class="t-desc">"Ho 20 minuti con te. Ti faccio qualche domanda sul centro, ti racconto brevemente cosa facciamo, poi decidiamo insieme se ha senso approfondire. Va bene?" — Non partire a vendere. Ottieni il permesso di fare domande.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="t-badge b">2–8 min</div>
+          <div class="t-line"></div>
+        </div>
+        <div class="timeline-body">
+          <div class="t-goal">Diagnosi del problema</div>
+          <div class="t-title">Fai domande aperte — ascolta senza interrompere</div>
+          <div class="t-desc">Usa le domande diagnostiche (sezione B di questo modulo). Lascia parlare. Prendi appunti mentali su 3 cose: problema principale, cosa ha già provato, quanto il problema gli costa (in clienti persi o stress).</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="t-badge c">8–13 min</div>
+          <div class="t-line"></div>
+        </div>
+        <div class="timeline-body">
+          <div class="t-goal">Qualifica</div>
+          <div class="t-title">Verifica i parametri di fit</div>
+          <div class="t-desc">Fai emergere naturalmente fatturato, dimensione, situazione digitale attuale. Non come interrogatorio — come curiosità professionale. "Quante clienti seguite mediamente al mese?" vale quanto "quanto fatturate?"</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="t-badge">13–18 min</div>
+          <div class="t-line"></div>
+        </div>
+        <div class="timeline-body">
+          <div class="t-goal">Positioning</div>
+          <div class="t-title">Collega il problema a quello che fai</div>
+          <div class="t-desc">"Quello che hai descritto — [problema specifico] — è esattamente la situazione per cui abbiamo costruito il sistema Webloom. Non ti racconto tutto adesso, ma ti dico che centri simili al tuo hanno visto [risultato generico] in [timeframe]. Vale una seconda call di 45 minuti per mostrarti come?"</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="t-badge d">18–20 min</div>
+        </div>
+        <div class="timeline-body accent">
+          <div class="t-goal">Chiusura — L'unico KPI della prima call</div>
+          <div class="t-title">Ottieni il sì per la seconda call</div>
+          <div class="t-desc">"Quando sei disponibile questa o la prossima settimana per un'ora? Ti preparo una proposta personalizzata basata su quello che mi hai detto oggi." — Se dice no: "Capisco. Quando sarebbe un momento migliore?" Non insistere più di una volta.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert green" style="margin-top:20px;">
+      Ricorda: nella prima call parli al massimo il 30% del tempo. Il resto è il cliente che parla. Se stai parlando di più, stai sbagliando qualcosa.
+    </div>
+  </div>
+
+  <!-- DOMANDE DIAGNOSTICHE -->
+  <div class="section">
+    <div class="section-label">Script</div>
+    <h2>Le domande diagnostiche — Prima call</h2>
+
+    <div class="q-list">
+      <div class="q-item">
+        <div class="q-cat">Situazione attuale</div>
+        <div class="q-text">"Come stai acquisendo nuove clienti adesso? Cosa funziona meglio?"</div>
+        <div class="q-why">Apre la conversazione sul problema senza mettere in difensiva. Lascia che descrivano loro la situazione.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-cat">Problema / dolore</div>
+        <div class="q-text">"C'è una stagione o un periodo in cui i numeri calano? Come la gestite?"</div>
+        <div class="q-why">Fa emergere il pain della bassa stagione, che è quasi universale nei centri estetici.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-cat">Presenza online</div>
+        <div class="q-text">"Quando una cliente nuova vi trova su Google, cosa vede? Siete soddisfatte di come vi presentate online?"</div>
+        <div class="q-why">Apre il discorso sulla scheda Google e il sito senza dirglielo direttamente.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-cat">Recensioni</div>
+        <div class="q-text">"Le clienti soddisfatte lasciano recensioni spontaneamente? Avete un sistema per raccoglierle?"</div>
+        <div class="q-why">Quasi nessun centro ha un sistema. La domanda crea consapevolezza del gap.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-cat">Contatti persi</div>
+        <div class="q-text">"Cosa succede quando qualcuno vi manda un messaggio o chiama fuori orario? Come lo gestite?"</div>
+        <div class="q-why">Rivela il problema più comune: i contatti che arrivano e non vengono seguiti. Ogni contatto perso è fatturato perso.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-cat">Obiettivo</div>
+        <div class="q-text">"Se potessi cambiare una sola cosa nella vostra acquisizione clienti, quale sarebbe?"</div>
+        <div class="q-why">La risposta è il tuo pain principale. Usala nella seconda call nel riepilogo problemi.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-cat">Qualifica budget</div>
+        <div class="q-text">"Avete già investito in marketing digitale in passato? Com'è andata?"</div>
+        <div class="q-why">Qualifica la disponibilità a investire senza chiedere il budget direttamente. Se hanno già speso, sono prospect migliori.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECONDA CALL -->
+  <div class="section">
+    <div class="section-label">Fase 2</div>
+    <h2>Seconda call — Proposta (45–60 min)</h2>
+
+    <p>Obiettivo: presentare la diagnosi (basata sulla prima call), la soluzione, il prezzo. Gestire le obiezioni. <strong>Chiudere.</strong></p>
+
+    <div class="alert blue" style="margin-bottom:24px;">
+      Prima di questa call: prepara il deck di presentazione personalizzato. Usa le citazioni reali della prima call. Il cliente deve sentire che hai ascoltato — perché è così.
+    </div>
+
+    <div class="slide-grid">
+      <div class="slide-item">
+        <div class="slide-num key">S0</div>
+        <div>
+          <div class="slide-title">Cover — Nome centro + contesto</div>
+          <div class="slide-desc">Personalizza con nome centro, città, settore specifico. Il cliente deve sentire che è tutto fatto per loro.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num key">S1</div>
+        <div>
+          <div class="slide-title">Il Problema — 3 pain points con dati</div>
+          <div class="slide-desc">Usa quello che hai scoperto nella prima call. Pain 1: visibilità/acquisizione · Pain 2: prova sociale (recensioni) · Pain 3: contatti persi / organizzazione.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">S2</div>
+        <div>
+          <div class="slide-title">Quello che ci hai detto — 4 citazioni dirette</div>
+          <div class="slide-desc">Usa le parole esatte del cliente dalla prima call. "Come hai detto tu: '...'" — Questa slide costruisce fiducia istantanea.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">S3</div>
+        <div>
+          <div class="slide-title">La Diagnosi — Da freni a soluzione</div>
+          <div class="slide-desc">Riformula i 3 pain come "freni al business". Chiudi con: "non costruiamo qualcosa di nuovo — digitalizziamo quello che hai già."</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">S4</div>
+        <div>
+          <div class="slide-title">La Soluzione — 3 pilastri</div>
+          <div class="slide-desc">Presenza Google · Automazione recensioni · CRM contatti. Mostra come si integra con quello che hanno già.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">S5</div>
+        <div>
+          <div class="slide-title">Cosa Include — Lista deliverable</div>
+          <div class="slide-desc">6 elementi in griglia. Includi sempre formazione + qualcosa di inatteso (es. ottimizzazione Google My Business).</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num key">S6</div>
+        <div>
+          <div class="slide-title">Il Prezzo — Setup + canone mensile</div>
+          <div class="slide-desc">€1.000 setup + €97/mese. Presenta sempre entrambi insieme. Nota: "Nessun vincolo. Rinnovo mensile."</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num key">S7</div>
+        <div>
+          <div class="slide-title">Piano Pagamenti — Timeline chiara</div>
+          <div class="slide-desc">Oggi: 50% acconto (€500) · Consegna: 50% saldo (€500) · Poi €97/mese. Consegna: ~10 giorni lavorativi.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num lock">S8-S11</div>
+        <div>
+          <div class="slide-title">🔒 Espansione Marketing — Sezione bloccata</div>
+          <div class="slide-desc">Visibile solo se il cliente fa domande attive. Meta Ads + Google Ads + Funnel + KPI. Setup €1.500 + €300/mese aggiuntivi.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num key">S12</div>
+        <div>
+          <div class="slide-title">CTA — 4 passi per partire</div>
+          <div class="slide-desc">Contratto → Acconto €500 → Onboarding → Go live in 10 giorni. Chiudi sempre con una domanda diretta: "Hai domande prima di procedere?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COME PRESENTARE IL PREZZO -->
+  <div class="section">
+    <div class="section-label">Momento critico</div>
+    <h2>Come presentare il prezzo — Il momento più importante</h2>
+
+    <p>Il prezzo si presenta SOLO dopo aver fatto il riepilogo dei problemi e dopo che il cliente ha confermato che quei problemi esistono. Non prima.</p>
+
+    <div class="close-script">
+      <div class="close-header">Riepilogo problemi — Prima di dire il prezzo</div>
+      <div class="close-body">"Prima di mostrarti i numeri, voglio assicurarmi di aver capito bene la tua situazione. Nella nostra prima call hai detto che [problema 1], che [problema 2], e che l'obiettivo principale è [obiettivo]. È ancora così? Ho capito bene?" — <strong>Aspetta il sì.</strong> Solo dopo vai alla slide del prezzo.</div>
+    </div>
+
+    <div class="close-script">
+      <div class="close-header">Presentazione prezzo — Come dirlo</div>
+      <div class="close-body">"Il sistema Webloom parte da <strong>€1.000 una tantum per il setup</strong> e <strong>€97 al mese</strong> per la gestione. Il setup lo consegniamo in circa 10 giorni. Nessun vincolo: se dopo i primi 3 mesi non vedi differenza, esci libero. <strong>[Pausa. Lascia che il prezzo atterri. Non parlare tu per primo dopo aver detto il prezzo.]</strong>"</div>
+    </div>
+
+    <div class="close-script">
+      <div class="close-header">Chiusura diretta — Dopo aver risposto alle obiezioni</div>
+      <div class="close-body">"Hai ancora dubbi prima di procedere? [Attendi.] Perfetto. Allora ti mando il contratto in email entro oggi e mi confermi il pagamento dell'acconto di €500 così partiamo con l'onboarding."</div>
+    </div>
+
+    <div class="alert">
+      La pausa dopo il prezzo è la tecnica più potente e più evitata dai consulenti inesperti. Chi parla subito dopo aver detto il prezzo, segnala insicurezza. Dì il prezzo, poi stai zitto. Conta fino a 5 nella testa se devi.
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a href="03-selezione-lead.html">← 03 Selezione Lead</a>
+    <a href="05-obiezioni.html">05 Obiezioni →</a>
+  </div>
+
+  <footer class="footer">Webloom · Kit Formazione · Nicola Pin</footer>
+</div>
+<script>localStorage.setItem('visited_04-la-consulenza','1');</script>
+</body>
+</html>
