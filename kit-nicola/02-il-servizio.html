@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 — Il Servizio | Kit Nicola · Webloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8;
+    --accent: #10b981; --accent2: #0ea5e9;
+    --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(16,185,129,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+  .card.green { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.06); }
+  .card.blue { border-color: rgba(14,165,233,0.4); background: rgba(14,165,233,0.06); }
+  .card.yellow { border-color: rgba(255,209,102,0.4); background: rgba(255,209,102,0.06); }
+
+  .step-list { display: flex; flex-direction: column; }
+  .step-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .step-item:last-child { border-bottom: none; }
+  .step-num { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-light); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900; color: var(--accent); flex-shrink: 0; }
+  .step-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+  /* OFFERTA */
+  .offer-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
+  .offer-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; }
+  .offer-card.featured { border-color: rgba(16,185,129,0.5); }
+  .offer-card.locked { border-color: rgba(14,165,233,0.4); background: rgba(14,165,233,0.04); }
+  .offer-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .offer-label.base { color: var(--accent); }
+  .offer-label.mkt { color: var(--accent2); }
+  .offer-setup { font-size: 36px; font-weight: 900; color: var(--text); line-height: 1; }
+  .offer-setup-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+  .offer-monthly { font-size: 22px; font-weight: 800; color: var(--accent); }
+  .offer-includes { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .offer-includes li { font-size: 14px; color: var(--text-muted); padding: 4px 0; padding-left: 20px; position: relative; }
+  .offer-includes li::before { content: '✓'; color: var(--accent); position: absolute; left: 0; font-weight: 700; }
+  .lock-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(14,165,233,0.12); border: 1px solid rgba(14,165,233,0.3); color: #7dd3fc; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+
+  /* TARGET */
+  .target-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; }
+  .target-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+  .target-icon { font-size: 24px; margin-bottom: 8px; }
+  .target-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .target-sub { font-size: 13px; color: var(--text-muted); }
+
+  /* PITCH */
+  .pitch-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .pitch-header { background: #161b2e; padding: 10px 16px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .pitch-body { padding: 16px; font-size: 15px; color: #d1d5db; line-height: 1.75; font-style: italic; }
+
+  .alert { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.3); border-radius: 12px; padding: 16px 20px; font-size: 14px; color: #fcd34d; line-height: 1.6; margin-top: 16px; }
+  .alert.green { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.3); color: #6ee7b7; }
+
+  .nav-bottom { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+  .nav-bottom a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Indice</a>
+    <div class="nav-links">
+      <a href="01-il-metodo.html">01</a>
+      <a href="02-il-servizio.html" class="active">02</a>
+      <a href="03-selezione-lead.html">03</a>
+      <a href="04-la-consulenza.html">04</a>
+      <a href="05-obiezioni.html">05</a>
+      <a href="06-pratica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="module-hero">
+    <div class="module-num">Modulo 02</div>
+    <h1 class="module-title">Il Servizio</h1>
+    <p class="module-lead">Cosa vende Webloom, a chi, e come parlarne in modo che il cliente capisca il valore senza tecnicismi.</p>
+  </div>
+
+  <!-- COSA E' -->
+  <div class="section">
+    <div class="section-label">Sezione A</div>
+    <h2>Cos'è Webloom in 3 frasi</h2>
+
+    <div class="card green">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Un sistema che porta clienti al centro anche quando sei in cabina</div>
+            <div class="step-desc">Non è un sito web. È un sistema automatizzato: presenza Google ottimizzata + raccolta recensioni automatica + CRM che non lascia scappare i contatti. Lavora 24/7.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Tutto integrato, non pezzi separati</div>
+            <div class="step-desc">Il sito web, la scheda Google, la gestione dei contatti e le automazioni comunicano tra loro. Non è un sito che si aggiorna ogni 3 anni: è un sistema che si ottimizza nel tempo.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Setup veloce, poi pilota automatico</div>
+            <div class="step-desc">Il setup si consegna in ~10 giorni. Dopo, il cliente paga una gestione mensile ridotta e il sistema continua a lavorare. Nessun lavoro manuale quotidiano per loro.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pitch-block">
+      <div class="pitch-header">Come presentarlo in 1 frase — usa questa</div>
+      <div class="pitch-body">"È un sistema che fa trovare il tuo centro online, raccoglie automaticamente le recensioni dei clienti soddisfatti, e non lascia scappare nessun contatto. Una volta configurato, gira da solo."</div>
+    </div>
+  </div>
+
+  <!-- TARGET -->
+  <div class="section">
+    <div class="section-label">Sezione B</div>
+    <h2>A chi è rivolto — Il cliente ideale Webloom</h2>
+
+    <div class="target-grid">
+      <div class="target-item">
+        <div class="target-icon">💆</div>
+        <div class="target-name">Centri estetici strutturati</div>
+        <div class="target-sub">Trattamenti specialistici, almeno 2-3 cabine, operatrici</div>
+      </div>
+      <div class="target-item">
+        <div class="target-icon">✨</div>
+        <div class="target-name">Estetica avanzata</div>
+        <div class="target-sub">Laser, anti-age, radiofrequenza, pressoterapia</div>
+      </div>
+      <div class="target-item">
+        <div class="target-icon">🌿</div>
+        <div class="target-name">Beauty & Wellness center</div>
+        <div class="target-sub">Servizi corpo + viso + benessere integrati</div>
+      </div>
+      <div class="target-item">
+        <div class="target-icon">💇</div>
+        <div class="target-name">Saloni strutturati</div>
+        <div class="target-sub">Parrucchieri con team, servizi premium, clientela fidelizzata</div>
+      </div>
+      <div class="target-item">
+        <div class="target-icon">🏥</div>
+        <div class="target-name">Cliniche dermatologiche</div>
+        <div class="target-sub">Dermatologia estetica, medicina estetica leggera</div>
+      </div>
+      <div class="target-item">
+        <div class="target-icon">🧘</div>
+        <div class="target-name">Centro benessere</div>
+        <div class="target-sub">SPA private, centri olistici con struttura fissa</div>
+      </div>
+    </div>
+
+    <div class="alert green" style="margin-top:16px;">
+      Il filo conduttore: servizi percepiti a <strong style="color:#fff;">medio-alto valore</strong> + struttura fissa + clientela che prenota (non solo walk-in). Se il centro vive di prenotazioni ricorrenti, Webloom gli serve.
+    </div>
+  </div>
+
+  <!-- I DUE LIVELLI -->
+  <div class="section">
+    <div class="section-label">Sezione C</div>
+    <h2>I due livelli di offerta</h2>
+
+    <p>Presenti sempre il livello Base nella seconda call. Il Marketing lo mostri solo se il cliente mostra interesse attivo o lo chiede esplicitamente.</p>
+
+    <div class="offer-grid">
+      <div class="offer-card featured">
+        <div class="offer-label base">Presenza Base — Il pacchetto principale</div>
+        <div class="offer-setup">€1.000</div>
+        <div class="offer-setup-sub">setup una tantum</div>
+        <div class="offer-monthly">+ €97 / mese</div>
+        <ul class="offer-includes">
+          <li>Sito web professionale ottimizzato per conversioni</li>
+          <li>Scheda Google Business ottimizzata (foto, Q&A, categorie)</li>
+          <li>Automazione raccolta recensioni post-trattamento</li>
+          <li>CRM base per gestire i contatti in entrata</li>
+          <li>Calendario prenotazioni online integrato</li>
+          <li>Formazione all'uso + supporto nei primi 30 giorni</li>
+        </ul>
+      </div>
+
+      <div class="offer-card locked">
+        <div class="lock-badge">🔒 Espansione marketing</div>
+        <div class="offer-label mkt">Marketing — Espansione opzionale</div>
+        <div class="offer-setup" style="color:var(--accent2);">+ €1.500</div>
+        <div class="offer-setup-sub">setup aggiuntivo</div>
+        <div class="offer-monthly" style="color:var(--accent2);">+ €300 / mese</div>
+        <ul class="offer-includes" style="margin-top:12px;">
+          <li style="color:var(--text-muted);">Campagne Meta Ads (Facebook/Instagram)</li>
+          <li style="color:var(--text-muted);">Campagne Google Ads local</li>
+          <li style="color:var(--text-muted);">Funnel di acquisizione lead</li>
+          <li style="color:var(--text-muted);">Report mensile ROI con KPI</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert">
+      Non presentare mai entrambi insieme nella seconda call — crea confusione decisionale. Chiudi prima il Base. Solo dopo, nei giorni successivi, porta l'espansione marketing come "passo 2 naturale".
+    </div>
+  </div>
+
+  <!-- COME PARLARNE -->
+  <div class="section">
+    <div class="section-label">Sezione D</div>
+    <h2>Come parlarne — Versioni per ogni situazione</h2>
+
+    <div class="pitch-block">
+      <div class="pitch-header">Se chiedono "Ma cos'è esattamente?" — 30 secondi</div>
+      <div class="pitch-body">"È un sistema digitale pensato per centri come il tuo: ti fa trovare su Google, raccoglie le recensioni in automatico e non lascia scappare le clienti che ti contattano fuori orario. Lo configuriamo noi, tu usi solo il risultato."</div>
+    </div>
+
+    <div class="pitch-block">
+      <div class="pitch-header">Se chiedono "Ho già un sito web" — risposta standard</div>
+      <div class="pitch-body">"Perfetto. Non tocchiamo il tuo sito. Quello che facciamo è aggiungere il sistema di automazione sopra quello che hai già — la raccolta recensioni, il CRM, l'ottimizzazione Google. È un layer, non una sostituzione."</div>
+    </div>
+
+    <div class="pitch-block">
+      <div class="pitch-header">Se chiedono della concorrenza — posizionamento</div>
+      <div class="pitch-body">"Le agenzie normali ti vendono servizi separati: qualcuno per il sito, qualcuno per i social, qualcuno per Google. Con Webloom hai tutto integrato e gestito da un'unica persona che conosce il tuo business. E paghi €97 al mese, non 3 canoni separati."</div>
+    </div>
+
+    <div class="pitch-block">
+      <div class="pitch-header">La promessa in una frase — quella che il cliente capisce</div>
+      <div class="pitch-body">"Il tuo obiettivo è avere più prenotazioni. Il nostro sistema fa in modo che chi ti cerca online ti trovi, chi ti trova prenoti, e chi ha già prenotato lasci una recensione. Automaticamente."</div>
+    </div>
+  </div>
+
+  <!-- GARANZIA -->
+  <div class="section">
+    <div class="section-label">Sezione E</div>
+    <h2>La garanzia — usala quando serve fiducia</h2>
+
+    <div class="card blue">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(14,165,233,0.12); border-color:rgba(14,165,233,0.3); color:var(--accent2);">✓</div>
+          <div class="step-body">
+            <div class="step-title">Nessun vincolo contrattuale lungo</div>
+            <div class="step-desc">Rinnovo mensile. Non ti chiediamo di firmare per 12 mesi. Se in 3 mesi non vedi differenza, esci libero.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(14,165,233,0.12); border-color:rgba(14,165,233,0.3); color:var(--accent2);">✓</div>
+          <div class="step-body">
+            <div class="step-title">I tuoi account, non i nostri</div>
+            <div class="step-desc">Google Business, Meta, dominio: tutto intestato al tuo centro. Se smetti, porti tutto con te. Non sei mai ostaggio di un fornitore.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(14,165,233,0.12); border-color:rgba(14,165,233,0.3); color:var(--accent2);">✓</div>
+          <div class="step-body">
+            <div class="step-title">Consegna in ~10 giorni lavorativi</div>
+            <div class="step-desc">Non aspetti mesi per vedere risultati. Il sistema va live in meno di 2 settimane dalla firma.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a href="01-il-metodo.html">← 01 Il Metodo</a>
+    <a href="03-selezione-lead.html">03 Selezione Lead →</a>
+  </div>
+
+  <footer class="footer">Webloom · Kit Formazione · Nicola Pin</footer>
+</div>
+<script>localStorage.setItem('visited_02-il-servizio','1');</script>
+</body>
+</html>
