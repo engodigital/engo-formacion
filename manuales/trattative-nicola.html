@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Manuale Gestione Trattative — Nicola | Engo Agency</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:#0a0a0a;
+    color:#e0e0e0;
+    line-height:1.65;
+    font-size:16px;
+    -webkit-text-size-adjust:100%;
+  }
+
+  /* ── NAV ── */
+  .topnav {
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,10,10,0.95);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid #1e1e1e;
+    padding:12px 20px;
+  }
+  .nav-title {
+    font-size:11px; font-weight:800; letter-spacing:2px;
+    text-transform:uppercase; color:#fff;
+  }
+  .nav-title span { color:#3b82f6; }
+  .nav-links {
+    display:flex; gap:6px; flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .nav-links a {
+    display:inline-block;
+    background:#161616; border:1px solid #2a2a2a;
+    color:#94a3b8; text-decoration:none;
+    padding:7px 14px; border-radius:20px;
+    font-size:12px; font-weight:600;
+    transition:all .15s;
+    min-height:44px; display:flex; align-items:center;
+  }
+  .nav-links a:hover,
+  .nav-links a:active {
+    background:#1e3a5f; border-color:#3b82f6; color:#fff;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width:680px; margin:0 auto; padding:0 20px 60px; }
+
+  /* ── HERO ── */
+  .hero {
+    padding:40px 0 32px;
+    border-bottom:1px solid #1a1a1a;
+    margin-bottom:40px;
+  }
+  .badge-personal {
+    display:inline-block;
+    background:#1a1f2e; border:1px solid #3b82f6;
+    color:#93c5fd; padding:4px 12px;
+    border-radius:20px; font-size:11px;
+    font-weight:700; letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .hero h1 {
+    font-size:32px; font-weight:900;
+    color:#fff; line-height:1.1;
+    letter-spacing:-1px;
+    margin-bottom:10px;
+  }
+  .hero p {
+    font-size:15px; color:#666;
+    max-width:440px; line-height:1.6;
+  }
+
+  /* ── MANTRA ── */
+  .mantra {
+    background:#0f172a;
+    border:2px solid #3b82f6;
+    border-radius:14px;
+    padding:24px 22px;
+    text-align:center;
+    margin:32px 0;
+  }
+  .mantra .text {
+    font-size:22px; font-weight:900;
+    color:#fff; letter-spacing:-0.5px;
+    line-height:1.2;
+  }
+  .mantra .sub {
+    font-size:14px; color:#64748b;
+    margin-top:8px;
+  }
+  .mantra .highlight { color:#3b82f6; }
+
+  /* ── SECCIONES ── */
+  .section {
+    margin-bottom:52px;
+    scroll-margin-top:80px;
+  }
+  .section-label {
+    font-size:10px; font-weight:800;
+    letter-spacing:2.5px; text-transform:uppercase;
+    color:#3b82f6; margin-bottom:6px;
+  }
+  .section h2 {
+    font-size:22px; font-weight:800;
+    color:#fff; margin-bottom:18px;
+    line-height:1.2;
+  }
+  .divider { border:none; border-top:1px solid #1a1a1a; margin:48px 0; }
+
+  /* ── CARDS ── */
+  .card {
+    background:#111; border:1px solid #1e1e1e;
+    border-radius:12px; padding:20px;
+    margin-bottom:12px;
+  }
+  .card.blue { border-color:#3b82f6; background:#0a0f1a; }
+  .card.green { border-color:#10b981; background:#050f0a; }
+  .card.yellow { border-color:#f59e0b; background:#0f0a00; }
+  .card.red { border-color:#ef4444; background:#110505; }
+
+  /* ── PASOS ── */
+  .step {
+    display:flex; gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid #1a1a1a;
+    align-items:flex-start;
+  }
+  .step:last-child { border-bottom:none; }
+  .step-num {
+    background:#3b82f6; color:#fff;
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:14px; flex-shrink:0;
+    margin-top:2px;
+  }
+  .step-title { font-weight:700; color:#fff; font-size:15px; margin-bottom:4px; }
+  .step-desc { font-size:14px; color:#888; line-height:1.5; }
+
+  /* ── TABLA 3 PAQUETES ── */
+  .pkg-grid {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .pkg-card {
+    background:#111; border:1px solid #222;
+    border-radius:14px; padding:20px;
+  }
+  .pkg-card.featured { border-color:#3b82f6; background:#0a0f1a; }
+  .pkg-name {
+    font-size:11px; font-weight:800;
+    letter-spacing:2px; text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .pkg-name.inizio { color:#94a3b8; }
+  .pkg-name.attivo { color:#3b82f6; }
+  .pkg-name.totale { color:#a78bfa; }
+  .pkg-setup { font-size:30px; font-weight:900; color:#fff; line-height:1; }
+  .pkg-setup-sub { font-size:12px; color:#555; margin-bottom:8px; }
+  .pkg-monthly { font-size:20px; font-weight:800; color:#10b981; }
+  .pkg-range { font-size:13px; color:#555; margin-top:6px; line-height:1.5; }
+  .pkg-example {
+    margin-top:12px; padding-top:12px;
+    border-top:1px solid #222;
+    font-size:13px; color:#666;
+  }
+  .pkg-example strong { color:#e0e0e0; }
+
+  /* ── QUALIFICACION ── */
+  .qualify-box {
+    background:#0f172a; border:2px solid #f59e0b;
+    border-radius:14px; padding:24px;
+    text-align:center;
+    margin:20px 0;
+  }
+  .qualify-question {
+    font-size:24px; font-weight:900;
+    color:#fff; margin-bottom:12px;
+    line-height:1.2;
+  }
+  .qualify-question .q { color:#f59e0b; }
+  .qualify-bands {
+    display:grid; grid-template-columns:1fr;
+    gap:8px; margin-top:16px; text-align:left;
+  }
+  .qualify-band {
+    display:flex; justify-content:space-between;
+    align-items:center;
+    background:#111; border:1px solid #2a2a2a;
+    border-radius:10px; padding:12px 16px;
+    min-height:52px;
+  }
+  .qualify-band .range { font-size:14px; color:#888; }
+  .qualify-band .result {
+    font-size:13px; font-weight:800;
+    padding:4px 12px; border-radius:20px;
+  }
+  .result.inizio { background:#1e293b; color:#94a3b8; }
+  .result.attivo { background:#1e3a5f; color:#93c5fd; }
+  .result.totale { background:#1e1040; color:#c4b5fd; }
+  .result.no { background:#1a0505; color:#ef4444; }
+
+  /* ── OBIEZIONI ── */
+  .obj-item {
+    background:#111; border:1px solid #1e1e1e;
+    border-radius:12px; padding:18px;
+    margin-bottom:10px;
+  }
+  .obj-item.hard { border-color:#ef4444; background:#110505; }
+  .obj-q {
+    font-size:15px; font-weight:700;
+    color:#f59e0b; margin-bottom:10px;
+  }
+  .obj-q::before { content:'— '; }
+  .obj-q.hard-q { color:#ef4444; }
+  .obj-a { font-size:14px; color:#94a3b8; line-height:1.6; }
+  .obj-a .clave { color:#10b981; font-weight:700; }
+  .obj-tecnica {
+    background:#0f172a; border:1px solid #3b82f6;
+    border-radius:8px; padding:10px 12px;
+    font-size:12px; color:#93c5fd;
+    margin-top:10px; line-height:1.5;
+  }
+  .obj-tecnica strong { color:#fff; }
+
+  /* ── FLUSSO TRATTATIVA ── */
+  .flow-step {
+    display:flex; gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid #1a1a1a;
+    align-items:flex-start;
+  }
+  .flow-step:last-child { border-bottom:none; }
+  .flow-badge {
+    background:#161616; border:1px solid #2a2a2a;
+    border-radius:10px; padding:6px 10px;
+    font-size:11px; font-weight:800;
+    color:#3b82f6; flex-shrink:0;
+    text-align:center; min-width:52px;
+    line-height:1.3;
+  }
+  .flow-title { font-weight:700; color:#fff; font-size:15px; margin-bottom:4px; }
+  .flow-desc { font-size:14px; color:#888; line-height:1.5; }
+
+  /* ── AGENDA ── */
+  .agenda-step {
+    display:flex; gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid #1a1a1a;
+    align-items:flex-start;
+  }
+  .agenda-step:last-child { border-bottom:none; }
+  .agenda-icon {
+    width:44px; height:44px; border-radius:12px;
+    background:#161616; border:1px solid #2a2a2a;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; flex-shrink:0;
+  }
+  .agenda-title { font-weight:700; color:#fff; font-size:15px; margin-bottom:3px; }
+  .agenda-desc { font-size:14px; color:#666; line-height:1.5; }
+
+  /* ── ALERTA ── */
+  .alert {
+    background:#1c0a00; border:1px solid #f59e0b;
+    border-radius:10px; padding:14px 16px;
+    font-size:14px; color:#fcd34d;
+    margin-top:14px; line-height:1.5;
+  }
+  .alert.blue {
+    background:#0a0f1a; border-color:#3b82f6;
+    color:#93c5fd;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align:center; padding-top:32px;
+    border-top:1px solid #1a1a1a;
+    color:#333; font-size:11px; line-height:1.8;
+  }
+
+  /* ── MOBILE-FIRST RESPONSIVE ── */
+  @media(max-width:480px) {
+    .hero h1 { font-size:26px; }
+    .mantra .text { font-size:19px; }
+    .qualify-question { font-size:20px; }
+    .pkg-setup { font-size:26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV STICKY ── -->
+<nav class="topnav">
+  <div class="nav-title">Manuale <span>·</span> Nicola</div>
+  <div class="nav-links">
+    <a href="#obiettivo">Obiettivo</a>
+    <a href="#sistema">Il Sistema</a>
+    <a href="#pacchetti">Pacchetti</a>
+    <a href="#prospect">Prospect</a>
+    <a href="#flusso">Flusso call</a>
+    <a href="#obiezioni">Obiezioni</a>
+    <a href="#pianifica">Pianifica</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="badge-personal">Engo Agency · Uso personale</div>
+    <h1>Manuale Gestione<br>Trattative</h1>
+    <p>Tutto quello che ti serve per esercitarti su trattative e obiezioni. Non teoria: risposte reali per situazioni reali.</p>
+  </div>
+
+  <!-- ── MANTRA ── -->
+  <div class="mantra">
+    <div class="text">
+      La trattativa non finisce con un "no".<br>
+      Finisce quando <span class="highlight">smetti di fare domande.</span>
+    </div>
+    <div class="sub">Chi fa le domande giuste controlla la conversazione.</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── 1. OBIETTIVO ── -->
+  <div class="section" id="obiettivo">
+    <div class="section-label">Sezione 1</div>
+    <h2>Il tuo obiettivo — Cosa stai allenando</h2>
+
+    <div class="card blue">
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div>
+          <div class="step-title">Gestire la conversazione, non subìrla</div>
+          <div class="step-desc">Una trattativa si gestisce quando sei tu a fare domande, non il prospect. Chi risponde è in posizione difensiva. Chi chiede guida la call.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div>
+          <div class="step-title">Rispondere alle obiezioni senza cadere nella trappola</div>
+          <div class="step-desc">L'obiezione non è un rifiuto — è una richiesta di informazioni mascherata. Il tuo lavoro è scoprire cosa c'è davvero dietro prima di rispondere.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div>
+          <div class="step-title">Portare il prospect all'appuntamento con Marco</div>
+          <div class="step-desc">Il tuo unico KPI è la cita prenotata. Marco chiude. Tu apri la porta e ti assicuri che il prospect ci voglia entrare.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card red">
+      <div class="step">
+        <div class="step-num" style="background:#ef4444;">✗</div>
+        <div>
+          <div class="step-title">Cosa NON fai</div>
+          <div class="step-desc">Non spieghi prezzi. Non negozi contratti. Non prometti risultati specifici. Non entri nei dettagli tecnici. Se chiedono qualcosa che non sai: <em>"Te lo spiega Marco in riunione."</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      La trattativa ben gestita non significa "convincere a tutti i costi". Significa capire se c'è un problema reale che possiamo risolvere, e portarlo davanti alla persona giusta.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── 2. IL SISTEMA MOTOR ── -->
+  <div class="section" id="sistema">
+    <div class="section-label">Sezione 2</div>
+    <h2>Il Sistema MOTOR — Cosa offriamo in 3 frasi</h2>
+
+    <div class="card">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">È una macchina per acquisire clienti</div>
+          <div class="step-desc">Per attività locali: ristoranti, cliniche, immobiliari, scuole sportive. La macchina lavora 24/7 mentre il titolare fa il suo lavoro.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Combina pubblicità digitale + sistema di gestione</div>
+          <div class="step-desc">Google Ads che attrae nuovi clienti, un CRM che li organizza, e report mensili che mostrano esattamente cosa funziona e cosa no.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Marco gestisce tutto</div>
+          <div class="step-desc">Il cliente porta solo un budget mensile per la pubblicità (che va direttamente sui suoi account, non a Marco) e paga la gestione a Marco. Trasparenza totale.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card green">
+      <div style="font-size:14px; color:#6ee7b7; font-weight:700; margin-bottom:8px;">Se chiedono come funziona nel dettaglio</div>
+      <div style="font-size:15px; color:#888; line-height:1.6;">"È un sistema completo di marketing digitale per attività come la tua. Marco te lo spiega in 20 minuti e te lo mostra con esempi reali di business simili. Quando hai un momento?"</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── 3. I 3 PACCHETTI ── -->
+  <div class="section" id="pacchetti">
+    <div class="section-label">Sezione 3</div>
+    <h2>I 3 pacchetti — Quale va con ogni business</h2>
+
+    <p style="font-size:14px; color:#666; margin-bottom:20px; line-height:1.6;">
+      Non spiegare i prezzi al primo contatto. Ma devi conoscerli per capire se vale la pena cercare l'appuntamento e per rispondere con sicurezza se te li chiedono.
+    </p>
+
+    <div class="pkg-grid">
+
+      <div class="pkg-card">
+        <div class="pkg-name inizio">MOTOR INIZIO</div>
+        <div class="pkg-setup">€1.500</div>
+        <div class="pkg-setup-sub">setup una tantum</div>
+        <div class="pkg-monthly">€500 / mese</div>
+        <div class="pkg-range">Business con fatturato €150K–€300K l'anno</div>
+        <div class="pkg-example">
+          <strong>Per chi:</strong> Bar, chiosco, scuola di surf o sportiva, piccolo negozio con sede fisica
+        </div>
+      </div>
+
+      <div class="pkg-card featured">
+        <div class="pkg-name attivo">★ MOTOR ATTIVO — Il più venduto</div>
+        <div class="pkg-setup">€2.500</div>
+        <div class="pkg-setup-sub">setup una tantum</div>
+        <div class="pkg-monthly">€900 / mese</div>
+        <div class="pkg-range">Business con fatturato €300K–€700K l'anno</div>
+        <div class="pkg-example">
+          <strong>Per chi:</strong> Ristorante, clinica estetica o dentale, agenzia immobiliare, piccolo hotel o appartamenti turistici
+        </div>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-name totale">MOTOR TOTALE</div>
+        <div class="pkg-setup">€4.000</div>
+        <div class="pkg-setup-sub">setup una tantum</div>
+        <div class="pkg-monthly">€1.400 / mese</div>
+        <div class="pkg-range">Business con fatturato €700K+ l'anno</div>
+        <div class="pkg-example">
+          <strong>Per chi:</strong> Hotel con più proprietà, agenzia immobiliare di lusso o premium, real estate di fascia alta
+        </div>
+      </div>
+
+    </div>
+
+    <div class="alert">
+      Non scegliere tu il pacchetto. Lo fa Marco in riunione. Il tuo lavoro è portargli il prospect e assicurarti che arrivi preparato.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── 4. COME IDENTIFICARE UN BUON PROSPECT ── -->
+  <div class="section" id="prospect">
+    <div class="section-label">Sezione 4</div>
+    <h2>Come identificare un buon prospect</h2>
+
+    <div class="qualify-box">
+      <div class="qualify-question">
+        La domanda che conta:<br>
+        <span class="q">"Quanto fatturate all'anno?"</span>
+      </div>
+      <div style="font-size:14px; color:#666;">Se fattura meno di €150K, non è il nostro cliente in questo momento.</div>
+
+      <div class="qualify-bands">
+        <div class="qualify-band">
+          <span class="range">Meno di €150K / anno</span>
+          <span class="result no">NON fissare</span>
+        </div>
+        <div class="qualify-band">
+          <span class="range">€150K – €300K / anno</span>
+          <span class="result inizio">MOTOR INIZIO</span>
+        </div>
+        <div class="qualify-band">
+          <span class="range">€300K – €700K / anno</span>
+          <span class="result attivo">MOTOR ATTIVO</span>
+        </div>
+        <div class="qualify-band">
+          <span class="range">€700K+ / anno</span>
+          <span class="result totale">MOTOR TOTALE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:10px;">Se non vogliono dire il fatturato</div>
+      <div style="font-size:14px; color:#888; line-height:1.6;">
+        Normale. Non insistere. Fai una stima rapida: hanno sede fisica? quanti dipendenti? sono su Google Maps con buone recensioni? hanno un sito? Se vedi un'attività con sede, dipendenti e presenza online, probabilmente superano la soglia minima. Fissal'appuntamento e Marco fa la qualifica finale in riunione.
+      </div>
+    </div>
+
+    <div class="card blue">
+      <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:10px;">Segnali di un buon prospect</div>
+      <div class="step">
+        <div class="step-num" style="width:24px; height:24px; font-size:11px; background:#10b981;">✓</div>
+        <div style="font-size:14px; color:#888;">Ha sede fisica e opera da più di 1 anno</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="width:24px; height:24px; font-size:11px; background:#10b981;">✓</div>
+        <div style="font-size:14px; color:#888;">È su Google Maps (anche senza molte recensioni)</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="width:24px; height:24px; font-size:11px; background:#10b981;">✓</div>
+        <div style="font-size:14px; color:#888;">Ha almeno 2-3 dipendenti</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="width:24px; height:24px; font-size:11px; background:#10b981;">✓</div>
+        <div style="font-size:14px; color:#888;">Il titolare dice che vuole più clienti o che fa fatica a mantenere i volumi in bassa stagione</div>
+      </div>
+      <div class="step" style="border:none;">
+        <div class="step-num" style="width:24px; height:24px; font-size:11px; background:#ef4444;">✗</div>
+        <div style="font-size:14px; color:#888;">Freelance unipersonale, business online senza sede, o qualcuno che "sta iniziando"</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── 5. FLUSSO DELLA CALL ── -->
+  <div class="section" id="flusso">
+    <div class="section-label">Sezione 5</div>
+    <h2>Flusso della call — Come strutturare la conversazione</h2>
+
+    <p style="font-size:14px; color:#666; margin-bottom:20px; line-height:1.6;">
+      Una call senza struttura diventa un interrogatorio o una sceneggiata. Segui questo ordine per mantenere il controllo senza sembrare uno script robotico.
+    </p>
+
+    <div class="card">
+      <div class="flow-step">
+        <div class="flow-badge">0–2<br>min</div>
+        <div>
+          <div class="flow-title">Apertura — Stabilisci il contesto</div>
+          <div class="flow-desc">Presentati brevemente, conferma che hanno tempo. <em>"Ho 5 minuti con te, poi decidiamo se ha senso approfondire."</em> Non iniziare a vendere ancora.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-badge">2–5<br>min</div>
+        <div>
+          <div class="flow-title">Diagnosi — Fai domande, non pitch</div>
+          <div class="flow-desc">Scopri il loro problema reale: <em>"Come state acquisendo clienti adesso?"</em> / <em>"C'è una stagione in cui i numeri calano?"</em> Ascolta. Non interrompere.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-badge">5–8<br>min</div>
+        <div>
+          <div class="flow-title">Qualifica — Verifica se è il cliente giusto</div>
+          <div class="flow-desc">Usa le domande sulla fatturazione e sulle caratteristiche del business (sezione 4). Se non supera la soglia, chiudi educatamente e non forzare.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-badge">8–12<br>min</div>
+        <div>
+          <div class="flow-title">Positioning — Aggancia il problema alla soluzione</div>
+          <div class="flow-desc">Solo dopo aver capito il loro problema, collega al Sistema MOTOR: <em>"Quello che hai descritto è esattamente il tipo di situazione che Marco risolve con il suo sistema."</em></div>
+        </div>
+      </div>
+      <div class="flow-step" style="border:none;">
+        <div class="flow-badge">12–15<br>min</div>
+        <div>
+          <div class="flow-title">Chiusura — Proponi l'incontro, non il prodotto</div>
+          <div class="flow-desc">Non cercare di chiudere il contratto tu. Chiudi solo la cita: <em>"Ha senso che tu parli 20 minuti con Marco per vedere se il sistema fa al caso tuo. Quando sei libero questa settimana?"</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert blue">
+      Principio chiave: più tempo passi nella fase "Diagnosi", meno resistenza incontrerai nelle fasi successive. Le obiezioni spesso nascono perché il prospect non si sente capito.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── 6. OBIEZIONI ── -->
+  <div class="section" id="obiezioni">
+    <div class="section-label">Sezione 6</div>
+    <h2>Le 8 obiezioni più comuni — Come gestirle</h2>
+
+    <p style="font-size:14px; color:#666; margin-bottom:20px; line-height:1.6;">
+      Il tuo obiettivo con ogni obiezione è uno solo: ottenere la cita. Non convincere di tutto il sistema, solo che vale la pena la riunione. Ricorda: l'obiezione è quasi sempre una richiesta di rassicurazione, non un rifiuto definitivo.
+    </p>
+
+    <!-- OBJ 1 -->
+    <div class="obj-item">
+      <div class="obj-q">"Ho già provato con il marketing e non ha funzionato"</div>
+      <div class="obj-a">
+        "Ce lo dicono quasi tutti quelli che poi diventano clienti. Il problema di solito è che prima affidavano campagne singole senza sistema dietro. Quello che fa Marco è diverso: ogni euro di pubblicità va sui tuoi account (non sui nostri), hai un report mensile su cosa funziona, e se in 6 mesi non ci sono risultati, esci libero. <span class="clave">Vale 20 minuti sentire come funziona nel concreto?</span>"
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Riformula il problema (non era il marketing, era il sistema). Poi usa la garanzia come prova di fiducia.</div>
+    </div>
+
+    <!-- OBJ 2 -->
+    <div class="obj-item">
+      <div class="obj-q">"Adesso non ho tempo"</div>
+      <div class="obj-a">
+        "Capisco perfettamente. Sono solo 20 minuti e Marco viene da te o lo fa in videocall se preferisci. <span class="clave">La settimana prossima hai un buco nel pomeriggio?</span>"
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Riduci l'impegno percepito (20 minuti, da te, in call). Poi proponi due opzioni specifiche invece di lasciare aperto.</div>
+    </div>
+
+    <!-- OBJ 3 -->
+    <div class="obj-item">
+      <div class="obj-q">"Quanto costa?"</div>
+      <div class="obj-a">
+        "Il prezzo dipende dalle dimensioni della tua attività e da cosa ti serve. Marco te lo calcola preciso in riunione, quando vede la tua situazione reale. Non c'è un prezzo fisso per tutti. <span class="clave">Ci incontriamo così ti dà il numero giusto per te?</span>"
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Rimanda il prezzo alla riunione legittimamente (è vero che dipende dal business). Non negare l'esistenza del prezzo: la personalizzazione è un vantaggio, usala.</div>
+    </div>
+
+    <!-- OBJ 4 -->
+    <div class="obj-item">
+      <div class="obj-q">"Abbiamo già qualcuno che ci segue il marketing"</div>
+      <div class="obj-a">
+        "Ottimo, ci mancherebbe. Marco non viene a sostituire nessuno, viene a mostrarti cosa fa di diverso per attività come la tua. Se hai già un sistema e sei soddisfatto, in 20 minuti lo vedi e decidi. <span class="clave">Cosa perdi ad ascoltare?</span>"
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Elimina la minaccia percepita (non siamo la concorrenza di chi hanno già). Usa la domanda retorica per spostare il peso della decisione su di loro.</div>
+    </div>
+
+    <!-- OBJ 5 -->
+    <div class="obj-item">
+      <div class="obj-q">"Mandami informazioni via email o WhatsApp"</div>
+      <div class="obj-a">
+        "Certo, ti mando qualcosa. Ma ti dico la verità: quello che fa Marco si capisce molto meglio di persona perché lo adatta al tuo business specifico. Quello che ti mando per iscritto è generico. <span class="clave">Ti do il suo numero così vi mettete voi d'accordo sulla data?</span>"
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Accetta la richiesta parzialmente (mandare materiale), poi reindirizza. Non rifiutare mai un prospect in modo brusco.</div>
+    </div>
+
+    <!-- OBJ 6 -->
+    <div class="obj-item">
+      <div class="obj-q">"Non sono io che decido, devo parlare con il mio socio / partner"</div>
+      <div class="obj-a">
+        "Certo, ha senso. Anzi, ancora meglio: la riunione con Marco si fa con tutte le persone che devono decidere insieme. Così uscite con le idee chiare e senza dover fare il telefono senza fili. <span class="clave">Quando potreste essere disponibili tutti e due?</span>"
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Trasforma l'ostacolo (il socio) in un vantaggio (meglio se vengono tutti). Evita di aspettare un secondo ciclo: porta tutti in riunione direttamente.</div>
+    </div>
+
+    <!-- OBJ 7 - HARD -->
+    <div class="obj-item hard">
+      <div class="obj-q hard-q">"Non mi interessa, non voglio perdere tempo"</div>
+      <div class="obj-a">
+        "Nessun problema, lo capisco. Posso chiederti solo una cosa? Quando dici che non ti interessa, è perché hai già un sistema che funziona bene, o è che hai brutte esperienze con agenzie e non hai voglia di ripeterne? <span class="clave">[Aspetta la risposta.]</span> Se è il secondo caso, quello che fa Marco è proprio diverso da quello a cui stai pensando."
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Non difenderti e non insistere. Usa una domanda per capire la vera obiezione. Il "non mi interessa" spesso è "non mi fido" — scopri qual è il blocco reale prima di rispondere.</div>
+    </div>
+
+    <!-- OBJ 8 - HARD -->
+    <div class="obj-item hard">
+      <div class="obj-q hard-q">"Ci ho già pensato e non fa per noi"</div>
+      <div class="obj-a">
+        "Rispetto totale. Posso capire meglio cosa ti ha fatto prendere quella decisione? Solo per curiosità mia, non per convincerti di nulla. <span class="clave">[Ascolta.]</span> Capito. Se mai cambia qualcosa nel quadro — nuova stagione, cambio di obiettivi — sai dove trovarci. Posso lasciarti un contatto diretto?"
+      </div>
+      <div class="obj-tecnica"><strong>Tecnica usata:</strong> Rispetta la decisione invece di combatterla. Fai una domanda curiosa per capire il ragionamento. Chiudi con un contatto per il futuro: il "no" di oggi può essere il "sì" fra 3 mesi.</div>
+    </div>
+
+    <div class="alert">
+      Regola d'oro: se dicono no due volte, non insistere. Appunta il contatto, lascia passare 2-3 settimane e riprova. Il no di oggi può essere il sì del mese prossimo.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── 7. COME PIANIFICARE L'APPUNTAMENTO ── -->
+  <div class="section" id="pianifica">
+    <div class="section-label">Sezione 7</div>
+    <h2>Come pianificare la cita nel calendario di Marco</h2>
+
+    <div class="card blue" style="margin-bottom:20px;">
+      <div style="font-size:14px; font-weight:700; color:#93c5fd; margin-bottom:8px;">Prima di confermare la cita, chiedi sempre:</div>
+      <div style="font-size:15px; color:#e0e0e0; line-height:1.7;">
+        1. Nome completo del titolare o responsabile<br>
+        2. Nome dell'attività<br>
+        3. Telefono e email<br>
+        4. Tipo di business<br>
+        5. Fatturato approssimativo (se te l'hanno dato)<br>
+        6. Disponibilità oraria (giorno e ora che gli va bene)
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="agenda-step">
+        <div class="agenda-icon">💬</div>
+        <div>
+          <div class="agenda-title">Passo 1 — Conferma la disponibilità</div>
+          <div class="agenda-desc">Chiedi al prospect che giorni e orari ha liberi. Proponi sempre due opzioni: "Ti va meglio martedì alle 17 o giovedì alle 16?"</div>
+        </div>
+      </div>
+      <div class="agenda-step">
+        <div class="agenda-icon">📱</div>
+        <div>
+          <div class="agenda-title">Passo 2 — Avvisa Marco su WhatsApp</div>
+          <div class="agenda-desc">Prima di confermare al prospect, scrivi a Marco con i dati del contatto e l'orario proposto. Aspetta il via libera. Non confermare mai una cita senza che Marco l'approvi.</div>
+        </div>
+      </div>
+      <div class="agenda-step">
+        <div class="agenda-icon">🗓️</div>
+        <div>
+          <div class="agenda-title">Passo 3 — Marco o tu registrate nel CRM</div>
+          <div class="agenda-desc">Marco ti indica se lo registra lui o se hai accesso per farlo nel sistema (GHL). In ogni caso, tu mandi i dati completi del prospect via WhatsApp.</div>
+        </div>
+      </div>
+      <div class="agenda-step">
+        <div class="agenda-icon">✅</div>
+        <div>
+          <div class="agenda-title">Passo 4 — Conferma al prospect</div>
+          <div class="agenda-desc">Una volta che Marco conferma, scrivi al prospect: "Perfetto, [nome]. Marco ti aspetta il [giorno] alle [ora] in [luogo o videocall]. Qualunque cosa, fammi sapere." Questo chiude il processo.</div>
+        </div>
+      </div>
+      <div class="agenda-step" style="border:none;">
+        <div class="agenda-icon">🔔</div>
+        <div>
+          <div class="agenda-title">Passo 5 — Promemoria il giorno prima</div>
+          <div class="agenda-desc">Il giorno prima della cita, manda un WhatsApp al prospect: "Ciao [nome], domani alle [ora] la riunione con Marco. Confermato?" Questo riduce i no-show al minimo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      Orario di Marco: le mattine (08:30–13:00) sono riservate ad altri progetti. Proponi sempre cite nel pomeriggio: 15:00–19:00, dal lunedì al venerdì.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- MANTRA FINALE -->
+  <div class="mantra" style="margin-bottom:40px;">
+    <div class="text" style="font-size:18px; line-height:1.4;">
+      La tua trattativa finisce quando il prospect dice "sì" alla riunione.<br>
+      <span class="highlight">Il resto è compito di Marco.</span>
+    </div>
+    <div class="sub">Identifica, qualifica, gestisci le obiezioni, pianifica. Ripeti.</div>
+  </div>
+
+  <div class="footer">
+    Manuale Gestione Trattative · Nicola Pin · Engo Agency<br>
+    Uso personale e riservato · Aprile 2026<br>
+    Dubbi: parla direttamente con Marco
+  </div>
+
+</div>
+</body>
+</html>
