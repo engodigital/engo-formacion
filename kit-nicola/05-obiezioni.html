@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 — Gestione Obiezioni | Kit Nicola · Webloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8;
+    --accent: #10b981; --accent2: #0ea5e9;
+    --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(16,185,129,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* PRINCIPIO */
+  .principle-box { background: linear-gradient(135deg, #0f2d24 0%, #0f1117 100%); border: 2px solid var(--accent); border-radius: 16px; padding: 28px 32px; margin-bottom: 40px; text-align: center; }
+  .principle-text { font-size: clamp(17px,3vw,22px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+  .principle-sub { font-size: 15px; color: var(--text-muted); }
+  .p-hl { color: var(--accent); }
+
+  /* OBIEZIONI */
+  .obj-list { display: flex; flex-direction: column; gap: 16px; }
+  .obj-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .obj-item.hard { border-color: rgba(255,107,107,0.4); }
+  .obj-header { display: flex; gap: 14px; align-items: flex-start; padding: 20px 24px 16px; }
+  .obj-num { background: var(--accent-light); border: 1px solid rgba(16,185,129,0.3); color: var(--accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; flex-shrink: 0; }
+  .obj-num.hard-n { background: rgba(255,107,107,0.12); border-color: rgba(255,107,107,0.3); color: var(--red); }
+  .obj-q { font-size: 16px; font-weight: 800; color: var(--yellow); line-height: 1.3; }
+  .obj-q::before { content: '"'; }
+  .obj-q::after { content: '"'; }
+  .obj-q.hard-q { color: var(--red); }
+  .obj-body { padding: 0 24px 16px; }
+  .obj-risposta { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+  .obj-risposta .chiave { color: var(--accent); font-weight: 700; }
+  .obj-tecnica { background: rgba(14,165,233,0.08); border: 1px solid rgba(14,165,233,0.25); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+  .obj-tecnica strong { color: var(--text); }
+
+  /* REGOLE */
+  .rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 12px; }
+  .rule-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .rule-num { font-size: 28px; font-weight: 900; color: var(--accent); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+  .rule-text { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .rule-sub { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* MANTRA FINALE */
+  .mantra-box { background: linear-gradient(135deg, #0f2d24 0%, #0a0f1a 100%); border: 2px solid var(--accent); border-radius: 20px; padding: 36px 32px; text-align: center; margin: 40px 0; }
+  .mantra-text { font-size: clamp(18px,3.5vw,26px); font-weight: 900; color: var(--text); line-height: 1.3; margin-bottom: 10px; }
+  .mantra-sub { font-size: 15px; color: var(--text-muted); }
+  .m-hl { color: var(--accent); }
+
+  .alert { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.3); border-radius: 12px; padding: 16px 20px; font-size: 14px; color: #fcd34d; line-height: 1.6; margin-top: 16px; }
+
+  .nav-bottom { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+  .nav-bottom a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Indice</a>
+    <div class="nav-links">
+      <a href="01-il-metodo.html">01</a>
+      <a href="02-il-servizio.html">02</a>
+      <a href="03-selezione-lead.html">03</a>
+      <a href="04-la-consulenza.html">04</a>
+      <a href="05-obiezioni.html" class="active">05</a>
+      <a href="06-pratica.html">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="module-hero">
+    <div class="module-num">Modulo 05</div>
+    <h1 class="module-title">Gestione Obiezioni</h1>
+    <p class="module-lead">Le 8 obiezioni più frequenti. Per ciascuna: la risposta, la tecnica usata, e perché funziona.</p>
+  </div>
+
+  <div class="principle-box">
+    <div class="principle-text">L'obiezione non è un rifiuto.<br>È una <span class="p-hl">richiesta di rassicurazione</span> mascherata.</div>
+    <div class="principle-sub">Il tuo obiettivo non è "vincere" l'obiezione. È capire cosa c'è davvero dietro — poi rispondere a quello.</div>
+  </div>
+
+  <!-- LE 8 OBIEZIONI -->
+  <div class="section">
+    <div class="section-label">Obiezioni standard</div>
+    <h2>Le 8 obiezioni più frequenti</h2>
+
+    <div class="obj-list">
+
+      <div class="obj-item">
+        <div class="obj-header">
+          <div class="obj-num">1</div>
+          <div class="obj-q">Ho già provato con il marketing e non ha funzionato</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Ce lo dicono quasi tutte le titolari che poi diventano clienti attivi. Il problema di solito non era la pubblicità — era che mancava un sistema dietro: nessuna automazione per raccogliere i contatti, nessun follow-up, nessuna misura su cosa funzionava. Quello che facciamo noi è diverso: tutto è integrato, i tuoi account sono tuoi (non nostri), e hai un report mensile su ogni euro speso. <span class="chiave">Vale 45 minuti vedere come funziona concretamente?</span>"</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Riformula il problema (non era il marketing, era il sistema). Usa la garanzia (account tuoi, report mensile) come prova di fiducia. Chiudi sempre con una domanda.</div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-header">
+          <div class="obj-num">2</div>
+          <div class="obj-q">Adesso non ho tempo</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Lo capisco perfettamente — e capisco anche che un sistema che lavora al posto tuo ti ridarebbe esattamente quel tempo. Sono 45 minuti in videocall, quando vuoi tu, senza spostarti. <span class="chiave">La settimana prossima hai un pomeriggio libero?</span>"</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Riduci l'impegno percepito (45 min in call, da casa). Usa l'ironia gentile: il problema è il tempo → la soluzione libera tempo. Proponi date specifiche, non lasciare aperto.</div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-header">
+          <div class="obj-num">3</div>
+          <div class="obj-q">Quanto costa?</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Il pacchetto base parte da €1.000 di setup una tantum e €97 al mese di gestione. Ma prima di darti un numero, voglio capire la tua situazione specifica — perché quello che include dipende da cosa hai già e cosa ti serve davvero. <span class="chiave">Hai 20 minuti per una prima chiacchierata veloce?</span>"</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Dai il numero (non nasconderlo crea diffidenza), poi motivi la necessità di capire prima la situazione. La personalizzazione è un vantaggio reale — usalo.</div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-header">
+          <div class="obj-num">4</div>
+          <div class="obj-q">Abbiamo già qualcuno che ci segue il sito / social</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Ottimo. Non veniamo a sostituire nessuno. Il codice di integrazione per le automazioni lo mandiamo direttamente alla tua agenzia attuale — loro lo inseriscono, non devi cambiare niente. Quello che aggiungiamo è il sistema di raccolta recensioni e CRM che probabilmente non hai ancora. <span class="chiave">Ti interessa capire cosa manca, senza toccare quello che già funziona?</span>"</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Elimina la minaccia percepita (non siamo un sostituto). Proponi un'espansione, non un cambiamento. Il cliente non deve scegliere tra noi e il fornitore attuale.</div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-header">
+          <div class="obj-num">5</div>
+          <div class="obj-q">Mandami informazioni per email o WhatsApp</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Certo, ti mando qualcosa. Ma ti dico già che quello che ti mando sarà generico — non racconta niente del tuo centro specifico. Quello che vedi in una call lo adattiamo a te: i tuoi numeri, le tue clienti, il tuo mercato. <span class="chiave">Preferisci che ti chiami io direttamente giovedì, o preferisci videocall?</span>"</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Accetta parzialmente (manda qualcosa), ma posiziona subito i limiti del materiale scritto vs. la call personalizzata. Chiudi con una scelta binaria: non "vuoi la call?" ma "giovedì o venerdì?"</div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-header">
+          <div class="obj-num">6</div>
+          <div class="obj-q">Devo pensarci / ne parlo con il mio socio / partner</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Assolutamente, ha senso. Anzi, se c'è un'altra persona che decide con te, sarebbe ancora meglio se fosse presente nella seconda call — così vi fate un'idea insieme senza dover fare il telefono senza fili. <span class="chiave">Quando sareste disponibili tutti e due?</span>"</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Trasforma l'ostacolo (il socio) in un motivo per includere tutti direttamente. Eviti un secondo ciclo di approvazione — porti tutti in call al primo round.</div>
+        </div>
+      </div>
+
+      <div class="obj-item">
+        <div class="obj-header">
+          <div class="obj-num">7</div>
+          <div class="obj-q">È troppo caro / non rientra nel budget</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Capisco. Posso chiederti: troppo caro rispetto a cosa, esattamente? <span class="chiave">[Attendi la risposta.]</span> Se stai confrontando con un freelance per il sito, hai ragione che il prezzo è diverso — ma stai anche comprando cose diverse. €97 al mese è meno di una trattamento. Se porta anche solo 3 prenotazioni extra al mese, si ripaga da solo. <span class="chiave">Vuoi che calcoliamo insieme il punto di pareggio?</span>"</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Non difenderti subito — prima scopri il benchmark mentale del cliente. Poi usa il confronto con un'unità di misura che capisce (un trattamento). Il calcolo del break-even sposta la conversazione da costo a investimento.</div>
+        </div>
+      </div>
+
+      <div class="obj-item hard">
+        <div class="obj-header">
+          <div class="obj-num hard-n">8</div>
+          <div class="obj-q hard-q">Non mi interessa / ci ho già pensato e non fa per noi</div>
+        </div>
+        <div class="obj-body">
+          <div class="obj-risposta">"Rispetto totale. Posso chiederti una cosa sola? Quando dici che non ti interessa, è perché avete già tutto sotto controllo e i risultati vi soddisfano — oppure è perché avete già avuto brutte esperienze con agenzie e non avete voglia di ripeterle? <span class="chiave">[Aspetta la risposta. Non interrompere.]</span> [Se è il secondo caso:] "Capito. Quello che hai descritto è esattamente il motivo per cui il nostro sistema funziona diversamente. Non ti chiedo di fidarti subito — ti chiedo 20 minuti per mostrartelo con esempi reali."</div>
+          <div class="obj-tecnica"><strong>Tecnica:</strong> Non difenderti, non insistere. Usa una domanda per capire la vera obiezione. "Non mi interessa" è spesso "non mi fido" — scopri qual è il blocco reale prima di rispondere. Se dicono no due volte, chiudi con grazia e torna tra 3-4 settimane.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="alert">
+      Regola d'oro: se dicono no due volte, non insistere. Appunta il contatto, lascia passare 3-4 settimane, e riprova con un aggancio diverso (un dato nuovo sul loro settore, una tendenza, un cambiamento che hai notato). Il "no" di oggi può essere il "sì" del prossimo mese.
+    </div>
+  </div>
+
+  <!-- LE 3 REGOLE -->
+  <div class="section">
+    <div class="section-label">Principi</div>
+    <h2>Le 3 regole sempre valide</h2>
+
+    <div class="rule-grid">
+      <div class="rule-item">
+        <div class="rule-num">01</div>
+        <div class="rule-text">Domanda prima di rispondere</div>
+        <div class="rule-sub">Ogni obiezione merita una domanda di chiarimento prima di una risposta. "Cosa intendi esattamente?" ti fa capire il vero blocco.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">02</div>
+        <div class="rule-text">Chiudi sempre con una domanda</div>
+        <div class="rule-sub">Ogni risposta a un'obiezione finisce con una domanda che riporta la palla a loro. Non lasciare mai la conversazione senza un'azione successiva.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">03</div>
+        <div class="rule-text">Non combattere l'obiezione</div>
+        <div class="rule-sub">Validare l'obiezione ("hai ragione, lo sento spesso") riduce la resistenza più di qualsiasi contro-argomento. Il cliente smette di difendersi quando si sente capito.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANTRA FINALE -->
+  <div class="mantra-box">
+    <div class="mantra-text">Più tempo passi nella fase di ascolto,<br>meno obiezioni incontrerai dopo.<br><span class="m-hl">Le obiezioni nascono dove manca comprensione.</span></div>
+    <div class="mantra-sub">Un cliente che si sente capito compra. Un cliente che si sente spinto resiste. Scegli quale consulente essere.</div>
+  </div>
+
+  <div class="nav-bottom">
+    <a href="04-la-consulenza.html">← 04 La Consulenza</a>
+    <a href="06-pratica.html">06 Pratica con l'IA →</a>
+  </div>
+
+  <footer class="footer">Webloom · Kit Formazione · Nicola Pin</footer>
+</div>
+<script>localStorage.setItem('visited_05-obiezioni','1');</script>
+</body>
+</html>
