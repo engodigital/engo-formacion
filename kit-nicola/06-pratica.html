@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 — Pratica con l'IA | Kit Nicola · Webloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8;
+    --accent: #10b981; --accent2: #0ea5e9;
+    --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(16,185,129,0.12);
+    --accent2-light: rgba(14,165,233,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nav-back { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-height: 44px; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.active { background: var(--accent-light); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+  .module-hero { margin-bottom: 48px; }
+  .module-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .module-title { font-size: clamp(28px,5vw,42px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
+  .module-lead { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+  h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 20px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  p { margin-bottom: 16px; color: var(--text-muted); }
+  p strong { color: var(--text); }
+
+  /* CTA NOTEBOOK */
+  .cta-hero { background: linear-gradient(135deg, #1a1d27 0%, #0d2e20 100%); border: 1px solid rgba(16,185,129,0.4); border-radius: 24px; padding: 40px 32px; text-align: center; margin-bottom: 48px; }
+  .cta-icon { font-size: 48px; margin-bottom: 16px; }
+  .cta-title { font-size: clamp(22px,4vw,32px); font-weight: 900; color: var(--text); margin-bottom: 12px; }
+  .cta-desc { font-size: 16px; color: var(--text-muted); max-width: 520px; margin: 0 auto 28px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; text-decoration: none; font-size: 18px; font-weight: 800; padding: 18px 36px; border-radius: 14px; transition: all 0.2s; min-height: 44px; letter-spacing: -0.3px; }
+  .cta-btn:hover { background: #0ea070; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(16,185,129,0.35); }
+  .cta-url { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+
+  /* HOW TO */
+  .how-steps { display: flex; flex-direction: column; gap: 12px; }
+  .how-step { display: flex; gap: 16px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; }
+  .how-num { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-light); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; color: var(--accent); flex-shrink: 0; }
+  .how-body { flex: 1; }
+  .how-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .how-desc { font-size: 14px; color: var(--text-muted); }
+
+  /* MIC TIP */
+  .mic-tip { background: rgba(14,165,233,0.08); border: 1px solid rgba(14,165,233,0.25); border-radius: 14px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; margin-top: 20px; }
+  .mic-icon { font-size: 28px; flex-shrink: 0; }
+  .mic-body { flex: 1; }
+  .mic-title { font-size: 16px; font-weight: 800; color: var(--accent2); margin-bottom: 6px; }
+  .mic-desc { font-size: 14px; color: var(--text-muted); }
+  .mic-desc strong { color: var(--text); }
+
+  /* SCENARI */
+  .scenarios { display: flex; flex-direction: column; gap: 16px; }
+  .scenario-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; gap: 20px; align-items: flex-start; }
+  .sc-num { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .sc-num.s1 { background: var(--accent); }
+  .sc-num.s2 { background: #0ea5e9; }
+  .sc-num.s3 { background: #8b5cf6; }
+  .sc-num.s4 { background: #f59e0b; }
+  .sc-num.s5 { background: var(--red); }
+  .sc-body { flex: 1; }
+  .sc-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .sc-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
+  .sc-prompt-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .sc-prompt { background: #1e293b; border-radius: 10px; padding: 14px 18px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); line-height: 1.65; }
+
+  /* TRACKER */
+  .progress-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .prog-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+  .prog-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .prog-counter-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .prog-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--bg); border-radius: 8px; color: var(--text); font-size: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .prog-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .prog-count { font-size: 24px; font-weight: 900; color: var(--accent); font-family: 'JetBrains Mono', monospace; min-width: 32px; }
+  .prog-target { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  .prog-bar { background: var(--border); border-radius: 100px; height: 6px; margin-top: 8px; overflow: hidden; }
+  .prog-bar-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width 0.3s; }
+
+  /* REGOLA FINALE */
+  .rule-box { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(14,165,233,0.08) 100%); border: 1px solid rgba(16,185,129,0.3); border-radius: 16px; padding: 28px 32px; text-align: center; }
+  .rule-text { font-size: clamp(17px,3vw,22px); font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+  .rule-sub { font-size: 15px; color: var(--text-muted); }
+
+  .nav-bottom { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+  .nav-bottom a { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 16px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+  .footer { border-top: 1px solid var(--border); padding: 32px 0 0; text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 48px; }
+  @media(max-width:600px) { .scenario-item { flex-direction: column; } }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Indice</a>
+    <div class="nav-links">
+      <a href="01-il-metodo.html">01</a>
+      <a href="02-il-servizio.html">02</a>
+      <a href="03-selezione-lead.html">03</a>
+      <a href="04-la-consulenza.html">04</a>
+      <a href="05-obiezioni.html">05</a>
+      <a href="06-pratica.html" class="active">06</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="module-hero">
+    <div class="module-num">Modulo 06</div>
+    <h1 class="module-title">Il tuo Trainer<br>Personale</h1>
+    <p class="module-lead">Disponibile 24/7. Conosce tutto il metodo Webloom. Simula clienti reali con obiezioni reali. Nessuna scusa per non allenarsi.</p>
+  </div>
+
+  <!-- CTA NOTEBOOK -->
+  <div class="cta-hero">
+    <div class="cta-icon">🤖</div>
+    <div class="cta-title">Notebook Gestione Trattative</div>
+    <div class="cta-desc">Il notebook contiene l'intera metodologia Webloom. L'IA può simulare clienti reali con obiezioni concrete, oppure fare da coach e valutare la tua performance dopo ogni sessione.</div>
+    <a href="https://notebooklm.google.com/notebook/85a559fd-1beb-4006-84cc-455e24c50ecd" target="_blank" rel="noopener noreferrer" class="cta-btn">
+      🔗 Apri il Notebook
+    </a>
+    <div class="cta-url">notebooklm.google.com · Gestione Trattative</div>
+  </div>
+
+  <!-- COME USARLO -->
+  <div class="section">
+    <div class="section-label">Istruzioni</div>
+    <h2>Come usarlo bene</h2>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-body">
+          <div class="how-title">Apri con Chrome — microfono attivo</div>
+          <div class="how-desc">Chrome ha il miglior supporto per il riconoscimento vocale. Verifica che il microfono sia abilitato per notebooklm.google.com nelle impostazioni del browser.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <div class="how-body">
+          <div class="how-title">Scegli lo scenario e incolla il prompt</div>
+          <div class="how-desc">Copia il prompt dello scenario che vuoi simulare (sezione qui sotto). Incollalo nel chat del notebook. L'IA entra nel ruolo immediatamente.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-body">
+          <div class="how-title">Simula come fosse una call reale</div>
+          <div class="how-desc">Non leggere le risposte dai moduli mentre pratichi. L'obiettivo è che vengano da soli. Se sei in stallo, vai avanti lo stesso — poi chiedi feedback a fine sessione.</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <div class="how-body">
+          <div class="how-title">Chiedi feedback specifico dopo ogni simulazione</div>
+          <div class="how-desc">A fine sessione scrivi: "Dammi feedback dettagliato: cosa ho fatto bene, cosa avrei potuto fare meglio, e in quale momento avrei perso il cliente nella realtà."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mic-tip">
+      <div class="mic-icon">🎙️</div>
+      <div class="mic-body">
+        <div class="mic-title">Allenati in voce, non solo scrivendo</div>
+        <div class="mic-desc">Il cervello registra in modo diverso quando parli rispetto a quando scrivi. Se ti eserciti solo digitando, in una call reale il ritmo sarà diverso e le risposte non verranno con la stessa fluidità. <strong>Parla ad alta voce. Simula tono, pause, velocità.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 SCENARI -->
+  <div class="section">
+    <div class="section-label">Allenamento</div>
+    <h2>5 scenari di pratica — Centri estetici</h2>
+
+    <div class="scenarios">
+
+      <div class="scenario-item">
+        <div class="sc-num s1">1</div>
+        <div class="sc-body">
+          <div class="sc-title">Prima call — Centro estetico scettico</div>
+          <div class="sc-desc">Lo scenario più frequente. Pratica la fase di apertura, le domande diagnostiche e come mantenere il controllo della conversazione senza sembrare un venditore.</div>
+          <div class="sc-prompt-label">Prompt da incollare nel notebook</div>
+          <div class="sc-prompt">Sei la titolare di un centro estetico strutturato a Treviso. Hai 8 anni di attività, 3 cabine, un team di 2 operatrici. Sei un po' scettica sul marketing digitale perché hai già speso €500 con un freelance 2 anni fa e non hai visto risultati. Hai accettato questa chiamata per curiosità, ma hai poco tempo. Io sono Nicola, consulente Webloom. Rispondi in modo realistico — un po' guardinga ma disponibile se sento cose concrete. Quando finisce la simulazione, dammi feedback su cosa ho fatto bene e cosa avrei potuto migliorare.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s2">2</div>
+        <div class="sc-body">
+          <div class="sc-title">Obiezione "troppo caro" — Seconda call dopo il prezzo</div>
+          <div class="sc-desc">Il momento più critico. Pratica come reagire al silenzio dopo aver detto €1.000 + €97/mese, e come gestire la resistenza sul prezzo senza svalutare l'offerta.</div>
+          <div class="sc-prompt-label">Prompt da incollare nel notebook</div>
+          <div class="sc-prompt">Siamo in seconda call. Sono la titolare di un centro estetico a Vicenza, abbastanza interessata dopo la prima call. Nicola sta presentando il prezzo: €1.000 di setup + €97 al mese. Quando lo sento dico "mah, è un po' tanto per quello che ho in mente..." e aspetto. Sono aperta a essere convinta, ma voglio vedere se Nicola regge il silenzio e sa gestire l'obiezione senza sminuire il valore. Simula questa situazione partendo dal momento in cui Nicola mi dice il prezzo. A fine simulazione analizza la gestione dell'obiezione e del silenzio.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s3">3</div>
+        <div class="sc-body">
+          <div class="sc-title">Prima call completa — Diagnostica 20 minuti</div>
+          <div class="sc-desc">L'allenamento più importante. Pratica l'intera struttura: apertura, domande aperte, qualifica, positioning, chiusura sulla seconda call. Misura se riesci a parlare meno del 30% del tempo.</div>
+          <div class="sc-prompt-label">Prompt da incollare nel notebook</div>
+          <div class="sc-prompt">Simuliamo una prima call diagnostica completa di 20 minuti. Sono la titolare di un beauty center a Padova: 5 anni di attività, specializzata in trattamenti anti-age e laser, buona reputazione locale ma scheda Google scarsa (31 recensioni), nessun sistema per raccoglierle. Non ho un CRM. Ho avuto clienti che mi hanno scritto su WhatsApp fuori orario e li ho persi. Ho un sito fatto 4 anni fa da un cugino. Io sono Nicola e conduco la call. Rispondi come una titolare reale: a volte risposta breve, a volte lunga. Tieni traccia di quanto Nicola parla vs. quanto parla il cliente. A fine simulazione: dammi feedback sulla struttura della call, le domande usate, il controllo del tempo e come ha gestito la chiusura verso la seconda call.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s4">4</div>
+        <div class="sc-body">
+          <div class="sc-title">"Devo pensarci" — Dopo la proposta</div>
+          <div class="sc-desc">Pratica la gestione del prospect che non chiude subito. Come mantenere il momentum senza pressare, e come trasformare "ci penso" in una data concreta.</div>
+          <div class="sc-prompt-label">Prompt da incollare nel notebook</div>
+          <div class="sc-prompt">Siamo alla fine della seconda call. Ho appena presentato la proposta Webloom. Sono la titolare di un centro estetico a Verona, la proposta mi è piaciuta ma non sono ancora pronta a decidere. Dico: "Sì, è interessante... ci devo pensare un po', ti faccio sapere la settimana prossima." Sono sincera — non è un rifiuto, ho solo bisogno di tempo. Nicola deve gestire questo momento. Simula la situazione partendo dalla mia frase. A fine sessione: valuta se Nicola ha rispettato il mio spazio senza perdere il controllo della trattativa, e se ha ottenuto almeno un impegno concreto.</div>
+        </div>
+      </div>
+
+      <div class="scenario-item">
+        <div class="sc-num s5">5</div>
+        <div class="sc-body">
+          <div class="sc-title">"Abbiamo già qualcuno" — Resistenza alla prima call</div>
+          <div class="sc-desc">Uno degli scenari più comuni. Pratica come posizionare Webloom come espansione e non sostituzione, senza sminuire il fornitore attuale.</div>
+          <div class="sc-prompt-label">Prompt da incollare nel notebook</div>
+          <div class="sc-prompt">Sono la titolare di un centro estetico a Milano, strutturato, 80 recensioni Google, già con un'agenzia che gestisce i social e un sito aggiornato. Quando Nicola mi chiama dico subito: "Guarda, siamo già seguiti da un'agenzia, non stiamo cercando nulla." Non sono ostile, ma non vedo perché dovrei aggiungere un altro fornitore. Nicola deve convincermi che quello che offre Webloom è diverso e complementare a quello che ho già. Simula la conversazione. A fine sessione: analizza se Nicola ha eliminato la minaccia percepita, ha posizionato correttamente Webloom come layer aggiuntivo, e ha ottenuto almeno la prima call.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TRACKER -->
+  <div class="section">
+    <div class="section-label">Traccia i progressi</div>
+    <h2>Conta le ripetizioni</h2>
+    <p>Ogni scenario richiede almeno 10 ripetizioni prima che le risposte escano in modo naturale. Tieni il conto.</p>
+
+    <div class="progress-grid" id="progressGrid">
+      <div class="prog-item">
+        <div class="prog-title">Scenario 1</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(0,-1)">−</button>
+          <div class="prog-count" id="cnt0">0</div>
+          <button class="prog-btn" onclick="changeCount(0,1)">+</button>
+        </div>
+        <div class="prog-target">Obiettivo: 10×</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar0" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Scenario 2</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(1,-1)">−</button>
+          <div class="prog-count" id="cnt1">0</div>
+          <button class="prog-btn" onclick="changeCount(1,1)">+</button>
+        </div>
+        <div class="prog-target">Obiettivo: 10×</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar1" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Scenario 3</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(2,-1)">−</button>
+          <div class="prog-count" id="cnt2">0</div>
+          <button class="prog-btn" onclick="changeCount(2,1)">+</button>
+        </div>
+        <div class="prog-target">Obiettivo: 10×</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar2" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Scenario 4</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(3,-1)">−</button>
+          <div class="prog-count" id="cnt3">0</div>
+          <button class="prog-btn" onclick="changeCount(3,1)">+</button>
+        </div>
+        <div class="prog-target">Obiettivo: 10×</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar3" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-title">Scenario 5</div>
+        <div class="prog-counter-row">
+          <button class="prog-btn" onclick="changeCount(4,-1)">−</button>
+          <div class="prog-count" id="cnt4">0</div>
+          <button class="prog-btn" onclick="changeCount(4,1)">+</button>
+        </div>
+        <div class="prog-target">Obiettivo: 10×</div>
+        <div class="prog-bar"><div class="prog-bar-fill" id="bar4" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGOLA FINALE -->
+  <div class="section">
+    <div class="rule-box">
+      <div class="rule-text">"Pratica ogni scenario almeno 10 volte finché non esce da solo."</div>
+      <div class="rule-sub">La naturalezza non si improvvisa. Si costruisce una ripetizione alla volta. Quando un metodo esce senza pensarci, non è più un metodo — è la tua voce.</div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a href="05-obiezioni.html">← 05 Obiezioni</a>
+    <a href="index.html">← Torna all'indice</a>
+  </div>
+
+  <footer class="footer">Webloom · Kit Formazione · Nicola Pin · Aprile 2026</footer>
+</div>
+
+<script>
+  localStorage.setItem('visited_06-pratica', '1');
+  const COUNTS = [0,0,0,0,0];
+  const MAX = 10;
+  for(let i=0;i<5;i++){
+    const saved = parseInt(localStorage.getItem('wl_practice_'+i) || '0');
+    COUNTS[i] = saved;
+    updateUI(i);
+  }
+  function changeCount(idx, delta) {
+    COUNTS[idx] = Math.max(0, COUNTS[idx] + delta);
+    localStorage.setItem('wl_practice_'+idx, COUNTS[idx]);
+    updateUI(idx);
+  }
+  function updateUI(idx) {
+    const cnt = document.getElementById('cnt'+idx);
+    const bar = document.getElementById('bar'+idx);
+    if(cnt) cnt.textContent = COUNTS[idx];
+    if(bar) {
+      const pct = Math.min(100, (COUNTS[idx]/MAX)*100);
+      bar.style.width = pct+'%';
+      if(COUNTS[idx] >= MAX) {
+        bar.style.background = '#10b981';
+        cnt.style.color = '#10b981';
+      } else {
+        bar.style.background = 'var(--accent)';
+        cnt.style.color = 'var(--accent)';
+      }
+    }
+  }
+</script>
+</body>
+</html>
