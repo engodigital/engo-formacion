@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit di Formazione — Nicola Pin | Webloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117; --bg-card: #1a1d27; --border: #2d3148;
+    --text: #e8eaf0; --text-muted: #8b8fa8;
+    --accent: #10b981; --accent2: #0ea5e9;
+    --red: #ff6b6b; --yellow: #ffd166;
+    --accent-light: rgba(16,185,129,0.12);
+    --accent2-light: rgba(14,165,233,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; min-height: 100vh; }
+
+  .nav { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 16px; }
+  .nav-brand { font-weight: 800; font-size: 15px; color: var(--accent); letter-spacing: -0.3px; }
+  .nav-current { font-size: 13px; color: var(--text-muted); }
+
+  .hero { padding: 60px 20px 40px; text-align: center; max-width: 760px; margin: 0 auto; }
+  .hero-badge { display: inline-block; background: var(--accent-light); color: var(--accent); border: 1px solid rgba(16,185,129,0.3); padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 24px; }
+  .hero-brand { font-size: clamp(14px,4vw,18px); font-weight: 900; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .hero-title { font-size: clamp(28px,6vw,48px); font-weight: 900; line-height: 1.15; margin-bottom: 16px; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-subtitle { font-size: clamp(14px,3vw,16px); color: var(--text-muted); margin-bottom: 32px; }
+
+  .welcome-box { background: var(--accent-light); border: 1px solid rgba(16,185,129,0.3); border-left: 4px solid var(--accent); border-radius: 12px; padding: 24px 28px; margin: 0 auto 48px; max-width: 680px; text-align: left; }
+  .welcome-box p { font-size: clamp(15px,2.5vw,17px); font-weight: 600; color: var(--text); font-style: italic; line-height: 1.6; }
+  .welcome-box .author { font-size: 13px; color: var(--text-muted); margin-top: 12px; font-style: normal; }
+
+  .progress-section { max-width: 760px; margin: 0 auto 48px; padding: 0 20px; }
+  .progress-section h2 { font-size: 13px; font-weight: 700; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; text-align: center; }
+  .progress-bar-container { max-width: 760px; margin: 0 auto 20px; padding: 0 20px; }
+  .progress-bar-label { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+  .progress-bar { background: var(--border); border-radius: 100px; height: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%); border-radius: 100px; transition: width 1.5s ease; }
+
+  .index-section { max-width: 760px; margin: 0 auto 60px; padding: 0 20px; }
+  .index-section h2 { font-size: 20px; font-weight: 800; margin-bottom: 24px; color: var(--text); }
+  .module-card { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 12px; text-decoration: none; color: var(--text); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+  .module-card:hover { border-color: var(--accent); transform: translateX(4px); box-shadow: 0 0 24px rgba(16,185,129,0.12); }
+  .module-card-inner { display: flex; align-items: flex-start; gap: 18px; }
+  .module-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .module-icon.green { background: var(--accent-light); }
+  .module-icon.blue { background: var(--accent2-light); }
+  .module-icon.yellow { background: rgba(255,209,102,0.12); }
+  .module-icon.red { background: rgba(255,107,107,0.12); }
+  .module-meta { flex: 1; }
+  .module-num { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .module-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .module-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+  .module-tag { display: inline-block; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-top: 8px; }
+  .module-arrow { font-size: 20px; color: var(--accent); margin-top: 2px; }
+  .module-card.done { border-color: var(--accent); }
+  .module-card.done .module-num { color: var(--accent); }
+
+  .footer { border-top: 1px solid var(--border); padding: 32px 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
+
+  @media (max-width: 375px) { .module-card-inner { flex-direction: column; } .module-arrow { display: none; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand">WEBLOOM</span>
+  <span class="nav-current">Kit Consulenze · Nicola Pin</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Webloom · Uso personale</div>
+  <div class="hero-brand">Webloom</div>
+  <h1 class="hero-title">Kit di Formazione<br>Consulenze</h1>
+  <p class="hero-subtitle">Il metodo completo per portare centri estetici e beauty center da "interessato" a cliente attivo.</p>
+</div>
+
+<div class="welcome-box" style="max-width:680px; margin: 0 auto 48px; padding: 0 20px;">
+  <div style="background: var(--accent-light); border: 1px solid rgba(16,185,129,0.3); border-left: 4px solid var(--accent); border-radius: 12px; padding: 24px 28px;">
+    <p>"Questo kit raccoglie il metodo che usi ogni giorno. Non è teoria — è quello che funziona nelle consulenze reali. Usalo per allenarti, per prepararti prima di ogni call importante, e come riferimento quando sei in stallo con un prospect. Il tasso di conversione non è fortuna: è preparazione."</p>
+    <div class="author">— Framework Webloom, Aprile 2026</div>
+  </div>
+</div>
+
+<div class="progress-bar-container">
+  <div class="progress-bar-label" id="progressLabel">Caricamento progressi...</div>
+  <div class="progress-bar"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="index-section">
+  <h2>I 6 moduli</h2>
+
+  <a href="01-il-metodo.html" class="module-card" id="card01">
+    <div class="module-card-inner">
+      <div class="module-icon green">🎯</div>
+      <div class="module-meta">
+        <div class="module-num">Modulo 01</div>
+        <div class="module-title">Il Metodo</div>
+        <div class="module-desc">La filosofia di consulenza Webloom. Il tuo ruolo, il ciclo completo e cosa non fare mai. Inizia da qui.</div>
+        <span class="module-tag">Fondamentale · 10 min</span>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </a>
+
+  <a href="02-il-servizio.html" class="module-card" id="card02">
+    <div class="module-card-inner">
+      <div class="module-icon blue">📦</div>
+      <div class="module-meta">
+        <div class="module-num">Modulo 02</div>
+        <div class="module-title">Il Servizio</div>
+        <div class="module-desc">Cosa offre Webloom, a chi, i due livelli di offerta e come parlarne senza tecnicismi.</div>
+        <span class="module-tag">Offerta · 8 min</span>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </a>
+
+  <a href="03-selezione-lead.html" class="module-card" id="card03">
+    <div class="module-card-inner">
+      <div class="module-icon yellow">🔍</div>
+      <div class="module-meta">
+        <div class="module-num">Modulo 03</div>
+        <div class="module-title">Selezione Lead</div>
+        <div class="module-desc">I 7 filtri per identificare i centri estetici migliori da contattare. Il concetto di "punto dolce" digitale.</div>
+        <span class="module-tag">Prospecting · 12 min</span>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </a>
+
+  <a href="04-la-consulenza.html" class="module-card" id="card04">
+    <div class="module-card-inner">
+      <div class="module-icon green">📞</div>
+      <div class="module-meta">
+        <div class="module-num">Modulo 04</div>
+        <div class="module-title">La Consulenza</div>
+        <div class="module-desc">Struttura completa della prima call (diagnostica) e della seconda call (proposta). Domande, tempi, chiusura.</div>
+        <span class="module-tag">Esecuzione · 15 min</span>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </a>
+
+  <a href="05-obiezioni.html" class="module-card" id="card05">
+    <div class="module-card-inner">
+      <div class="module-icon red">🛡️</div>
+      <div class="module-meta">
+        <div class="module-num">Modulo 05</div>
+        <div class="module-title">Gestione Obiezioni</div>
+        <div class="module-desc">Le 8 obiezioni più frequenti con risposta e tecnica esplicitata. La regola d'oro finale.</div>
+        <span class="module-tag">Trattativa · 10 min</span>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </a>
+
+  <a href="06-pratica.html" class="module-card" id="card06">
+    <div class="module-card-inner">
+      <div class="module-icon blue">🤖</div>
+      <div class="module-meta">
+        <div class="module-num">Modulo 06</div>
+        <div class="module-title">Pratica con l'IA</div>
+        <div class="module-desc">Il tuo trainer personale disponibile 24/7. 5 scenari reali da simulare con NotebookLM. Traccia le ripetizioni.</div>
+        <span class="module-tag">Allenamento · continuo</span>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </a>
+</div>
+
+<footer class="footer">
+  Webloom · Kit Formazione Consulenze · Nicola Pin · Aprile 2026
+</footer>
+
+<script>
+  const MODULES = ['01-il-metodo','02-il-servizio','03-selezione-lead','04-la-consulenza','05-obiezioni','06-pratica'];
+  let visited = 0;
+  MODULES.forEach((m, i) => {
+    if (localStorage.getItem('visited_'+m)) {
+      visited++;
+      const card = document.getElementById('card0'+(i+1));
+      if (card) card.classList.add('done');
+    }
+  });
+  const pct = Math.round((visited / MODULES.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Progressi: ${visited}/${MODULES.length} moduli visitati (${pct}%)`;
+</script>
+</body>
+</html>
