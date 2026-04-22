@@ -54,18 +54,28 @@
   /* OFFERTA */
   .offer-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
   .offer-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; }
-  .offer-card.featured { border-color: rgba(16,185,129,0.5); }
-  .offer-card.locked { border-color: rgba(14,165,233,0.4); background: rgba(14,165,233,0.04); }
-  .offer-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-  .offer-label.base { color: var(--accent); }
-  .offer-label.mkt { color: var(--accent2); }
-  .offer-setup { font-size: 36px; font-weight: 900; color: var(--text); line-height: 1; }
+  .offer-card.gestionale { border-color: rgba(16,185,129,0.4); }
+  .offer-card.presenza { border-color: rgba(14,165,233,0.5); background: rgba(14,165,233,0.04); }
+  .offer-card.crescita { border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.04); }
+  .offer-card.dominio { border-color: rgba(139,92,246,0.5); background: rgba(139,92,246,0.04); }
+  .offer-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .offer-label.g { color: var(--accent); }
+  .offer-label.p { color: var(--accent2); }
+  .offer-label.c { color: #f59e0b; }
+  .offer-label.d { color: #a78bfa; }
+  .offer-target { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+  .offer-setup { font-size: 30px; font-weight: 900; color: var(--text); line-height: 1; }
   .offer-setup-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
-  .offer-monthly { font-size: 22px; font-weight: 800; color: var(--accent); }
-  .offer-includes { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .offer-monthly { font-size: 20px; font-weight: 800; }
+  .offer-monthly.g { color: var(--accent); }
+  .offer-monthly.p { color: var(--accent2); }
+  .offer-monthly.c { color: #f59e0b; }
+  .offer-monthly.d { color: #a78bfa; }
+  .offer-min { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .offer-includes { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
   .offer-includes li { font-size: 14px; color: var(--text-muted); padding: 4px 0; padding-left: 20px; position: relative; }
   .offer-includes li::before { content: '✓'; color: var(--accent); position: absolute; left: 0; font-weight: 700; }
-  .lock-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(14,165,233,0.12); border: 1px solid rgba(14,165,233,0.3); color: #7dd3fc; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+  .offer-fallback { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #6ee7b7; margin-top: 8px; line-height: 1.5; }
 
   /* TARGET */
   .target-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; }
@@ -190,46 +200,85 @@
     </div>
   </div>
 
-  <!-- I DUE LIVELLI -->
+  <!-- I 4 PACCHETTI -->
   <div class="section">
     <div class="section-label">Sezione C</div>
-    <h2>I due livelli di offerta</h2>
+    <h2>I 4 Pacchetti Webloom</h2>
 
-    <p>Presenti sempre il livello Base nella seconda call. Il Marketing lo mostri solo se il cliente mostra interesse attivo o lo chiede esplicitamente.</p>
+    <p>Nella seconda call proponi <strong>subito il pacchetto corretto</strong> per il profilo del cliente, basandoti su quello che hai scoperto nella prima call. Se l'obiezione è il prezzo, scala verso il basso — GESTIONALE è il pavimento minimo.</p>
 
     <div class="offer-grid">
-      <div class="offer-card featured">
-        <div class="offer-label base">Presenza Base — Il pacchetto principale</div>
-        <div class="offer-setup">€1.000</div>
+
+      <div class="offer-card presenza">
+        <div class="offer-label p">PRESENZA — Il pacchetto di ingresso ideale</div>
+        <div class="offer-target">Centri €60k–€150k/anno · fatturato stabile · no sistema acquisizione</div>
+        <div class="offer-setup">€1.500</div>
         <div class="offer-setup-sub">setup una tantum</div>
-        <div class="offer-monthly">+ €97 / mese</div>
+        <div class="offer-monthly p">+ €500 / mese</div>
+        <div class="offer-min">Durata minima: 3 mesi</div>
         <ul class="offer-includes">
           <li>Sito web professionale ottimizzato per conversioni</li>
           <li>Scheda Google Business ottimizzata (foto, Q&A, categorie)</li>
           <li>Automazione raccolta recensioni post-trattamento</li>
           <li>CRM base per gestire i contatti in entrata</li>
           <li>Calendario prenotazioni online integrato</li>
+          <li>Campagne Meta Ads base (budget cliente, conto proprio)</li>
           <li>Formazione all'uso + supporto nei primi 30 giorni</li>
         </ul>
       </div>
 
-      <div class="offer-card locked">
-        <div class="lock-badge">🔒 Espansione marketing</div>
-        <div class="offer-label mkt">Marketing — Espansione opzionale</div>
-        <div class="offer-setup" style="color:var(--accent2);">+ €1.500</div>
-        <div class="offer-setup-sub">setup aggiuntivo</div>
-        <div class="offer-monthly" style="color:var(--accent2);">+ €300 / mese</div>
-        <ul class="offer-includes" style="margin-top:12px;">
-          <li style="color:var(--text-muted);">Campagne Meta Ads (Facebook/Instagram)</li>
-          <li style="color:var(--text-muted);">Campagne Google Ads local</li>
-          <li style="color:var(--text-muted);">Funnel di acquisizione lead</li>
-          <li style="color:var(--text-muted);">Report mensile ROI con KPI</li>
+      <div class="offer-card crescita">
+        <div class="offer-label c">CRESCITA — Business consolidato</div>
+        <div class="offer-target">Centri €150k–€400k/anno · vuole crescere in modo strutturato</div>
+        <div class="offer-setup">€2.500</div>
+        <div class="offer-setup-sub">setup una tantum</div>
+        <div class="offer-monthly c">+ €900 / mese</div>
+        <div class="offer-min">Durata minima: 6 mesi</div>
+        <ul class="offer-includes">
+          <li>Tutto di PRESENZA +</li>
+          <li>Funnel di acquisizione lead</li>
+          <li>Automazioni WhatsApp / follow-up</li>
+          <li>Dashboard KPI mensile</li>
+          <li>Call strategica mensile dedicata</li>
         </ul>
       </div>
+
+      <div class="offer-card dominio">
+        <div class="offer-label d">DOMINIO — Attività avanzata</div>
+        <div class="offer-target">€400k+/anno · budget Ads significativo · vuole dominare la zona</div>
+        <div class="offer-setup">€4.000</div>
+        <div class="offer-setup-sub">setup una tantum</div>
+        <div class="offer-monthly d">+ €1.400 / mese</div>
+        <div class="offer-min">Durata minima: 6 mesi</div>
+        <ul class="offer-includes">
+          <li>Tutto di CRESCITA +</li>
+          <li>Google Ads avanzato (PMax + Display)</li>
+          <li>Retargeting multi-piattaforma</li>
+          <li>CRM pipeline avanzato</li>
+          <li>Audit trimestrale + call 2×/mese</li>
+        </ul>
+      </div>
+
+      <div class="offer-card gestionale">
+        <div class="offer-label g">GESTIONALE — Pavimento minimo</div>
+        <div class="offer-target">Qualsiasi attività · chi inizia la digitalizzazione · fallback da obiezione prezzo</div>
+        <div class="offer-setup">€1.000</div>
+        <div class="offer-setup-sub">setup una tantum</div>
+        <div class="offer-monthly g">+ €97 / mese</div>
+        <div class="offer-min">Durata minima: mensile</div>
+        <ul class="offer-includes">
+          <li>Scheda Google Business ottimizzata</li>
+          <li>CRM base per i contatti in entrata</li>
+          <li>Automazione raccolta recensioni</li>
+          <li>Formazione all'uso</li>
+        </ul>
+        <div class="offer-fallback">Usa GESTIONALE solo se il cliente non arriva al budget PRESENZA. Non proporre per primo — è il piano B, non il piano A.</div>
+      </div>
+
     </div>
 
     <div class="alert">
-      Non presentare mai entrambi insieme nella seconda call — crea confusione decisionale. Chiudi prima il Base. Solo dopo, nei giorni successivi, porta l'espansione marketing come "passo 2 naturale".
+      Logica di presentazione: qualifica il cliente nella prima call → nella seconda call proponi il pacchetto corretto per il suo profilo → se obiezione prezzo, scala di un livello. Non presentare tutti e 4 insieme: proponi il tuo consiglio e difendilo.
     </div>
   </div>
 
@@ -250,7 +299,7 @@
 
     <div class="pitch-block">
       <div class="pitch-header">Se chiedono della concorrenza — posizionamento</div>
-      <div class="pitch-body">"Le agenzie normali ti vendono servizi separati: qualcuno per il sito, qualcuno per i social, qualcuno per Google. Con Webloom hai tutto integrato e gestito da un'unica persona che conosce il tuo business. E paghi €97 al mese, non 3 canoni separati."</div>
+      <div class="pitch-body">"Le agenzie normali ti vendono servizi separati: qualcuno per il sito, qualcuno per i social, qualcuno per Google. Con Webloom hai tutto integrato e gestito da un'unica persona che conosce il tuo settore e il tuo territorio. Un interlocutore solo, un sistema che parla con se stesso, un costo mensile fisso e prevedibile."</div>
     </div>
 
     <div class="pitch-block">
